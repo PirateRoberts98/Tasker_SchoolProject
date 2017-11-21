@@ -18,10 +18,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ///Two plus two is four
-        //Minus one das three
-        // Ta ting goes
-        //PA PA KA KA KA
         ListView listView = (ListView) findViewById(R.id.list);
 
         ArrayList listA = new ArrayList();
