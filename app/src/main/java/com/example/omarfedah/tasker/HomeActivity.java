@@ -21,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
         ///Two plus two is four
         //Minus one das three
         // Ta ting goes
+        //PA PA KA KA KA
         ListView listView = (ListView) findViewById(R.id.list);
 
         ArrayList listA = new ArrayList();
