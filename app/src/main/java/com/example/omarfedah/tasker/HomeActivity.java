@@ -20,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ///Two plus two is four
         //Minus one das three
+        // Ta ting goes
         ListView listView = (ListView) findViewById(R.id.list);
 
         ArrayList listA = new ArrayList();
