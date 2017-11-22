@@ -20,15 +20,18 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ListView listView = (ListView) findViewById(R.id.list);
 
+        //List that tracks all the tasks (needs better name)
         ArrayList listA = new ArrayList();
-        listA.add("Thing");
+        listA.add("Thing"); //Adding element to list
         ChoresListAdapter adapter = new ChoresListAdapter(this,listA);
         listView.setAdapter(adapter);
 
+        //Adding task methods
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         addTaskButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //creates dialog
                 final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
 
@@ -40,17 +43,18 @@ public class HomeActivity extends AppCompatActivity {
                 final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
                 final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
 
-
+                //Displays dialog
                 builder.setView(mView);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
-                cancel.setOnClickListener(new View.OnClickListener(){
+                //Buttons' function inside dialog
+                cancel.setOnClickListener(new View.OnClickListener(){ //cancel button
                     public void onClick(View view){
                         dialog.cancel();
                     }
                 });
 
-                create.setOnClickListener(new View.OnClickListener(){
+                create.setOnClickListener(new View.OnClickListener(){ //create function
                     public void onClick(View view){
                         if(etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
                                 || etPersonTo.getText().toString().isEmpty()){
