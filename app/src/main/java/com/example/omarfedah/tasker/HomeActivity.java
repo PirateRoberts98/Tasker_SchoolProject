@@ -23,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         //List that tracks all the tasks (needs better name)
         ArrayList listA = new ArrayList();
         listA.add("Thing"); //Adding element to list
+
         ChoresListAdapter adapter = new ChoresListAdapter(this,listA);
         listView.setAdapter(adapter);
 
