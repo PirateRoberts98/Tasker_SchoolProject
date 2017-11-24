@@ -1,8 +1,8 @@
 package com.example.omarfedah.tasker;
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.SQLException
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Created by Robert on 2017-11-21.
@@ -32,8 +32,9 @@ public class GUI {
 
 		}
 
-	}
-
+	return null;}
+/*
+TAKEN OUT SO I CAN TEST UI (FEDAH)
 	private ResultSet databaseQuery(String sqlstmt) {
 		Connection conn = connect();
 		Statement stmt = conn.createStatement();
@@ -47,34 +48,34 @@ public class GUI {
 		stmt.executeUpdate(sqlstmt);
 	}
 
-
+*/
     public TaskList getAllTasks() {
     	//SELECT all tasks from task table
-    	//create new TaskList Object 
-    	//return TaskList
-    }
+    	//create new com.example.omarfedah.tasker.TaskList Object
+    	//return com.example.omarfedah.tasker.TaskList
+		return null;}
 
     public ObjectList getAllObjects() {
     	//SELECT all objects from object table\
-    	//create new ObjectList Object
-    	//return ObjectList
-    }
+    	//create new com.example.omarfedah.tasker.ObjectList Object
+    	//return com.example.omarfedah.tasker.ObjectList
+		return null;}
 
     public ObjectList getShoppingList() {
     	//SELECT all objects WHERE isowned = false
-    	//create new ObjectList Object
-    	//return ObjectList
-    }
+    	//create new com.example.omarfedah.tasker.ObjectList Object
+    	//return com.example.omarfedah.tasker.ObjectList
+		return null;}
 
     public TaskList getUserTasks(String username) {
     	//SELECT all tasks WHERE name = username
-    	//create new TaskList Object
-    	//return TaskList
-    }
+    	//create new com.example.omarfedah.tasker.TaskList Object
+    	//return com.example.omarfedah.tasker.TaskList
+    return null;}
 
-    public void addTask(?) {
+    public void addTask(GUI RAWSAUSE) {
     	//interpret UI inputs
-    	//call Task constructor method
+    	//call com.example.omarfedah.tasker.Task constructor method
     }
 
     public void removeTask(String name) {
@@ -82,19 +83,20 @@ public class GUI {
     }
 
     public void addObject(String name, boolean isGrocery, boolean isOwned) {
-    	//call PurchasableObject constructor method
+    	//call com.example.omarfedah.tasker.PurchasableObject constructor method
     }
 
     public void removeObject(String name) {
     	//remove object from object table
     }
 
-    public void addUser(?) {
+    public void addUser(GUI RAWSAUSE) {
     	//interpret UI inputs
-    	//call User constructor method
+    	//call com.example.omarfedah.tasker.User constructor method
     }
 
     public void removeUser(String name) {
     	//remove user from user table
     }
+
 }

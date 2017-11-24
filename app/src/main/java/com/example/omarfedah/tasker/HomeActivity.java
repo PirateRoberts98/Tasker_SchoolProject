@@ -20,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ListView listView = (ListView) findViewById(R.id.list);
 
-        //List that tracks all the tasks (needs better name)
+        //com.example.omarfedah.tasker.List that tracks all the tasks (needs better name)
         ArrayList listA = new ArrayList();
         listA.add("Thing"); //Adding element to list
 

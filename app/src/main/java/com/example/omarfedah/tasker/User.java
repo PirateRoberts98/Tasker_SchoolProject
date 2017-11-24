@@ -1,3 +1,5 @@
+package com.example.omarfedah.tasker;
+
 /**
  * Created by Robert on 2017-11-22.
  */
@@ -6,11 +8,11 @@
 //requires external methods databaseQuery(String), databaseUpdate(String)
 
 public class User implements Collectable {
-
+/*
 	private String name;
 	//database String Icon;
 	//database String password;
-	//database TaskList userList;
+	//database com.example.omarfedah.tasker.TaskList userList;
 
 	public User(String name, String icon, String password ){
 		this.name = name;
@@ -49,4 +51,5 @@ public class User implements Collectable {
 		String sqlstmt = "UPDATE user SET password = " + newPassword + " WHERE name = " + name;
 		databaseUpdate(sqlstmt);
 	}
+	*/
 }

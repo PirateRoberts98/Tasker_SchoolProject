@@ -1,19 +1,21 @@
+package com.example.omarfedah.tasker;
+
 /**
  * Created by Robert on 2017-11-22.
  */
 
 //missing proper imports
-//requires external methods databaseQuery(String), databaseUpdate(String), getUser(String), ObjectList.asString()
+//requires external methods databaseQuery(String), databaseUpdate(String), getUser(String), com.example.omarfedah.tasker.ObjectList.asString()
 
 public class Task implements Collectable {
-
+/*
 	private String name;
 	//database Timestamp endDateTime;
 	//database boolean isCompleted;
 	//database String note;
-	//database ObjectList ObjectList;
-	//database User creator
-	//database User assignedTo
+	//database com.example.omarfedah.tasker.ObjectList com.example.omarfedah.tasker.ObjectList;
+	//database com.example.omarfedah.tasker.User creator
+	//database com.example.omarfedah.tasker.User assignedTo
 
 	public Task(String name, Timestamp endDateTime, boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
 		this.name = name;
@@ -102,5 +104,5 @@ public class Task implements Collectable {
 		String sqlstmt = "UPDATE task SET assignedto = " + newAssignedTo.getUser() + " WHERE name = " + name;
 		databaseUpdate(sqlstmt);
 	}
-
+*/
 }

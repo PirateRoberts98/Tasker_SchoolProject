@@ -1,3 +1,5 @@
+package com.example.omarfedah.tasker;
+
 /**
  * Created by Robert on 2017-11-22.
  */
@@ -6,7 +8,7 @@
 //requires external methods databaseQuery(String), databaseUpdate(String)
 
 public class PurchasableObject implements Collectable {
-
+/*
 	private String name;
 	//database boolean isGrocery;
 	//database boolean isOwned;
@@ -55,4 +57,6 @@ public class PurchasableObject implements Collectable {
 		String sqlstmt = "UPDATE object SET isowned = " + NewIsOwned + " WHERE name = " + name;
 		databaseUpdate(sqlstmt);
 	}
+
+	*/
 }
