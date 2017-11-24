@@ -23,6 +23,9 @@ public class HomeActivity extends AppCompatActivity {
         //com.example.omarfedah.tasker.List that tracks all the tasks (needs better name)
         ArrayList listA = new ArrayList();
         listA.add("Thing"); //Adding element to list
+        listA.add("Thang 2");
+        listA.add("Heck yeah dude. Thing 3");
+        listA.add("Lets see how many things we can fit in one box");
 
         ChoresListAdapter adapter = new ChoresListAdapter(this,listA);
         listView.setAdapter(adapter);

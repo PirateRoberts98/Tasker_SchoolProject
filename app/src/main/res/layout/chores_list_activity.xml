@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="106dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.00"
         android:orientation="horizontal"
         android:weightSum="1"
@@ -31,15 +31,15 @@
             <TextView
                 android:id="@+id/TaskName"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.70"
                 android:text="@string/textview"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/taskDescription"
-                android:layout_width="259dp"
-                android:layout_height="49dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/textview2"
                 android:textSize="12sp" />
 

@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
     tools:context="com.example.omarfedah.tasker.HomeActivity">
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="499dp"
+        android:layout_width="353dp"
+        android:layout_height="490dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
@@ -39,9 +41,6 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="405dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="14dp" />
 
