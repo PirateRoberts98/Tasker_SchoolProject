@@ -7,7 +7,7 @@ package com.example.omarfedah.tasker;
 //missing proper imports
 //requires external methods databaseQuery(String), databaseUpdate(String)
 
-public class PurchasableObject implements Collectable {
+public class PurchasableObject extends Collectable {
 /*
 	private String name;
 	//database boolean isGrocery;

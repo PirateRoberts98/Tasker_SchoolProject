@@ -7,7 +7,7 @@ package com.example.omarfedah.tasker;
 //missing proper imports
 //requires external methods databaseQuery(String), databaseUpdate(String)
 
-public class User implements Collectable {
+public class User extends Collectable {
 /*
 	private String name;
 	//database String Icon;

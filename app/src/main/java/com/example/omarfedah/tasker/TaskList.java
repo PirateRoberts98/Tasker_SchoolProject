@@ -5,4 +5,10 @@ package com.example.omarfedah.tasker;
  */
 
 public class TaskList extends List {
+    //EDIT TO UML. Corrected Collections[] to task[]
+    public Task[] getTaskList(){
+        return null ;
+        //PLEASE IMPLEMENT
+
+    }
 }

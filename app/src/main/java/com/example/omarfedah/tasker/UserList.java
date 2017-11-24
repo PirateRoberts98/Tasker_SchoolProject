@@ -5,4 +5,8 @@ package com.example.omarfedah.tasker;
  */
 
 public class UserList extends List {
+    public User findUser(String user){
+        //PLEASE IMPLEMENT
+        return null ;
+    }
 }
