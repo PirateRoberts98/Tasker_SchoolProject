@@ -1,11 +1,12 @@
 package com.example.omarfedah.tasker;
 
 /**
- * Created by Robert on 2017-11-22.
+ * Abstract Class for Defining a Object that can be stored in a Database accessible List
  */
-
-public  abstract class  Collectable {
-
+  abstract class  Collectable {
+    /**
+     * String representing the name of collectable, Used in database as Key
+     */
     private String name ;
 
 }

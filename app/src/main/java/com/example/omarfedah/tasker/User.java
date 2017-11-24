@@ -1,13 +1,10 @@
 package com.example.omarfedah.tasker;
 
-/**
- * Created by Robert on 2017-11-22.
- */
+
 
 //missing proper imports
 //requires external methods databaseQuery(String), databaseUpdate(String)
-
-public class User extends Collectable {
+ class User extends Collectable {
 /*
 	private String name;
 	//database String Icon;

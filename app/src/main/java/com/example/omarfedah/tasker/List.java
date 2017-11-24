@@ -1,14 +1,15 @@
 package com.example.omarfedah.tasker;
 
-/**
- * Created by Robert on 2017-11-22.
- */
 
-public abstract class List {
 
-    int size ;
+abstract class List {
 
-    public List(){
+    private int size ;
+
+    /**
+     *
+     */
+     List(){
         super()  ;
         size = 0 ;
     }

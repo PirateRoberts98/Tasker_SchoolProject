@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Created by Robert on 2017-11-21.
- */
 
 public class GUI {
 //Attributes
