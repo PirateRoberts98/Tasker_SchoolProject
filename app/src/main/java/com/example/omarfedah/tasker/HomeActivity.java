@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
 
         //com.example.omarfedah.tasker.List that tracks all the tasks (needs better name)
+        //
         ArrayList listA = new ArrayList();
         listA.add("Task 1"); //Adding element to list
         listA.add("Task 2");
