@@ -30,15 +30,14 @@
 
             <TextView
                 android:id="@+id/TaskName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.70"
                 android:text="@string/textview"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/taskDescription"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textview2"
                 android:textSize="12sp" />

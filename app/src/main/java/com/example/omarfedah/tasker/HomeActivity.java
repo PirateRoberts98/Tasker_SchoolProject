@@ -36,16 +36,41 @@ public class HomeActivity extends AppCompatActivity {
 
         //com.example.omarfedah.tasker.List that tracks all the tasks (needs better name)
         ArrayList listA = new ArrayList();
-        listA.add("Thing"); //Adding element to list
-        listA.add("Thang 2");
-        listA.add("Heck yeah dude. Thing 3");
-        listA.add("Lets see how many things we can fit in one box");
+        listA.add("Task 1"); //Adding element to list
+        listA.add("Task 2");
+        listA.add("Task 3");
+        listA.add("Task 4");
 
         ChoresListAdapter adapter = new ChoresListAdapter(this,listA);
         listView.setAdapter(adapter);
 
-        //Adding task methods
+
         Button addTaskButton = (Button) findViewById(R.id.addTask);
+        Button switchUser = (Button) findViewById(R.id.switchUser);
+
+
+
+        switchUser.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.activity_user_select, null);
+                Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
+
+                builder.setView(mView);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
+            }
+        });
+
+
+        //Adding task methods
         addTaskButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -64,6 +89,8 @@ public class HomeActivity extends AppCompatActivity {
                 final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
                 final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
                 final TextView time = (TextView) mView.findViewById(R.id.etTime);
+
+
 
 
                 //START DAY SETTER
@@ -115,7 +142,7 @@ public class HomeActivity extends AppCompatActivity {
                 });
 
 
-
+                //TIME SETTER
                 time.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View view){
                         Calendar cTime = Calendar.getInstance();

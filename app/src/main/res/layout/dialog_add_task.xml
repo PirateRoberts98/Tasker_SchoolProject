@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +25,7 @@
                 android:id="@+id/taskName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2.03"
                 android:text="Task:" />
 
             <EditText
@@ -65,7 +70,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.89"
                 android:text="Assigned To:" />
 
             <EditText
@@ -94,7 +99,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="From: " />
+                    android:fontFamily="sans-serif"
+                    android:text="From: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/etStartDate"
@@ -108,7 +116,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="to " />
+                    android:text="to "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/etEndDate"
@@ -128,8 +138,10 @@
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="From: " />
+                    android:layout_weight="0.10"
+                    android:text="From: "
+                    android:textColor="@android:color/background_dark"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/etTime"
@@ -145,22 +157,24 @@
             android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <Button
                 android:id="@+id/cancelBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="171dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="Cancel"
                 tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/createBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:background="@color/colorAccent"
                 android:text="Create"
+                android:textColor="@android:color/background_light"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>
