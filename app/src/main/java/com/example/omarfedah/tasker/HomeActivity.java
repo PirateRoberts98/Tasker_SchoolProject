@@ -1,18 +1,32 @@
 package com.example.omarfedah.tasker;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v7.app.AlertDialog.Builder;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final  String TAG = "HomeActivity";
+    public DatePickerDialog.OnDateSetListener dateSetListener;
+    public TimePickerDialog.OnTimeSetListener timeSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +60,80 @@ public class HomeActivity extends AppCompatActivity {
                 final EditText etTaskName = (EditText) mView.findViewById(R.id.etTaskName);
                 final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
                 final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
+
+                final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
+                final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
+                final TextView time = (TextView) mView.findViewById(R.id.etTime);
+
+
+                //START DAY SETTER
+                startDate.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View view){
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog dialog = new DatePickerDialog(HomeActivity.this, R.style.Theme_AppCompat_Light_Dialog_MinWidth, dateSetListener,year,month,day);
+                        dialog.show();
+
+                        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                                month++;
+                                Log.d(TAG, "onDateSet: mm/dd/yy" + month + "/" + dayOfMonth + "/" + year);
+                                String displayDate = month + "/" + dayOfMonth + "/" + year;
+                                startDate.setText(displayDate);
+                            }
+                        };
+                    }
+
+                });
+
+                //END DATE SETTER
+                endDate.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View view){
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog dialog = new DatePickerDialog(HomeActivity.this, R.style.Theme_AppCompat_Light_Dialog_MinWidth, dateSetListener,year,month,day);
+                        dialog.show();
+
+                        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                                month++;
+                                Log.d(TAG, "onDateSet: mm/dd/yy" + month + "/" + dayOfMonth + "/" + year);
+                                String displayDate = month + "/" + dayOfMonth + "/" + year;
+                                endDate.setText(displayDate);
+                            }
+                        };
+                    }
+
+                });
+
+
+
+                time.setOnClickListener(new View.OnClickListener(){
+                    public void onClick(View view){
+                        Calendar cTime = Calendar.getInstance();
+                        int hour = cTime.get(Calendar.HOUR_OF_DAY);
+                        int minute = cTime.get(Calendar.MINUTE);
+                        TimePickerDialog dialog = new TimePickerDialog(HomeActivity.this, R.style.Theme_AppCompat_Light_Dialog_MinWidth, timeSetListener, hour, minute, false);
+                        dialog.show();
+
+                        timeSetListener = new TimePickerDialog.OnTimeSetListener(){
+                            public void onTimeSet(TimePicker timePicker, int hour, int minute){
+                                Log.d(TAG, "onTimeSet: hh:mm" + hour + ":" +minute);
+                                String displayTime = hour + ":" + minute;
+                                time.setText(displayTime);
+                            }
+                        };
+                    }
+
+                });
 
                 //Displays dialog
                 builder.setView(mView);
