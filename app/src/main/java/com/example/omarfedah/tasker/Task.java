@@ -1,13 +1,9 @@
 package com.example.omarfedah.tasker;
 
-/**
- * Created by Robert on 2017-11-22.
- */
 
 //missing proper imports
 //requires external methods databaseQuery(String), databaseUpdate(String), getUser(String), com.example.omarfedah.tasker.ObjectList.asString()
-
-public class Task extends Collectable {
+ class Task extends Collectable {
 /*
 	private String name;
 	//database Timestamp endDateTime;

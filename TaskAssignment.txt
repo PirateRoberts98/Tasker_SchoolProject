@@ -1,14 +1,12 @@
-Cooper
+ALPHA BUILD TO DO
+Connect Buttons from Home Activity to backend
+Create A new Task
+Create A new User
+Edit a task
+Edit a user
+Change Activity
+Show a users list
+Show all tasks
 
-
-Fedah
-
-
-Phil
-
-
-Robert
-
-
-Un-Assigned To Do 
+BETA BUILD TO-DO
 
