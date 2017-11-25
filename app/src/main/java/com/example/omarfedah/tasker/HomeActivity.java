@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v7.app.AlertDialog.Builder;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.w3c.dom.Text;
 
@@ -36,20 +39,34 @@ public class HomeActivity extends AppCompatActivity {
 
         //com.example.omarfedah.tasker.List that tracks all the tasks (needs better name)
         //
-        ArrayList listA = new ArrayList();
+        final ArrayList listA = new ArrayList();
+
+        final ArrayList listB = new ArrayList();
         listA.add("Task 1"); //Adding element to list
         listA.add("Task 2");
         listA.add("Task 3");
         listA.add("Task 4");
 
-        ChoresListAdapter adapter = new ChoresListAdapter(this,listA);
+        final ChoresListAdapter adapter;
+        adapter= new ChoresListAdapter(this, listA);
+
+
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.myTask);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ListView listView = (ListView) findViewById(R.id.list);
+                if (isChecked) {
+                    adapter.changeList(listB);
+
+                }
+            }
+        });
+
         listView.setAdapter(adapter);
 
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         Button switchUser = (Button) findViewById(R.id.switchUser);
-
-
 
         switchUser.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){

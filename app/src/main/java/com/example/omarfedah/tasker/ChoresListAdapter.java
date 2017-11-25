@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ChoresListAdapter extends ArrayAdapter {
 
     private final Context context;
-    private final ArrayList listTasks;
+    private ArrayList listTasks;
 
     //YET TO IMPLEMENT LIST AND NOT ARRAY
     ChoresListAdapter(Context context, ArrayList list){
@@ -43,6 +43,10 @@ public class ChoresListAdapter extends ArrayAdapter {
         choreDescriptionTextField.setText("Assigned to: " + "\n" + "Due Date:" + "\n" + "Description:");
 
         return rowView;
+    }
+
+    public void changeList(ArrayList newArrayList){
+        this.listTasks = newArrayList;
     }
 
 

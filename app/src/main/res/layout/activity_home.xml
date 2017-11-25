@@ -32,17 +32,18 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="197dp"
                 android:layout_height="match_parent"
                 android:text="Only show your tasks"
                 android:textAlignment="viewStart"
                 android:textSize="24sp" />
 
-            <Switch
-                android:id="@+id/switch1"
+            <ToggleButton
+                android:id="@+id/myTask"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1.11" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.97"
+                android:text="ToggleButton" />
 
         </LinearLayout>
 
