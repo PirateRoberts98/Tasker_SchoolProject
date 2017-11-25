@@ -1,14 +1,18 @@
 package com.example.omarfedah.tasker;
 
+import android.widget.Toast;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class GUI {
 //Attributes
 
-	public String databaseURL;
+	public static String databaseURL;
 	static User activeUser;
 
 //Public Methods
@@ -87,8 +91,8 @@ public class GUI {
 
 
 // Private methods for internal use
-/*
-	private Connection connect() {
+
+	public static Connection connect() {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(databaseURL);
@@ -104,22 +108,47 @@ public class GUI {
 				System.out.println(ex.getMessage());
 			}
 
+		} return null;
+
+	}
+
+	public static ResultSet databaseQuery(String sqlstmt) {
+		Connection conn = connect();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlstmt);
+			return rs;
+		} catch (SQLException e) {
+
+/*			Toast errorMessage = Toast.makeText(, e.getMessage(), 10);
+			errorMessage.show();*/
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e){
+/*				Toast errorMessage = Toast.makeText(HomeActivity.this, e.getMessage(), 10);
+				errorMessage.show();*/
+			}
+		} return null;
+	}
+
+	public static void databaseUpdate(String sqlstmt) {
+		Connection conn = connect();
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sqlstmt);
+		} catch (SQLException e) {
+/*			Toast errorMessage = Toast.makeText(HomeActivity.this, e.getMessage(), 10);
+			errorMessage.show();*/
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+/*					Toast errorMessage = Toast.makeText(HomeActivity.this, e.getMessage(), 10);
+					errorMessage.show();*/
+				}
+			}
 		}
-
-		return null;}
-
-	private ResultSet databaseQuery(String sqlstmt) {
-		Connection conn = connect();
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.execute(sqlstmt);
-		return rs;
 	}
-
-	private void databaseUpdate(String sqlstmt) {
-		Connection conn = connect();
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(sqlstmt);
-	}
-*/
-
 }
