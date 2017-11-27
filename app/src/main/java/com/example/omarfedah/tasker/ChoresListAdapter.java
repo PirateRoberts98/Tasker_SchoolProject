@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by omarfedah on 2017-11-11.
- */
+
 
 public class ChoresListAdapter extends ArrayAdapter {
 
@@ -25,6 +23,10 @@ public class ChoresListAdapter extends ArrayAdapter {
 
         this.listTasks = list;
         this.context = context;
+    }
+
+    public ArrayList getActiveList(){
+        return listTasks ;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -8,16 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v7.app.AlertDialog.Builder;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import org.w3c.dom.Text;
 
@@ -31,55 +28,35 @@ public class HomeActivity extends AppCompatActivity {
     public DatePickerDialog.OnDateSetListener dateSetListener;
     public TimePickerDialog.OnTimeSetListener timeSetListener;
 
+    public GUI BackendConnection ;
+    protected ArrayList userList ;
+    protected ChoresListAdapter adapter ;
+    protected ArrayList completeTaskList ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ListView listView = (ListView) findViewById(R.id.list);
-
-        //com.example.omarfedah.tasker.List that tracks all the tasks (needs better name)
-        //
-        final ArrayList listA = new ArrayList();
-
-        final ArrayList listB = new ArrayList();
-        listA.add("Task 1"); //Adding element to list
-        listA.add("Task 2");
-        listA.add("Task 3");
-        listA.add("Task 4");
-
-        final ChoresListAdapter adapter;
-        adapter= new ChoresListAdapter(this, listA);
-
-
-        ToggleButton toggle = (ToggleButton) findViewById(R.id.myTask);
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ListView listView = (ListView) findViewById(R.id.list);
-                if (isChecked) {
-                    adapter.changeList(listB);
-
-                }
-            }
-        });
-
-        listView.setAdapter(adapter);
-
+        BuildDatabase() ;
+        createListView() ;
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         Button switchUser = (Button) findViewById(R.id.switchUser);
 
         switchUser.setOnClickListener(new View.OnClickListener(){
+            //What happpen when clicked and creation message
             public void onClick(View view){
-                final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(HomeActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_user_select, null);
                 Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
-
-                builder.setView(mView);
-                final AlertDialog dialog = builder.create();
+                alertBuilder.setView(mView);
+                final AlertDialog dialog = alertBuilder.create();
                 dialog.show();
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //SET ACTIVE USER
+                        adapter.changeList(userList) ;
+                        adapter.notifyDataSetChanged();
                         dialog.cancel();
                     }
                 });
@@ -89,30 +66,32 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //Adding task methods
-        addTaskButton.setOnClickListener(new View.OnClickListener(){
+        addTaskButton.setOnClickListener(
+                new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //creates dialog
-                final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
+                    //creates dialog
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                    View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
 
-                //Functionalities inside dialog, cancle
-                Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
-                Button create = (Button) mView.findViewById(R.id.createBtn);
+                    //Functionalities inside dialog, cancle
+                    Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
+                    Button create = (Button) mView.findViewById(R.id.createBtn);
 
-                final EditText etTaskName = (EditText) mView.findViewById(R.id.etTaskName);
-                final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
-                final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
+                    final EditText etTaskName = (EditText) mView.findViewById(R.id.etTaskName);
+                    final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
+                    final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
 
-                final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
-                final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
-                final TextView time = (TextView) mView.findViewById(R.id.etTime);
+                    final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
+                    final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
+                    final TextView time = (TextView) mView.findViewById(R.id.etTime);
 
 
 
 
                 //START DAY SETTER
-                startDate.setOnClickListener(new View.OnClickListener(){
+                startDate.setOnClickListener(
+                        new View.OnClickListener(){
                     public void onClick(View view){
                         Calendar calendar = Calendar.getInstance();
                         int year = calendar.get(Calendar.YEAR);
@@ -135,8 +114,11 @@ public class HomeActivity extends AppCompatActivity {
 
                 });
 
+
+
                 //END DATE SETTER
-                endDate.setOnClickListener(new View.OnClickListener(){
+                endDate.setOnClickListener(
+                        new View.OnClickListener(){
                     public void onClick(View view){
                         Calendar calendar = Calendar.getInstance();
                         int year = calendar.get(Calendar.YEAR);
@@ -179,26 +161,26 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                 });
-
-                //Displays dialog
-                builder.setView(mView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-                //Buttons' function inside dialog
-                cancel.setOnClickListener(new View.OnClickListener(){ //cancel button
+          //Displays dialog
+         builder.setView(mView);
+         final AlertDialog dialog = builder.create();
+         dialog.show();
+         //Buttons' function inside dialog
+         cancel.setOnClickListener(new View.OnClickListener(){ //cancel button
                     public void onClick(View view){
                         dialog.cancel();
                     }
                 });
-
-                create.setOnClickListener(new View.OnClickListener(){ //create function
+         create.setOnClickListener(new View.OnClickListener(){ //create function
                     public void onClick(View view){
-                        if(etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
-                                || etPersonTo.getText().toString().isEmpty()){
-                            Toast.makeText(HomeActivity.this, "Please fill in all the information", Toast.LENGTH_SHORT).show();
+            if(etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
+                    || etPersonTo.getText().toString().isEmpty()){
+                Toast.makeText(HomeActivity.this, "Please fill in all the information", Toast.LENGTH_SHORT).show();
+                        }else {
+                            adapter.getActiveList().add("RANDOM NEW TASK" );
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(HomeActivity.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(HomeActivity.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
-
                     }
                 });
             }
@@ -208,5 +190,35 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private void BuildDatabase(){
+        Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
+    }
 
+    private void createListView() {
+        //Intializing the List View -R
+        ListView listView = (ListView) findViewById(R.id.list);
+        //Setting Array for List -R
+        completeTaskList = new ArrayList();
+        userList = new ArrayList();
+        adapter = new ChoresListAdapter(this, completeTaskList);
+        listView.setAdapter(adapter);
+
+
+        //Testing Methods to initialize        listA.add("Task 1");
+        completeTaskList.add("Task 2");
+        completeTaskList.add("Task 3");
+        completeTaskList.add("Task 4");
+
+        //End of Test
+        userList.add("SKRAAAAA");
+        userList.add("AND A BOOM BOOM POW");
+        userList.add("RAW SAUCE");
+        userList.add("KETCHUP");
+
+
+    }
+
+    private void createDialog(){
+
+    }
 }

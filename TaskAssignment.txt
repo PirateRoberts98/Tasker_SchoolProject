@@ -1,4 +1,32 @@
 ALPHA BUILD TO DO
+
+Front End
+Navigator Bar Activity
+Tab Activity Fragments
+
+Front to Back End
+Home Activity
+    Slider for "Only My task"
+    Open A Task information
+    Add Task (See message Thread)
+    Switch User ( temporary)
+Shopping List Activity
+    Basically the same
+User Activity
+    authenticate
+    set user
+
+Back End
+GUI
+Task
+User
+Purchasable Objects (Tuesday by Cooper)
+JavaDoc (Friday)
+Server Stuff
+
+
+
+
 Connect Buttons from Home Activity to backend
 Create A new Task
 Create A new User
@@ -8,5 +36,11 @@ Change Activity
 Show a users list
 Show all tasks
 
-BETA BUILD TO-DO
+Things to Note
 
+All DataBase Values Have to be unique
+Error Handling to Activity
+
+Bug Report
+
+button Controller only sending one toast
