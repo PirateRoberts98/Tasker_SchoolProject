@@ -2,10 +2,13 @@ package com.example.omarfedah.tasker;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,6 +31,9 @@ public class HomeActivity extends AppCompatActivity {
     public DatePickerDialog.OnDateSetListener dateSetListener;
     public TimePickerDialog.OnTimeSetListener timeSetListener;
 
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+
     public GUI BackendConnection ;
     protected ArrayList userList ;
     protected ChoresListAdapter adapter ;
@@ -38,6 +44,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         BuildDatabase() ;
         createListView() ;
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         Button switchUser = (Button) findViewById(R.id.switchUser);
@@ -189,6 +202,14 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
 
     private void BuildDatabase(){
         Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
@@ -207,6 +228,11 @@ public class HomeActivity extends AppCompatActivity {
         //Testing Methods to initialize        listA.add("Task 1");
         completeTaskList.add("Task 2");
         completeTaskList.add("Task 3");
+        completeTaskList.add("Task 4");
+        completeTaskList.add("Task 4");
+        completeTaskList.add("Task 4");
+        completeTaskList.add("Task 4");
+        completeTaskList.add("Task 4");
         completeTaskList.add("Task 4");
 
         //End of Test

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="5dp"
     android:paddingLeft="5dp"
-    tools:context="com.example.omarfedah.tasker.HomeActivity">
+    tools:context="com.example.omarfedah.tasker.HomeActivity"
+    android:id="@+id/drawerLayout">
+
 
     <LinearLayout
         android:layout_width="353dp"
         android:layout_height="490dp"
         android:orientation="vertical"
+        android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        android:weightSum="1">
+        tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="3.50">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/switchUser"
@@ -46,12 +47,24 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="395dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="14dp" />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.94">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="384dp"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="14dp" />
+            </LinearLayout>
+        </ScrollView>
 
         <Button
             android:id="@+id/addTask"
@@ -63,4 +76,14 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:menu="@menu/activity_navigator2_drawer"
+        android:layout_gravity="start"
+
+        >
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>
