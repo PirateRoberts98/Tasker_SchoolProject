@@ -202,13 +202,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(toggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
 
-    }
 
 
     private void BuildDatabase(){
@@ -245,6 +239,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createDialog(){
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(toggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 }

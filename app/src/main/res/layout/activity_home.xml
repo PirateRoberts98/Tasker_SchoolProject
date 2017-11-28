@@ -81,6 +81,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/activity_navigator2_drawer"
         android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header_navigator2"
 
         >
 
