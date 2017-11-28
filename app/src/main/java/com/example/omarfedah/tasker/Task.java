@@ -1,6 +1,6 @@
 package com.example.omarfedah.tasker;
 
-import java.sql.ResultSet;
+import android.database.Cursor;
 import java.sql.SQLException;
 
 //missing proper imports
@@ -21,13 +21,13 @@ import java.sql.SQLException;
 	 * @param name String containing the task name.
 	 * @param endDateTime Integer representing the end date and time of the task, formatted
 	 *                    as YYYYMMDDHHmm. Uses 24 hour time.
-	 * @param isCompleted Boolean for whether or the task has been completed.
+	 * @param isCompleted int Boolean for whether or the task has been completed.
 	 * @param note String containing a note associated to the task.
 	 * @param objectList ObjectList containing any objects associated to the task.
 	 * @param creator User that created the task.
 	 * @param assignedTo User the task is assigned to.
 	 */
-	public Task(String name, int endDateTime, boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
+	public Task(String name, int endDateTime, int isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
 		this.name = name;
 		String values = "VALUES (" + name + "," + endDateTime + "," + isCompleted + "," + note + "," + objectList.asString() + "," + creator.getUserName() + "," + assignedTo.getUserName() + ")";
 		String sqlstmt = "INSERT INTO task(name,enddatetime,iscompleted,note,objectlist,creator,assignedto) " + values;
@@ -57,27 +57,18 @@ import java.sql.SQLException;
 	 */
 	public int getEndDateTime() {
 		String sqlstmt = "SELECT enddatetime FROM task WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-         return rs.getInt("enddatetime");
-        } catch (SQLException e) {
-		 return -1;
-        }
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		return rs.getInt(1);
 	}
 
 	/**
 	 * Getter for task completed status.
-	 * @return Boolean representing task completed status.
+	 * @return int Boolean representing task completed status.
 	 */
-	public boolean getIsCompleted() {
+	public int getIsCompleted() {
 		String sqlstmt = "SELECT iscompleted FROM task WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-         return rs.getBoolean("iscompleted");
-        } catch (SQLException e) {
-		 //this is bad,
-		 return false;
-        }
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		return rs.getInt(2);
 	}
 
 	/**
@@ -86,18 +77,14 @@ import java.sql.SQLException;
 	 */
 	public ObjectList getObjectList() {
 		String sqlstmt = "SELECT objectlist FROM task WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-         String objectListString = rs.getString("objectlist");
-         String[] objects = objectListString.split("/");
-         ObjectList objectList = new ObjectList();
-         for (String obj : objects) {
-          objectList.add(new PurchasableObject(obj));
-         }
-         return objectList;
-        } catch (SQLException e) {
-		 return new ObjectList();
-        }
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		String objectListString = rs.getString(4);
+		String[] objects = objectListString.split("/");
+		ObjectList objectList = new ObjectList();
+		for (String obj : objects) {
+		 objectList.add(new PurchasableObject(obj));
+		}
+		return objectList;
 	}
 
 	/**
@@ -106,13 +93,9 @@ import java.sql.SQLException;
 	 */
 	public User getCreator() {
 		String sqlstmt = "SELECT creator FROM task WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-         String creatorName = rs.getString("creator");
-         return new User(creatorName);
-        } catch (SQLException e) {
-		 return new User("");
-        }
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		String creatorName = rs.getString(5);
+        return new User(creatorName);
 	}
 
 	/**
@@ -121,13 +104,9 @@ import java.sql.SQLException;
 	 */
 	public User getAssignedTo() {
 		String sqlstmt = "SELECT assignedto FROM task WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-         String assignedToName = rs.getString("assignedto");
-         return new User(assignedToName);
-        } catch (SQLException e) {
-		 return new User("");
-        }
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		String assignedToName = rs.getString(6);
+        return new User(assignedToName);
 	}
 
 	/**
@@ -152,9 +131,9 @@ import java.sql.SQLException;
 
 	/**
 	 * Used to edit the completed status of an existing task.
-	 * @param newIsCompleted Boolean representing the new completed status.
+	 * @param newIsCompleted int Boolean representing the new completed status.
 	 */
-	public void setIsCompleted(boolean newIsCompleted) {
+	public void setIsCompleted(int newIsCompleted) {
 		String sqlstmt = "UPDATE task SET iscompleted = " + newIsCompleted + " WHERE name = " + name;
 		GUI.databaseUpdate(sqlstmt);
 	}

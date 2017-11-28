@@ -3,7 +3,7 @@ package com.example.omarfedah.tasker;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.ResultSet;
+import android.database.Cursor;
 import java.sql.Statement;
 
 
@@ -19,10 +19,10 @@ class PurchasableObject extends Collectable {
 	 * Constructor for PurchasableObject object. Adds the newly created PurchasableObject to
 	 * the database and returns an instance of the new PurchasableObject.
 	 * @param name String containing the name of the PurchasableObject
-	 * @param isGrocery Boolean representation of whether the PurchasableObject is groceries.
-	 * @param isOwned Boolean representation of whether the PurchasableObject is owned.
+	 * @param isGrocery int Boolean representation of whether the PurchasableObject is groceries.
+	 * @param isOwned int Boolean representation of whether the PurchasableObject is owned.
 	 */
-	public PurchasableObject(String name, boolean isGrocery, boolean isOwned) {
+	public PurchasableObject(String name, int isGrocery, int isOwned) {
 		this.name = name;
 		String values = "VALUES (" + name + "," + isGrocery + "," + isOwned + ")";
 		String sqlstmt = "INSERT INTO object(name, isGrocery, isOwned) " + values;
@@ -48,32 +48,24 @@ class PurchasableObject extends Collectable {
 
 	/**
 	 * Getter for PurchasableObject's isGrocery status.
-	 * @return Boolean representation of whether the PurchasableObject is groceries.
+	 * @return int Boolean representation of whether the PurchasableObject is groceries.
 	 */
-	public boolean getIsGrocery() {
+	public int getIsGrocery() {
 		String sqlstmt = "SELECT isgrocery FROM object WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-			boolean isGrocery = rs.getBoolean("isgrocery");
-			return isGrocery;
-		} catch (SQLException e) {
-			return false;
-		}
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		int isGrocery = rs.getInt(1);
+		return isGrocery;
 	}
 
 	/**
 	 * Getter for PurchasableObject's isOwned status.
-	 * @return Boolean representation of whether the PurchasableObject is owned.
+	 * @return int Boolean representation of whether the PurchasableObject is owned.
 	 */
-	public boolean getIsOwned() {
+	public int getIsOwned() {
 		String sqlstmt = "SELECT isowned FROM object WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-			boolean isOwned = rs.getBoolean("isowned");
-			return isOwned;
-		} catch (SQLException e ) {
-			return false;
-		}
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		int isOwned = rs.getInt(2);
+		return isOwned;
 	}
 
 	/**
@@ -88,20 +80,20 @@ class PurchasableObject extends Collectable {
 
 	/**
 	 * Used to edit the 'isGrocery' status of an existing PurchasableObject.
-	 * @param NewIsGrocery Boolean representation of the PurchasableObject's new 'isGrocery'
+	 * @param NewIsGrocery int Boolean representation of the PurchasableObject's new 'isGrocery'
 	 *                     status.
 	 */
-	public void setIsGrocery(boolean NewIsGrocery) {
+	public void setIsGrocery(int NewIsGrocery) {
 		String sqlstmt = "UPDATE object SET isgrocery = " + NewIsGrocery + " WHERE name = " + name;
 		GUI.databaseUpdate(sqlstmt);
 	}
 
 	/**
 	 * Used to edit the 'isOwned' status of an existing PurchasableObject.
-	 * @param NewIsOwned Boolean representation of the PurchasableObject's new 'isOwned'
+	 * @param NewIsOwned int Boolean representation of the PurchasableObject's new 'isOwned'
 	 *                   status.
 	 */
-	public void setIsOwned(boolean NewIsOwned) {
+	public void setIsOwned(int NewIsOwned) {
 		String sqlstmt = "UPDATE object SET isowned = " + NewIsOwned + " WHERE name = " + name;
 		GUI.databaseUpdate(sqlstmt);
 	}

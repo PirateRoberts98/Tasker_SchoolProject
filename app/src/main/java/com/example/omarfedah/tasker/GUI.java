@@ -1,18 +1,18 @@
 package com.example.omarfedah.tasker;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
-
+import android.database.Cursor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 
 public class GUI {
 //Attributes
 
-	public static String databaseURL;
+	private static final String DATABASE_PATH = "app/src/main/res/database/Tasker.sqlite3";
 	static User activeUser;
 
 //Public Methods
@@ -23,17 +23,12 @@ public class GUI {
 	 */
 	public TaskList getAllTasks() {
 		String sqlstmt = "SELECT name FROM task";
-		ResultSet rs = databaseQuery(sqlstmt);
+		Cursor rs = databaseQuery(sqlstmt);
 		TaskList allTasks = new TaskList();
-		try {
-			while (rs.next()) {
-				String taskName = rs.getString("name");
-				allTasks.add(new Task(taskName));
-			}
-		} catch (SQLException e) {
-			return null;
-		}
-		return allTasks;
+		while (rs.moveToNext()) {
+			String taskName = rs.getString(0);
+			allTasks.add(new Task(taskName));
+		} return allTasks;
 	}
 
 	// to be removed
@@ -56,17 +51,12 @@ public class GUI {
 	 */
 	public TaskList getUserTasks(String userName) {
 		String sqlstmt = "SELECT name FROM task WHERE assignedto = " + userName;
-		ResultSet rs = databaseQuery(sqlstmt);
+		Cursor rs = databaseQuery(sqlstmt);
 		TaskList userTasks = new TaskList();
-		try {
-			while (rs.next()) {
-				String taskName = rs.getString("name");
-				userTasks.add(new Task(taskName));
-			}
-		} catch (SQLException e) {
-			return null;
-		}
-		return userTasks;
+		while (rs.moveToNext()) {
+			String taskName = rs.getString(0);
+			userTasks.add(new Task(taskName));
+		} return userTasks;
 	}
 
 	/**
@@ -74,13 +64,13 @@ public class GUI {
 	 * @param taskName String containing the task name.
 	 * @param endDateTime Integer representation of the date and time, formatted as
 	 *                    YYYMMDDHHmm.
-	 * @param isCompleted Boolean representation of the task's completed status.
+	 * @param isCompleted int Boolean representation of the task's completed status.
 	 * @param note String containing any notes associated to the task.
 	 * @param objectList ObjectList containing any PurchasableObjects associated to the task.
 	 * @param creatorUser User that created the task.
 	 * @param assignedUser User that the task is assigned to.
 	 */
-    public void addTask(String taskName, int endDateTime, boolean isCompleted, String note,
+    public void addTask(String taskName, int endDateTime, int isCompleted, String note,
 						ObjectList objectList, User creatorUser, User assignedUser) {
 		new Task(taskName, endDateTime, isCompleted, note, objectList, creatorUser, assignedUser);
     }
@@ -105,10 +95,10 @@ public class GUI {
 	 * Calls the PurchasableObject constructor to add a new PurchasableObject to the
 	 * database.
 	 * @param name String containing the PurchasableObject name.
-	 * @param isGrocery Boolean representation of the PurchasableObject's 'isGrocery' status.
-	 * @param isOwned Boolean representation of the PurchasableObject's 'isOwned' status.
+	 * @param isGrocery int Boolean representation of the PurchasableObject's 'isGrocery' status.
+	 * @param isOwned int Boolean representation of the PurchasableObject's 'isOwned' status.
 	 */
-    public void addObject(String name, boolean isGrocery, boolean isOwned) {
+    public void addObject(String name, int isGrocery, int isOwned) {
 		new PurchasableObject(name, isGrocery, isOwned);
     }
 
@@ -153,15 +143,10 @@ public class GUI {
 	 * @return True iff the input password matches the stored password.
 	 */
     public boolean authenticateUser(User user, String password){
-		//Please Implement code here
 		String sqlstsmt = "SELECT password FROM user WHERE name = " + user.getUserName();
-		ResultSet rs = databaseQuery(sqlstsmt);
-		try {
-			String storedPassword = rs.getString("password");
-			return (password.equals(storedPassword));
-		} catch (SQLException e) {
-			return false;
-		}
+		Cursor rs = databaseQuery(sqlstsmt);
+		String storedPassword = rs.getString(2);
+		return (password.equals(storedPassword));
 	}
 
 	/**
@@ -171,17 +156,12 @@ public class GUI {
 	 */
 	public ObjectList getAllObjects() {
 		String sqlstmt = "SELECT name FROM object";
-		ResultSet rs = databaseQuery(sqlstmt);
+		Cursor rs = databaseQuery(sqlstmt);
 		ObjectList allObjects = new ObjectList();
-		try {
-			while (rs.next()) {
-				String objectName = rs.getString("name");
-				allObjects.add(new PurchasableObject(objectName));
-			}
-		} catch (SQLException e) {
-			return null;
-		}
-		return allObjects;
+		while (rs.moveToNext()) {
+			String objectName = rs.getString(0);
+			allObjects.add(new PurchasableObject(objectName));
+		} return allObjects;
 	}
 
 	/**
@@ -191,17 +171,12 @@ public class GUI {
 	 */
 	public ObjectList getShoppingList() {
 		String sqlstmt = "SELECT name FROM object WHERE isowned = false";
-		ResultSet rs = databaseQuery(sqlstmt);
+		Cursor rs = databaseQuery(sqlstmt);
 		ObjectList shoppingList = new ObjectList();
-		try {
-			while (rs.next()) {
-				String objectName = rs.getString("name");
-				shoppingList.add(new PurchasableObject(objectName));
-			}
-		} catch (SQLException e) {
-			return null;
-		}
-		return shoppingList;
+		while (rs.moveToNext()) {
+			String objectName = rs.getString(0);
+			shoppingList.add(new PurchasableObject(objectName));
+		} return shoppingList;
 	}
 
 
@@ -211,50 +186,24 @@ public class GUI {
 	 * Method used to establish a connection the the SQLite database.
 	 * @return Connection instance associated to specified SQLite database.
 	 */
-	public static Connection connect() {
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(databaseURL);
-			return conn;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException ex) {
-				System.out.println(ex.getMessage());
-			}
-
-		} return null;
-
+	public static SQLiteDatabase connect() {
+		SQLiteDatabase conn;
+		conn = SQLiteDatabase.openDatabase(DATABASE_PATH, null,
+				SQLiteDatabase.OPEN_READWRITE);
+		return conn;
 	}
 
 	/**
-	 * Executes the specified SQL statement and returns any results as a ResultSet object.
+	 * Executes the specified SQL statement and returns any results as a Cursor object.
 	 * Used to query the databse.
 	 * @param sqlstmt String containing the SQL statement to be executed.
-	 * @return ResultSet containing all results from the query.
+	 * @return Cursor containing all results from the query.
 	 */
-	public static ResultSet databaseQuery(String sqlstmt) {
-		Connection conn = connect();
-		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlstmt);
-			return rs;
-		} catch (SQLException e) {
-
-/*			Toast errorMessage = Toast.makeText(, e.getMessage(), 10);
-			errorMessage.show();*/
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e){
-/*				Toast errorMessage = Toast.makeText(HomeActivity.this, e.getMessage(), 10);
-				errorMessage.show();*/
-			}
-		} return null;
+	public static Cursor databaseQuery(String sqlstmt) {
+		SQLiteDatabase conn = connect();
+		Cursor rs = conn.rawQuery(sqlstmt, null);
+		conn.close();
+		return rs;
 	}
 
 	/**
@@ -262,22 +211,8 @@ public class GUI {
 	 * @param sqlstmt String containing the SQL statement to be executed.
 	 */
 	public static void databaseUpdate(String sqlstmt) {
-		Connection conn = connect();
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sqlstmt);
-		} catch (SQLException e) {
-/*			Toast errorMessage = Toast.makeText(HomeActivity.this, e.getMessage(), 10);
-			errorMessage.show();*/
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-/*					Toast errorMessage = Toast.makeText(HomeActivity.this, e.getMessage(), 10);
-					errorMessage.show();*/
-				}
-			}
-		}
+		SQLiteDatabase conn = connect();
+		conn.execSQL(sqlstmt);
+		conn.close();
 	}
 }

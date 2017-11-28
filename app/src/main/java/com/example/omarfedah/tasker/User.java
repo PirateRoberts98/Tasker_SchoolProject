@@ -1,7 +1,7 @@
 package com.example.omarfedah.tasker;
 
 import java.sql.SQLException;
-import java.sql.ResultSet;
+import android.database.Cursor;
 
 
 //missing proper imports
@@ -49,13 +49,9 @@ import java.sql.ResultSet;
 	 */
 	public String getIcon() {
 		String sqlstmt = "SELECT icon FROM user WHERE name = " + name;
-		ResultSet rs = GUI.databaseQuery(sqlstmt);
-		try {
-		 String icon = rs.getString("icon");
-         return icon;
-		} catch (SQLException e) {
-		 return "";
-        }
+		Cursor rs = GUI.databaseQuery(sqlstmt);
+		String icon = rs.getString(1);
+		return icon;
 	}
 
 	/**

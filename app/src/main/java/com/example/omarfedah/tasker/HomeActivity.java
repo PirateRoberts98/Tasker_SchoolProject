@@ -2,6 +2,7 @@ package com.example.omarfedah.tasker;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -208,6 +209,17 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void BuildDatabase(){
+        String createTaskTable = "CREATE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
+                "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
+                " assignedto TEXT)";
+        String createUserTable = "CREATE IF NOT EXISTS user(name TEXT PRIMARY KEY, icon TEXT, " +
+                "password TEXT)";
+        String createObjectTable = "CREATE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
+                "isgrocery INTEGER, isowned INTEGER)";
+        SQLiteDatabase conn = GUI.connect();
+        conn.execSQL(createTaskTable);
+        conn.execSQL(createUserTable);
+        conn.execSQL(createObjectTable);
         Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
     }
 
