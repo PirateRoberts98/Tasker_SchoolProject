@@ -1,6 +1,7 @@
 package com.example.omarfedah.tasker;
 
 import android.content.Context;
+import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class ChoresListAdapter extends ArrayAdapter {
 
     private final Context context;
-    private ArrayList listTasks;
+    private ArrayList<testTASK> listTasks;
 
     //YET TO IMPLEMENT LIST AND NOT ARRAY
     ChoresListAdapter(Context context, ArrayList list){
@@ -43,8 +44,12 @@ public class ChoresListAdapter extends ArrayAdapter {
 
         choreNameTextField.setText(listTasks.get(position).toString());
 
-        choreDescriptionTextField.setText("Assigned to: " + "\n" + "Due Date:" + "\n" + "Description:");
+        choreDescriptionTextField.setText("Assigned to: " + "\n" + "Due Date:" +
+                         Integer.toString( listTasks.get(position).getEndDateTime() ) +
+                "\n" + "Description:");
 
+      //TO BE IMPLEMENTED
+        //  choreImage.setImageIcon(Icon.createWithContentUri("app/main/res//student.mipmap/student.png"));
         return rowView;
     }
 

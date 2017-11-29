@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
             //What happpen when clicked and creation message
             public void onClick(View view){
                ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
-                       a.getList().add("HALA MADRID" );
+                       a.getList().add( new testTASK("HALA MADRID", 10 ,true ,"this is a note ", null , null , null) );
                 adapter.notifyDataSetChanged() ;
 
             }
@@ -219,9 +219,13 @@ public class HomeActivity extends AppCompatActivity {
                     || etPersonTo.getText().toString().isEmpty()){
                 Toast.makeText(HomeActivity.this, "Please fill in all the information", Toast.LENGTH_SHORT).show();
                         }else {
-                ((ChoresListAdapter) listView.getAdapter()).getList().add(etTaskName.getText().toString()) ;
+                ((ChoresListAdapter) listView.getAdapter()).getList().add(
+                        new testTASK(etTaskName.getText().toString(), 420 ,
+                                true ,"this is a note ", null ,
+                                null , null)) ;
                     ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
-                            Toast.makeText(HomeActivity.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomeActivity.this, "Not yet implemented",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -252,8 +256,8 @@ public class HomeActivity extends AppCompatActivity {
         //Intializing the List View -R
         listView = (ListView) findViewById(R.id.list);
         //Setting Array for List -R
-        completeTaskList = new ArrayList();
-        userList = new ArrayList();
+        completeTaskList = new ArrayList<testTASK>();
+        userList = new ArrayList<testTASK>();
 
         Button myTask = (Button) findViewById(R.id.myTask);
         myTask.setOnClickListener(
@@ -270,6 +274,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //Testing Methods to initialize
+       // completeTaskList.add( new Task("name",7, 7, "note", new ObjectList(), GUI.activeUser ,GUI.activeUser )) ;
+       /* Commented out to test type swap
         completeTaskList.add("Task 2");
         completeTaskList.add("Task 3");
         completeTaskList.add("Task 4");
@@ -284,8 +290,10 @@ public class HomeActivity extends AppCompatActivity {
         userList.add("AND A BOOM BOOM POW");
         userList.add("RAW SAUCE");
         userList.add("KETCHUP");
+    */
 
-
+       completeTaskList.add( new testTASK("exampleName", 15 ,true ,"this is a note ", null , null , null)) ;
+        userList.add( new testTASK("SKRAAAA", 420 ,true ,"this is a note ", null , null , null)) ;
     }
 
     private void swapUser(){

@@ -13,7 +13,7 @@ public class GUI {
 //Attributes
 
 	private static final String DATABASE_PATH = "app/src/main/res/database/Tasker.sqlite3";
-	static User activeUser;
+	public static User activeUser;
 	private static GUI singleInstance = null;
 
 	/**
