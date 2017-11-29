@@ -28,7 +28,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-//heyyo
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
 
-    public GUI BackendConnection ;
+    public GUI backendConnection ;
     protected ArrayList userList ;
     protected ChoresListAdapter adapter ;
     protected ArrayList completeTaskList ;
@@ -49,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
        // BuildDatabase() ;
         createListView() ;
-
+        backendConnection = GUI.getInstance()  ;
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
@@ -59,6 +58,19 @@ public class HomeActivity extends AppCompatActivity {
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         Button switchUser = (Button) findViewById(R.id.switchUser);
+
+        TextView addTaskText = (TextView) findViewById(R.id.textView4);
+
+        addTaskText.setOnClickListener(new View.OnClickListener(){
+            //What happpen when clicked and creation message
+            public void onClick(View view){
+            swapUser();
+
+            }
+        });
+
+
+
 
         switchUser.setOnClickListener(new View.OnClickListener(){
             //What happpen when clicked and creation message
@@ -73,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //SET ACTIVE USER
-                        adapter.changeList(userList) ;
+                        adapter.changeList(completeTaskList) ;
                         adapter.notifyDataSetChanged();
                         dialog.cancel();
                     }
@@ -92,7 +104,7 @@ public class HomeActivity extends AppCompatActivity {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                     View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
 
-                    //Functionalities inside dialog, cancle
+                    //Functionality inside dialog, cancel
                     Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
                     Button create = (Button) mView.findViewById(R.id.createBtn);
 
@@ -241,11 +253,11 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
 
-        adapter = new ChoresListAdapter(this, userList);
+        adapter = new ChoresListAdapter(this, completeTaskList);
         listView.setAdapter(adapter);
 
 
-        //Testing Methods to initialize        listA.add("Task 1");
+        //Testing Methods to initialize
         completeTaskList.add("Task 2");
         completeTaskList.add("Task 3");
         completeTaskList.add("Task 4");
@@ -264,8 +276,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void createDialog(){
-
+    private void swapUser(){
+        Toast.makeText(this, "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
