@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.support.v7.app.AlertDialog.Builder;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -229,7 +231,17 @@ public class HomeActivity extends AppCompatActivity {
         //Setting Array for List -R
         completeTaskList = new ArrayList();
         userList = new ArrayList();
-        adapter = new ChoresListAdapter(this, completeTaskList);
+
+        Button myTask = (Button) findViewById(R.id.myTask);
+        myTask.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+
+        adapter = new ChoresListAdapter(this, userList);
         listView.setAdapter(adapter);
 
 
