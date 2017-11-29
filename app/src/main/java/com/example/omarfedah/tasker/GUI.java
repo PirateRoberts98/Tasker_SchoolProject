@@ -49,18 +49,6 @@ public class GUI {
 		} return allTasks;
 	}
 
-	// to be removed
-	public String[] getTaskNames(){
-		//PLEASE PUT IMPLEMENTATION HERE
-	return null ;
-	}
-
-	// to be removed
-	public String[] getUserNames(){
-		//PLEASE PUT IMPLEMENTATION HERE
-		return null ;
-	}
-
 	/**
 	 * Queries the database to generate a TaskList object containing all tasks assigned
 	 * to a specified user.
@@ -93,11 +81,20 @@ public class GUI {
 		new Task(taskName, endDateTime, isCompleted, note, objectList, creatorUser, assignedUser);
     }
 
-    // we probably really don't need this
-	public void editTask(Task editedTask,String taskName, int date , int time, boolean isCompleted,
-						User assignedUser, User createdUser) {
-		//interpret UI inputs
-		//call com.example.omarfedah.tasker.Task constructor method
+	/**
+	 * Edits the attributes of an instance of Task.
+	 * @param editedTask Instance of task to edit.
+	 * @param taskName Name for the Task.
+	 * @param endDateTime End date and time for the Task.
+	 * @param isCompleted Task completion status.
+	 * @param assignedUser User assigned to the task.
+	 */
+	public void editTask(Task editedTask,String taskName, int endDateTime, boolean isCompleted,
+						User assignedUser) {
+    	editedTask.setTaskName(taskName);
+    	editedTask.setEndDateTime(endDateTime);
+    	editedTask.setIsCompleted(isCompleted);
+    	editedTask.setAssignedTo(assignedUser);
 	}
 
 	/**
