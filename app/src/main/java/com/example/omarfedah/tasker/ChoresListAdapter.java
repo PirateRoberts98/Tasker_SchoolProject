@@ -40,7 +40,7 @@ public class ChoresListAdapter extends ArrayAdapter {
 
         TextView choreNameTextField = (TextView) rowView.findViewById(R.id.TaskName);
         TextView choreDescriptionTextField = (TextView) rowView.findViewById(R.id.taskDescription);
-        ImageView choreImage = (ImageView) rowView.findViewById(R.id.icon);
+       // ImageView choreImage = (ImageView) rowView.findViewById(R.id.icon);
 
         choreNameTextField.setText(listTasks.get(position).toString());
 
@@ -48,8 +48,12 @@ public class ChoresListAdapter extends ArrayAdapter {
                          Integer.toString( listTasks.get(position).getEndDateTime() ) +
                 "\n" + "Description:");
 
-      //TO BE IMPLEMENTED
-        //  choreImage.setImageIcon(Icon.createWithContentUri("app/main/res//student.mipmap/student.png"));
+      /*TO BE IMPLEMENTED LATER
+
+        Icon a =       Icon.createWithFilePath("E:\\School\\Courses\\SEG2105\\Final_Project\\app\\src\\main\\res\\usericonsprofessor.png");
+        choreImage.setImageIcon(a) ;
+
+        */
         return rowView;
     }
 

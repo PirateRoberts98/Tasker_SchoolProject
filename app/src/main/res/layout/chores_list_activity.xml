@@ -14,14 +14,14 @@
         android:weightSum="1"
         tools:ignore="UselessParent">
 
-        <ImageView
+       <!-- <ImageView
             android:id="@+id/imageView"
             android:layout_width="92dp"
             android:layout_height="match_parent"
             android:contentDescription=""
             app:srcCompat="@mipmap/ic_launcher_round"
             tools:ignore="ContentDescription" />
-
+        -->
         <LinearLayout
             android:layout_width="240dp"
             android:layout_height="match_parent"
