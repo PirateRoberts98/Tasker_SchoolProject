@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-
+    private ListView listView ;
     public GUI backendConnection ;
     protected ArrayList userList ;
     protected ChoresListAdapter adapter ;
@@ -58,13 +58,14 @@ public class HomeActivity extends AppCompatActivity {
 
         Button addTaskButton = (Button) findViewById(R.id.addTask);
         Button switchUser = (Button) findViewById(R.id.switchUser);
-
         TextView addTaskText = (TextView) findViewById(R.id.textView4);
 
         addTaskText.setOnClickListener(new View.OnClickListener(){
             //What happpen when clicked and creation message
             public void onClick(View view){
-            swapUser();
+               ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
+                       a.getList().add("HALA MADRID" );
+                adapter.notifyDataSetChanged() ;
 
             }
         });
@@ -73,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         switchUser.setOnClickListener(new View.OnClickListener(){
-            //What happpen when clicked and creation message
+            //What happen when clicked and creation message
             public void onClick(View view){
                 final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(HomeActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_user_select, null);
@@ -85,8 +86,6 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //SET ACTIVE USER
-                        adapter.changeList(completeTaskList) ;
-                        adapter.notifyDataSetChanged();
                         dialog.cancel();
                     }
                 });
@@ -100,6 +99,8 @@ public class HomeActivity extends AppCompatActivity {
                 new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //PUT ADDED VALUES HERE
+
                     //creates dialog
                     final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                     View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
@@ -195,7 +196,18 @@ public class HomeActivity extends AppCompatActivity {
          builder.setView(mView);
          final AlertDialog dialog = builder.create();
          dialog.show();
-         //Buttons' function inside dialog
+
+                int startDateValue ;
+                int endDateValue   ;
+                String nameValue   ;
+                //USED FOR LEARNING HOW WORKS
+                 etTaskName.getText().toString() ;
+                 etTaskDesc.getText()  ;
+                 etPersonTo.getText() ;
+
+
+
+                //Buttons' function inside dialog
          cancel.setOnClickListener(new View.OnClickListener(){ //cancel button
                     public void onClick(View view){
                         dialog.cancel();
@@ -207,8 +219,8 @@ public class HomeActivity extends AppCompatActivity {
                     || etPersonTo.getText().toString().isEmpty()){
                 Toast.makeText(HomeActivity.this, "Please fill in all the information", Toast.LENGTH_SHORT).show();
                         }else {
-                            adapter.getActiveList().add("RANDOM NEW TASK" );
-                            adapter.notifyDataSetChanged();
+                ((ChoresListAdapter) listView.getAdapter()).getList().add(etTaskName.getText().toString()) ;
+                    ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
                             Toast.makeText(HomeActivity.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -236,10 +248,9 @@ public class HomeActivity extends AppCompatActivity {
         conn.execSQL(createObjectTable);
         Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
     }
-
     private void createListView() {
         //Intializing the List View -R
-        ListView listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.list);
         //Setting Array for List -R
         completeTaskList = new ArrayList();
         userList = new ArrayList();
@@ -249,6 +260,7 @@ public class HomeActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        swapUser();
 
                     }
                 });
@@ -277,6 +289,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void swapUser(){
+        adapter = new ChoresListAdapter(this, userList);
+        listView.setAdapter(adapter);
         Toast.makeText(this, "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
     }
 

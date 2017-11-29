@@ -93,7 +93,8 @@ public class GUI {
 						User assignedUser) {
     	editedTask.setTaskName(taskName);
     	editedTask.setEndDateTime(endDateTime);
-    	editedTask.setIsCompleted(isCompleted);
+  //COMMENTED AS CODE ERROR
+		// 	editedTask.setIsCompleted(isCompleted);
     	editedTask.setAssignedTo(assignedUser);
 	}
 

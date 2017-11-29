@@ -48,8 +48,8 @@ public class ChoresListAdapter extends ArrayAdapter {
         return rowView;
     }
 
-    public void changeList(ArrayList newArrayList){
-        this.listTasks = newArrayList;
+    public ArrayList getList(){
+        return listTasks ;
     }
 
 
