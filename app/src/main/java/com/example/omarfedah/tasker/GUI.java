@@ -14,9 +14,27 @@ public class GUI {
 
 	private static final String DATABASE_PATH = "app/src/main/res/database/Tasker.sqlite3";
 	static User activeUser;
+	private static GUI singleInstance = null;
+
+	/**
+	 * Creates a new instance of GUI.
+	 */
+	private GUI() {
+	}
 
 //Public Methods
 
+	/**
+	 * Creates a new instance of GUI if one doesn't already exist.
+	 * @return The singleton instance of GUI.
+	 */
+	public static GUI getInstance() {
+		if (singleInstance == null) {
+			singleInstance = new GUI();
+		}
+
+		return singleInstance;
+	}
 	/**
 	 * Queries the database to generate a TaskList object containing all existing tasks.
 	 * @return TaskList object containing all existing tasks.
