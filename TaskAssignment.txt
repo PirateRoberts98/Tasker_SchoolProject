@@ -1,3 +1,87 @@
+Fedah
+(Developing front end design and simple functionality in JAVA)
+Thursday
+    List swap functionality
+    add Task functionality
+    complete task toggle
+Friday
+    add object
+    create objectList and shopping listviews
+    Powerpoint and final report
+Saturday
+    Active user interactions
+    Icon to list functionality
+Sunday
+    Various front to back end codes needed to connect all of application
+
+
+
+Robert
+(Developing Front End Java Functioanlity)
+Thursday
+    Swap Activities functionality
+Friday
+    Edit User Activity Launched onClick()
+Saturday
+    Expand Task For ListView Functionality
+Sunday
+    Swap User Functionality
+    Show Object Dialog created
+* Light Task deligation to help with other functionality in application
+
+
+Cooper
+(Developing Back End Java Development)
+Thursday
+    generate myTask, Completed Task, All Task Lists
+Friday
+    generate Shopping List and Object List
+    Create User
+    Authentication
+Saturday
+   Edit User
+Sunday
+    Camel Case and Spacing
+
+Phil
+(Developing Server Implementation
+Thursday
+    DataBase Setup and file connected
+    if not finished:: Local Classes of database used for testing front end
+Friday
+    Demo Database Created
+    Spelling check ALL
+Saturday
+    Verify Database functionality
+        Scope Check ALL
+Sunday
+* Light Task deligation to help with other functionality in application
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ALPHA BUILD TO DO
 
 Front End
