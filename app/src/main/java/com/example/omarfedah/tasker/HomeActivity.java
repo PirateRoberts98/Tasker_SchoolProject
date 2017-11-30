@@ -57,16 +57,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-       // BuildDatabase() ;
+      // BuildDatabase() ;
         //createListView() ;
-       // backendConnection = GUI.getInstance()  ;
+        backendConnection = GUI.getInstance()  ;
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        NavigationView drawer = (NavigationView) findViewById(R.id.nv);
+        NavigationView drawer = (NavigationView) findViewById(R.id.navigationView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setDrawerContent(drawer);
 
@@ -259,7 +259,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
+*/
     private void BuildDatabase(){
         String createTaskTable = "CREATE TABLE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
                 "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
@@ -268,13 +268,15 @@ public class HomeActivity extends AppCompatActivity {
                 "password TEXT)";
         String createObjectTable = "CREATE TABLE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
                 "isgrocery INTEGER, isowned INTEGER)";
-        SQLiteDatabase conn = GUI.connect();
+        SQLiteDatabase conn = backendConnection.connect();
         conn.execSQL(createTaskTable);
         conn.execSQL(createUserTable);
         conn.execSQL(createObjectTable);
         conn.close();
         Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
     }
+
+    /*
     private void createListView() {
         //Intializing the List View -R
         listView = (ListView) findViewById(R.id.list);

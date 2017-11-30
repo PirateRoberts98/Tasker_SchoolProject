@@ -40,15 +40,13 @@ public class TaskFragment extends Fragment {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private ListView listView ;
     public GUI backendConnection ;
+    static int countTracker;
+    private View view;
+    private ListView listView ;
     protected ArrayList userList ;
     protected ChoresListAdapter adapter ;
     protected ArrayList completeTaskList ;
-    static int countTracker;
-    private View view;
-
-
 
     //constructor
     public TaskFragment() {
@@ -63,15 +61,12 @@ public class TaskFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
-        //createListView() ;
-        BuildDatabase() ;
+        createListView() ;
+       // BuildDatabase() ;
         //backendConnection = GUI.getInstance()  ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
-        ArrayList listA = new ArrayList();
-
-
         /*
         addTaskText.setOnClickListener(new View.OnClickListener(){
             //What happpen when clicked and creation message
@@ -273,10 +268,11 @@ public class TaskFragment extends Fragment {
         //Testing Methods to initialize
         // completeTaskList.add( new Task("name",7, 7, "note", new ObjectList(), GUI.activeUser ,GUI.activeUser )) ;
        //Commented out to test type swap
-        completeTaskList.add("Task 2");
-        completeTaskList.add("Task 3");
-        completeTaskList.add("Task 4");
-        completeTaskList.add("Task 4");
+        /*
+        //completeTaskList.add("Task 2");
+        //completeTaskList.add("Task 3");
+        //completeTaskList.add("Task 4");
+        //completeTaskList.add("Task 4");
         completeTaskList.add("Task 4");
         completeTaskList.add("Task 4");
         completeTaskList.add("Task 4");
@@ -288,7 +284,7 @@ public class TaskFragment extends Fragment {
         userList.add("RAW SAUCE");
         userList.add("KETCHUP");
 
-
+        */
         completeTaskList.add( new testTASK("exampleName", 15 ,true ,"this is a note ", null , null , null)) ;
         userList.add( new testTASK("SKRAAAA", 420 ,true ,"this is a note ", null , null , null)) ;
     }
@@ -301,7 +297,7 @@ public class TaskFragment extends Fragment {
                 "password TEXT)";
         String createObjectTable = "CREATE TABLE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
                 "isgrocery INTEGER, isowned INTEGER)";
-        GUI guiInst = GUI.getInstance();
+       GUI guiInst = GUI.getInstance();
         SQLiteDatabase conn = guiInst.connect();
         conn.execSQL(createTaskTable);
         conn.execSQL(createUserTable);
