@@ -26,7 +26,8 @@ class PurchasableObject extends Collectable {
 		this.name = name;
 		String values = "VALUES (" + name + "," + isGrocery + "," + isOwned + ")";
 		String sqlstmt = "INSERT INTO object(name, isGrocery, isOwned) " + values;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -52,7 +53,8 @@ class PurchasableObject extends Collectable {
 	 */
 	public int getIsGrocery() {
 		String sqlstmt = "SELECT isgrocery FROM object WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		int isGrocery = rs.getInt(1);
 		return isGrocery;
 	}
@@ -63,7 +65,8 @@ class PurchasableObject extends Collectable {
 	 */
 	public int getIsOwned() {
 		String sqlstmt = "SELECT isowned FROM object WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		int isOwned = rs.getInt(2);
 		return isOwned;
 	}
@@ -74,7 +77,8 @@ class PurchasableObject extends Collectable {
 	 */
 	public void setObjectName(String newName) {
 		String sqlstmt = "UPDATE object SET name = " + newName + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
 	}
 
@@ -85,7 +89,8 @@ class PurchasableObject extends Collectable {
 	 */
 	public void setIsGrocery(int NewIsGrocery) {
 		String sqlstmt = "UPDATE object SET isgrocery = " + NewIsGrocery + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -95,6 +100,7 @@ class PurchasableObject extends Collectable {
 	 */
 	public void setIsOwned(int NewIsOwned) {
 		String sqlstmt = "UPDATE object SET isowned = " + NewIsOwned + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 }

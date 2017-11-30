@@ -202,10 +202,12 @@ public class GUI {
 	 * Method used to establish a connection the the SQLite database.
 	 * @return Connection instance associated to specified SQLite database.
 	 */
-	public static SQLiteDatabase connect() {
+	public SQLiteDatabase connect() {
 		SQLiteDatabase conn;
-		conn = SQLiteDatabase.openDatabase(DATABASE_PATH, null,
+		String dbPath = HomeActivity.getAppContext().getDatabasePath("Tasker").getPath();
+		conn = SQLiteDatabase.openDatabase(dbPath, null,
 				SQLiteDatabase.OPEN_READWRITE);
+		Toast.makeText(HomeActivity.getAppContext(), "Connected to Database", Toast.LENGTH_SHORT).show();
 		return conn;
 	}
 
@@ -215,10 +217,11 @@ public class GUI {
 	 * @param sqlstmt String containing the SQL statement to be executed.
 	 * @return Cursor containing all results from the query.
 	 */
-	public static Cursor databaseQuery(String sqlstmt) {
+	public Cursor databaseQuery(String sqlstmt) {
 		SQLiteDatabase conn = connect();
 		Cursor rs = conn.rawQuery(sqlstmt, null);
 		conn.close();
+		Toast.makeText(HomeActivity.getAppContext(), "Queried the Database", Toast.LENGTH_SHORT).show();
 		return rs;
 	}
 
@@ -226,9 +229,11 @@ public class GUI {
 	 * Executes a specified SQL statement. Used to update of delete entries in the database.
 	 * @param sqlstmt String containing the SQL statement to be executed.
 	 */
-	public static void databaseUpdate(String sqlstmt) {
+	public void databaseUpdate(String sqlstmt) {
 		SQLiteDatabase conn = connect();
 		conn.execSQL(sqlstmt);
 		conn.close();
+		Toast.makeText(HomeActivity.getAppContext(), "Updated the Database", Toast.LENGTH_SHORT).show();
+
 	}
 }

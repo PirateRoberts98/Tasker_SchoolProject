@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import android.database.Cursor;
 
 
-//missing proper imports
-//requires external methods databaseQuery(String), databaseUpdate(String)
  class User extends Collectable {
 
 	private String name;
@@ -23,7 +21,8 @@ import android.database.Cursor;
 		this.name = name;
 		String values = "VALUES (" + name + "," + icon + "," + password + ")";
 		String sqlstmt = "INSERT INTO user(name, icon, password) " + values;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -49,7 +48,8 @@ import android.database.Cursor;
 	 */
 	public String getIcon() {
 		String sqlstmt = "SELECT icon FROM user WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String icon = rs.getString(1);
 		return icon;
 	}
@@ -60,7 +60,8 @@ import android.database.Cursor;
 	 */
 	public void setName(String newName) {
 		String sqlstmt = "UPDATE user SET name = " + newName + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
 	}
 
@@ -70,7 +71,8 @@ import android.database.Cursor;
 	 */
 	public void setIcon(String newIcon) {
 		String sqlstmt = "UPDATE user SET icon = " + newIcon + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -79,6 +81,7 @@ import android.database.Cursor;
 	 */
 	public void setPassword(String newPassword) {
 		String sqlstmt = "UPDATE user SET password = " + newPassword + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 }

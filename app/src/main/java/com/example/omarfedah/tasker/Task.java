@@ -3,8 +3,7 @@ package com.example.omarfedah.tasker;
 import android.database.Cursor;
 import java.sql.SQLException;
 
-//missing proper imports
-//requires external methods databaseQuery(String), databaseUpdate(String), getUser(String), com.example.omarfedah.tasker.ObjectList.asString()
+
  class Task extends Collectable {
 
 	private String name;
@@ -31,7 +30,8 @@ import java.sql.SQLException;
 		this.name = name;
 		String values = "VALUES (" + name + "," + endDateTime + "," + isCompleted + "," + note + "," + objectList.asString() + "," + creator.getUserName() + "," + assignedTo.getUserName() + ")";
 		String sqlstmt = "INSERT INTO task(name,enddatetime,iscompleted,note,objectlist,creator,assignedto) " + values;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -57,7 +57,8 @@ import java.sql.SQLException;
 	 */
 	public int getEndDateTime() {
 		String sqlstmt = "SELECT enddatetime FROM task WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs =guiInst.databaseQuery(sqlstmt);
 		return rs.getInt(1);
 	}
 
@@ -67,7 +68,8 @@ import java.sql.SQLException;
 	 */
 	public int getIsCompleted() {
 		String sqlstmt = "SELECT iscompleted FROM task WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs =guiInst.databaseQuery(sqlstmt);
 		return rs.getInt(2);
 	}
 
@@ -77,7 +79,8 @@ import java.sql.SQLException;
 	 */
 	public ObjectList getObjectList() {
 		String sqlstmt = "SELECT objectlist FROM task WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String objectListString = rs.getString(4);
 		String[] objects = objectListString.split("/");
 		ObjectList objectList = new ObjectList();
@@ -93,7 +96,8 @@ import java.sql.SQLException;
 	 */
 	public User getCreator() {
 		String sqlstmt = "SELECT creator FROM task WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String creatorName = rs.getString(5);
         return new User(creatorName);
 	}
@@ -104,7 +108,8 @@ import java.sql.SQLException;
 	 */
 	public User getAssignedTo() {
 		String sqlstmt = "SELECT assignedto FROM task WHERE name = " + name;
-		Cursor rs = GUI.databaseQuery(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String assignedToName = rs.getString(6);
         return new User(assignedToName);
 	}
@@ -115,7 +120,8 @@ import java.sql.SQLException;
 	 */
 	public void setTaskName(String newName) {
 		String sqlstmt = "UPDATE task SET name = " + newName + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
 	}
 
@@ -126,7 +132,8 @@ import java.sql.SQLException;
 	 */
 	public void setEndDateTime(int newEndDateTime) {
 		String sqlstmt = "UPDATE task SET enddatetime = " + newEndDateTime + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -135,7 +142,8 @@ import java.sql.SQLException;
 	 */
 	public void setIsCompleted(int newIsCompleted) {
 		String sqlstmt = "UPDATE task SET iscompleted = " + newIsCompleted + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -144,7 +152,8 @@ import java.sql.SQLException;
 	 */
 	public void setObjectList(ObjectList newObjectList) {
 		String sqlstmt = "UPDATE task SET objectlist = " + newObjectList.asString() + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -153,7 +162,8 @@ import java.sql.SQLException;
 	 */
 	public void setCreator(User newCreator) {
 		String sqlstmt = "UPDATE task SET creator = " + newCreator.getUserName() + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
@@ -162,6 +172,7 @@ import java.sql.SQLException;
 	 */
 	public void setAssignedTo(User newAssignedTo) {
 		String sqlstmt = "UPDATE task SET assignedto = " + newAssignedTo.getUserName() + " WHERE name = " + name;
-		GUI.databaseUpdate(sqlstmt);
+		GUI guiInst = GUI.getInstance();
+		guiInst.databaseUpdate(sqlstmt);
 	}
 }

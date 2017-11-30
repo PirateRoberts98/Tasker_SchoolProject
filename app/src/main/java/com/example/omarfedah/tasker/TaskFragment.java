@@ -64,7 +64,7 @@ public class TaskFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
         //createListView() ;
-        //BuildDatabase() ;
+        BuildDatabase() ;
         //backendConnection = GUI.getInstance()  ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
@@ -294,14 +294,15 @@ public class TaskFragment extends Fragment {
     }
 
     private void BuildDatabase(){
-        String createTaskTable = "CREATE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
+        String createTaskTable = "CREATE TABLE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
                 "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
                 " assignedto TEXT)";
-        String createUserTable = "CREATE IF NOT EXISTS user(name TEXT PRIMARY KEY, icon TEXT, " +
+        String createUserTable = "CREATE TABLE IF NOT EXISTS user(name TEXT PRIMARY KEY, icon TEXT, " +
                 "password TEXT)";
-        String createObjectTable = "CREATE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
+        String createObjectTable = "CREATE TABLE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
                 "isgrocery INTEGER, isowned INTEGER)";
-        SQLiteDatabase conn = GUI.connect();
+        GUI guiInst = GUI.getInstance();
+        SQLiteDatabase conn = guiInst.connect();
         conn.execSQL(createTaskTable);
         conn.execSQL(createUserTable);
         conn.execSQL(createObjectTable);
