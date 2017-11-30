@@ -1,8 +1,12 @@
 package com.example.omarfedah.tasker;
 
 import android.app.DatePickerDialog;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.app.TimePickerDialog;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -47,17 +51,32 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
+
        // BuildDatabase() ;
-        createListView() ;
-        backendConnection = GUI.getInstance()  ;
+        //createListView() ;
+       // backendConnection = GUI.getInstance()  ;
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView drawer = (NavigationView) findViewById(R.id.nv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setDrawerContent(drawer);
 
-        Button addTaskButton = (Button) findViewById(R.id.addTask);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(toggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
+
+       /* Button addTaskButton = (Button) findViewById(R.id.addTask);
         Button switchUser = (Button) findViewById(R.id.switchUser);
         TextView addTaskText = (TextView) findViewById(R.id.textView4);
 
@@ -73,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        countTracker = 0;
+        countTracker = 1;
         switchUser.setOnClickListener(new View.OnClickListener(){
             //What happen when clicked and creation message
             public void onClick(View view){
@@ -276,7 +295,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //Testing Methods to initialize
        // completeTaskList.add( new Task("name",7, 7, "note", new ObjectList(), GUI.activeUser ,GUI.activeUser )) ;
-       /* Commented out to test type swap
+        Commented out to test type swap
         completeTaskList.add("Task 2");
         completeTaskList.add("Task 3");
         completeTaskList.add("Task 4");
@@ -293,17 +312,17 @@ public class HomeActivity extends AppCompatActivity {
         userList.add("KETCHUP");
     */
 
-       completeTaskList.add( new testTASK("exampleName", 15 ,true ,"this is a note ", null , null , null)) ;
-        userList.add( new testTASK("SKRAAAA", 420 ,true ,"this is a note ", null , null , null)) ;
-    }
-
+       //completeTaskList.add( new testTASK("exampleName", 15 ,true ,"this is a note ", null , null , null)) ;
+     //   userList.add( new testTASK("SKRAAAA", 420 ,true ,"this is a note ", null , null , null)) ;
+   // }
+/*
     private void swapUser(){
         if(countTracker % 2 == 0) {
-            adapter = new ChoresListAdapter(this, completeTaskList);
+            adapter = new ChoresListAdapter(this, userList);
             countTracker++;
         }
         else {
-            adapter= new ChoresListAdapter(this, userList);
+            adapter= new ChoresListAdapter(this, completeTaskList);
             countTracker++;
         }
         listView.setAdapter(adapter);
@@ -316,5 +335,46 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }*/
+
+    public void selectItemDrawer(MenuItem menuItem){
+        Fragment fragment = null;
+        Class fragmentClass;
+
+        switch (menuItem.getItemId()){
+            case R.id.taskListsMenu:
+                fragmentClass = TaskFragment.class;
+                break;
+            case R.id.shoppingListMenu:
+                fragmentClass = ShoppingListFragment.class;
+                break;
+
+            default:
+                fragmentClass = TaskFragment.class;
+        }
+        try{
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragmentSwitch, fragment).commit();
+        menuItem.setChecked(true);
+        drawerLayout.closeDrawers();
+
+
     }
+
+    private void setDrawerContent(NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectItemDrawer(item);
+                return true;
+
+            }
+        });
+    }
+
 }

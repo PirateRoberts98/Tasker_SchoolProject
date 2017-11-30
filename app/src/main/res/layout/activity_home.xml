@@ -10,81 +10,21 @@
     android:id="@+id/drawerLayout">
 
 
-    <LinearLayout
-        android:layout_width="353dp"
-        android:layout_height="490dp"
-        android:orientation="vertical"
-        android:weightSum="1"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/switchUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.97"
-                android:text="Switch User"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Only show your tasks"
-                android:textAlignment="viewStart"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/myTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.97"
-                android:text="My Tasks" />
-
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.94">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ListView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    tools:layout_editor_absoluteX="8dp"
-                    tools:layout_editor_absoluteY="14dp" />
-            </LinearLayout>
-        </ScrollView>
-
-        <Button
-            android:id="@+id/addTask"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:text="Add Task"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="492dp" />
-
-    </LinearLayout>
+    <fragment
+        android:id="@+id/fragmentSwitch"
+        android:name="com.example.omarfedah.tasker.TaskFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/nv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:menu="@menu/activity_navigator2_drawer"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_navigator2"
-
-        >
+>
 
     </android.support.design.widget.NavigationView>
 
