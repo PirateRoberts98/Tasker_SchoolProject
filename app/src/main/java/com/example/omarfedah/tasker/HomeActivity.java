@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     protected ArrayList userList ;
     protected ChoresListAdapter adapter ;
     protected ArrayList completeTaskList ;
+    static int countTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
+        countTracker = 0;
         switchUser.setOnClickListener(new View.OnClickListener(){
             //What happen when clicked and creation message
             public void onClick(View view){
@@ -297,7 +298,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void swapUser(){
-        adapter = new ChoresListAdapter(this, userList);
+        if(countTracker % 2 == 0) {
+            adapter = new ChoresListAdapter(this, completeTaskList);
+            countTracker++;
+        }
+        else {
+            adapter= new ChoresListAdapter(this, userList);
+            countTracker++;
+        }
         listView.setAdapter(adapter);
         Toast.makeText(this, "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
     }
