@@ -49,12 +49,9 @@ public class HomeActivity extends AppCompatActivity {
     protected ArrayList completeTaskList ;
     static int countTracker;
     static Context context;
-
     private TaskList allTasks;
     private TaskList userTasks;
     private TaskList completedTasks;
-
-    private ObjectList shoppingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         backendConnection = GUI.getInstance()  ;
-        BuildDatabase() ;
+        //BuildDatabase() ;
         //createListView() ;
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -77,8 +74,10 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setDrawerContent(drawer);
 
-        //generateTaskLists(); //Load the various task lists
-        //generateShoppingList(); //Load the shopping list
+        //Load the various task lists
+//        allTasks = backendConnection.getAllTasks();
+  //      userTasks = backendConnection.getUserTasks(backendConnection.activeUser.getUserName());
+    //    completedTasks = backendConnection.getCompletedTasks();
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
@@ -283,16 +282,6 @@ public class HomeActivity extends AppCompatActivity {
         conn.execSQL(createObjectTable);
         conn.close();
         Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
-    }
-
-    private void generateTaskLists() {
-        allTasks = backendConnection.getAllTasks();
-        userTasks = backendConnection.getUserTasks(backendConnection.activeUser.getUserName());
-        completedTasks = backendConnection.getCompletedTasks();
-    }
-
-    private void generateShoppingList() {
-        shoppingList = backendConnection.getShoppingList();
     }
 
     /*

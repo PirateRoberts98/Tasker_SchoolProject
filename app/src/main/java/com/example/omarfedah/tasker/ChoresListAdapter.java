@@ -48,6 +48,7 @@ public class ChoresListAdapter extends ArrayAdapter {
                          Integer.toString( listTasks.get(position).getEndDateTime() ) +
                 "\n" + "Description:");
 
+
       /*TO BE IMPLEMENTED LATER
 
         Icon a =       Icon.createWithFilePath("E:\\School\\Courses\\SEG2105\\Final_Project\\app\\src\\main\\res\\usericonsprofessor.png");
