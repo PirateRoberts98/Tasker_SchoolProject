@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class GUI {
 //Attributes
 
-	private static final String DATABASE_PATH = "app/src/main/res/database/Tasker.sqlite3";
+	private static final String DATABASE_PATH = "app/assets/Tasker.sqlite3";
 	public static User activeUser;
 	private static GUI singleInstance = null;
 

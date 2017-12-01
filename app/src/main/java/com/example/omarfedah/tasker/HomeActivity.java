@@ -56,10 +56,10 @@ public class HomeActivity extends AppCompatActivity {
         context = getApplicationContext();
 
 
-
-      // BuildDatabase() ;
-        //createListView() ;
         backendConnection = GUI.getInstance()  ;
+        //BuildDatabase() ;
+        //createListView() ;
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
