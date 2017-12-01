@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         backendConnection = GUI.getInstance()  ;
-        //BuildDatabase() ;
+        BuildDatabase() ;
         //createListView() ;
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);

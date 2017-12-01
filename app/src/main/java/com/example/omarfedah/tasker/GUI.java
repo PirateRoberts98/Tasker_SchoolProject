@@ -215,8 +215,9 @@ public class GUI {
 		SQLiteDatabase conn;
 		String dbPath = HomeActivity.getAppContext().getDatabasePath("Tasker").getPath();
 		conn = SQLiteDatabase.openDatabase(dbPath, null,
-				SQLiteDatabase.OPEN_READWRITE);
-		Toast.makeText(HomeActivity.getAppContext(), "Connected to Database", Toast.LENGTH_SHORT).show();
+				SQLiteDatabase.CREATE_IF_NECESSARY);
+		Toast.makeText(HomeActivity.getAppContext(), dbPath, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(HomeActivity.getAppContext(), "Connected to Database", Toast.LENGTH_SHORT).show();
 		return conn;
 	}
 

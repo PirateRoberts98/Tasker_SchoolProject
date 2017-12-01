@@ -285,8 +285,11 @@ public class TaskFragment extends Fragment {
         userList.add("KETCHUP");
 
         */
-        completeTaskList.add( new testTASK("exampleName", 15 ,true ,"this is a note ", null , null , null)) ;
-        userList.add( new testTASK("SKRAAAA", 420 ,true ,"this is a note ", null , null , null)) ;
+        ObjectList gun = new ObjectList() ;
+                gun.add(new PurchasableObject("Gun")) ;
+       // completeTaskList.add( new Task("exampleName", 15 ,1 ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"))) ;
+       // userList.add( new Task("SKRAAAA", 420 ,1 ,"this_is_a_note",gun , new User("ROBert") , new User("ROBert"))) ;
+
     }
 
     private void BuildDatabase(){

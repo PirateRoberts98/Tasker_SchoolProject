@@ -2,9 +2,7 @@ package com.example.omarfedah.tasker;
 
 import android.database.Cursor;
 
-/**
- * Created by Robert on 2017-11-29.
- */
+
 
 
 //NOTE: Can we use boolean for iscomplete and convert from database on call?

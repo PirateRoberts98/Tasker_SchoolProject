@@ -28,7 +28,7 @@ import java.sql.SQLException;
 	 */
 	public Task(String name, int endDateTime, int isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
 		this.name = name;
-		String values = "VALUES (" + name + "," + endDateTime + "," + isCompleted + "," + note + "," + objectList.asString() + "," + creator.getUserName() + "," + assignedTo.getUserName() + ")";
+		String values = "VALUES(" + name + "," + endDateTime + "," + isCompleted + "," + note + "," + objectList.asString() + "," + creator.getUserName() + "," + assignedTo.getUserName() + ")";
 		String sqlstmt = "INSERT INTO task(name,enddatetime,iscompleted,note,objectlist,creator,assignedto) " + values;
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
