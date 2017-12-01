@@ -66,6 +66,20 @@ public class GUI {
 	}
 
 	/**
+	 * Queries the database to generate a TaskList objects containing all tasks marked as completed.
+	 * @return TaskList object containing all tasks marked as completed.
+	 */
+	public TaskList getCompletedTasks() {
+		String sqlstmt = "SELECT name FROM task WHERE iscompleted = 1";
+		Cursor rs = databaseQuery(sqlstmt);
+		TaskList completedTasks = new TaskList();
+		while (rs.moveToNext()) {
+			String taskName = rs.getString(0);
+			completedTasks.add(new Task(taskName));
+		} return completedTasks;
+	}
+
+	/**
 	 * Calls the Task constructor to add a new task to the database.
 	 * @param taskName String containing the task name.
 	 * @param endDateTime Integer representation of the date and time, formatted as
@@ -125,11 +139,6 @@ public class GUI {
 	public void removeObject(String name) {
 		String sqlstmt = "DELETE FROM object WHERE name = " + name;
 		databaseUpdate(sqlstmt);
-    }
-	 //not sure what this is
-    public void addUser(GUI RAWSAUSE) {
-    	//interpret UI inputs
-    	//call com.example.omarfedah.tasker.User constructor method
     }
 
 	/**

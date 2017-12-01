@@ -49,6 +49,10 @@ public class HomeActivity extends AppCompatActivity {
     protected ArrayList completeTaskList ;
     static int countTracker;
     static Context context;
+    private TaskList allTasks;
+    private TaskList userTasks;
+    private TaskList completedTasks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,10 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setDrawerContent(drawer);
 
+        //Load the various task lists
+        allTasks = backendConnection.getAllTasks();
+        userTasks = backendConnection.getUserTasks(backendConnection.activeUser.getUserName());
+        completedTasks = backendConnection.getCompletedTasks();
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
