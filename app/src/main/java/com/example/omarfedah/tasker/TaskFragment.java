@@ -286,9 +286,12 @@ public class TaskFragment extends Fragment {
 
         */
         ObjectList gun = new ObjectList() ;
-                gun.add(new PurchasableObject("Gun")) ;
-       // completeTaskList.add( new Task("exampleName", 15 ,1 ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"))) ;
-       // userList.add( new Task("SKRAAAA", 420 ,1 ,"this_is_a_note",gun , new User("ROBert") , new User("ROBert"))) ;
+        gun.add(new PurchasableObject("Gun")) ;
+        Task task = new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"));
+        task.setTaskName("exampleName2");
+
+       // completeTaskList.add( new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"))) ;
+       // userList.add( new Task("SKRAAAA", 420 ,true ,"this_is_a_note",gun , new User("ROBert") , new User("ROBert"))) ;
 
     }
 

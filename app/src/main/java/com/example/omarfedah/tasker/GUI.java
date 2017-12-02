@@ -3,6 +3,8 @@ package com.example.omarfedah.tasker;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 import android.database.Cursor;
+
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -56,7 +58,7 @@ public class GUI {
 	 * @return TaskList object containing all tasks assigned to a specified user.
 	 */
 	public TaskList getUserTasks(String userName) {
-		String sqlstmt = "SELECT name FROM task WHERE assignedto = " + userName;
+		String sqlstmt = "SELECT name FROM task WHERE assignedto = " + "'" + userName + "'";
 		Cursor rs = databaseQuery(sqlstmt);
 		TaskList userTasks = new TaskList();
 		while (rs.moveToNext()) {
@@ -84,13 +86,13 @@ public class GUI {
 	 * @param taskName String containing the task name.
 	 * @param endDateTime Integer representation of the date and time, formatted as
 	 *                    YYYMMDDHHmm.
-	 * @param isCompleted int Boolean representation of the task's completed status.
+	 * @param isCompleted Boolean representation of the task's completed status.
 	 * @param note String containing any notes associated to the task.
 	 * @param objectList ObjectList containing any PurchasableObjects associated to the task.
 	 * @param creatorUser User that created the task.
 	 * @param assignedUser User that the task is assigned to.
 	 */
-    public void addTask(String taskName, int endDateTime, int isCompleted, String note,
+    public void addTask(String taskName, int endDateTime, Boolean isCompleted, String note,
 						ObjectList objectList, User creatorUser, User assignedUser) {
 		new Task(taskName, endDateTime, isCompleted, note, objectList, creatorUser, assignedUser);
     }
@@ -107,8 +109,7 @@ public class GUI {
 						User assignedUser) {
     	editedTask.setTaskName(taskName);
     	editedTask.setEndDateTime(endDateTime);
-  //COMMENTED AS CODE ERROR
-		// 	editedTask.setIsCompleted(isCompleted);
+		editedTask.setIsCompleted(isCompleted);
     	editedTask.setAssignedTo(assignedUser);
 	}
 
@@ -117,7 +118,7 @@ public class GUI {
 	 * @param name String containing the name of the task to be removed.
 	 */
     public void removeTask(String name) {
-		String sqlstmt = "DELETE FROM task WHERE name = " + name;
+		String sqlstmt = "DELETE FROM task WHERE name = " + "'" + name + "'";
 		databaseUpdate(sqlstmt);
     }
 
@@ -125,10 +126,10 @@ public class GUI {
 	 * Calls the PurchasableObject constructor to add a new PurchasableObject to the
 	 * database.
 	 * @param name String containing the PurchasableObject name.
-	 * @param isGrocery int Boolean representation of the PurchasableObject's 'isGrocery' status.
-	 * @param isOwned int Boolean representation of the PurchasableObject's 'isOwned' status.
+	 * @param isGrocery  Boolean representation of the PurchasableObject's 'isGrocery' status.
+	 * @param isOwned Boolean representation of the PurchasableObject's 'isOwned' status.
 	 */
-    public void addObject(String name, int isGrocery, int isOwned) {
+    public void addObject(String name, Boolean isGrocery, Boolean isOwned) {
 		new PurchasableObject(name, isGrocery, isOwned);
     }
 
@@ -137,7 +138,7 @@ public class GUI {
 	 * @param name String containing the PurchasableObject name.
 	 */
 	public void removeObject(String name) {
-		String sqlstmt = "DELETE FROM object WHERE name = " + name;
+		String sqlstmt = "DELETE FROM object WHERE name = " + "'" + name + "'";
 		databaseUpdate(sqlstmt);
     }
 
@@ -156,7 +157,7 @@ public class GUI {
 	 * @param name String containing the name of the user to be removed.
 	 */
     public void removeUser(String name) {
-		String sqlstmt = "DELTE FROM user WHERE name = " + name;
+		String sqlstmt = "DELETE FROM user WHERE name = " + "'" + name + "'";
 		databaseUpdate(sqlstmt);
     }
 
@@ -168,7 +169,7 @@ public class GUI {
 	 * @return True iff the input password matches the stored password.
 	 */
     public boolean authenticateUser(User user, String password){
-		String sqlstsmt = "SELECT password FROM user WHERE name = " + user.getUserName();
+		String sqlstsmt = "SELECT password FROM user WHERE name = " + "'" + user.getUserName() + "'";
 		Cursor rs = databaseQuery(sqlstsmt);
 		String storedPassword = rs.getString(2);
 		return (password.equals(storedPassword));
@@ -195,7 +196,7 @@ public class GUI {
 	 * @return ObjectList containing all existing unowned PurchasableObjects.
 	 */
 	public ObjectList getShoppingList() {
-		String sqlstmt = "SELECT name FROM object WHERE isowned = false";
+		String sqlstmt = "SELECT name FROM object WHERE isowned = 0";
 		Cursor rs = databaseQuery(sqlstmt);
 		ObjectList shoppingList = new ObjectList();
 		while (rs.moveToNext()) {
@@ -214,16 +215,27 @@ public class GUI {
 	public SQLiteDatabase connect() {
 		SQLiteDatabase conn;
 		String dbPath = HomeActivity.getAppContext().getDatabasePath("Tasker").getPath();
+		File dbFile = new File(dbPath);
+		//check to see if db file can located in android emulation
+		if (dbFile.exists()){
+			Toast.makeText(HomeActivity.getAppContext(),"Found DB File", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			Toast.makeText(HomeActivity.getAppContext(),"Didn't find DB File", Toast.LENGTH_SHORT).show();
+		}
 		conn = SQLiteDatabase.openDatabase(dbPath, null,
-				SQLiteDatabase.CREATE_IF_NECESSARY);
-		Toast.makeText(HomeActivity.getAppContext(), dbPath, Toast.LENGTH_SHORT).show();
+				SQLiteDatabase.OPEN_READWRITE);
+		//prints true if the SQLiteDatabase connection is open
+		Toast.makeText(HomeActivity.getAppContext(),Boolean.toString(conn.isOpen()), Toast.LENGTH_SHORT).show();
+
+		//Toast.makeText(HomeActivity.getAppContext(), dbPath, Toast.LENGTH_SHORT).show();
 		//Toast.makeText(HomeActivity.getAppContext(), "Connected to Database", Toast.LENGTH_SHORT).show();
 		return conn;
 	}
 
 	/**
 	 * Executes the specified SQL statement and returns any results as a Cursor object.
-	 * Used to query the databse.
+	 * Used to query the database.
 	 * @param sqlstmt String containing the SQL statement to be executed.
 	 * @return Cursor containing all results from the query.
 	 */

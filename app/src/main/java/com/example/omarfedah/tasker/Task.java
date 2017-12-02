@@ -20,16 +20,16 @@ import java.sql.SQLException;
 	 * @param name String containing the task name.
 	 * @param endDateTime Integer representing the end date and time of the task, formatted
 	 *                    as YYYYMMDDHHmm. Uses 24 hour time.
-	 * @param isCompleted int Boolean for whether or the task has been completed.
+	 * @param isCompleted Boolean for whether or the task has been completed.
 	 * @param note String containing a note associated to the task.
 	 * @param objectList ObjectList containing any objects associated to the task.
 	 * @param creator User that created the task.
 	 * @param assignedTo User the task is assigned to.
 	 */
-	public Task(String name, int endDateTime, int isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
+	public Task(String name, int endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
 		this.name = name;
-		String values = "VALUES(" + name + "," + endDateTime + "," + isCompleted + "," + note + "," + objectList.asString() + "," + creator.getUserName() + "," + assignedTo.getUserName() + ")";
-		String sqlstmt = "INSERT INTO task(name,enddatetime,iscompleted,note,objectlist,creator,assignedto) " + values;
+		String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
+		String sqlstmt = "INSERT INTO task(name,enddatetime, iscompleted, note, objectlist, creator, assignedto) " + values;
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
@@ -56,7 +56,7 @@ import java.sql.SQLException;
 	 * @return Integer representation of datetime, formatted as YYYYMMDDHHmm.
 	 */
 	public int getEndDateTime() {
-		String sqlstmt = "SELECT enddatetime FROM task WHERE name = " + name;
+		String sqlstmt = "SELECT enddatetime FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		Cursor rs =guiInst.databaseQuery(sqlstmt);
 		return rs.getInt(1);
@@ -64,21 +64,21 @@ import java.sql.SQLException;
 
 	/**
 	 * Getter for task completed status.
-	 * @return int Boolean representing task completed status.
+	 * @return  Boolean representing task completed status.
 	 */
-	public int getIsCompleted() {
-		String sqlstmt = "SELECT iscompleted FROM task WHERE name = " + name;
+	public Boolean getIsCompleted() {
+		String sqlstmt = "SELECT iscompleted FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		Cursor rs =guiInst.databaseQuery(sqlstmt);
-		return rs.getInt(2);
+		return (rs.getInt(2) == 1);
 	}
 
 	/**
 	 * Getter for a task's associated ObjectList.
-	 * @return ObjectList containing all onjects associated with the task.
+	 * @return ObjectList containing all objects associated with the task.
 	 */
 	public ObjectList getObjectList() {
-		String sqlstmt = "SELECT objectlist FROM task WHERE name = " + name;
+		String sqlstmt = "SELECT objectlist FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String objectListString = rs.getString(4);
@@ -95,7 +95,7 @@ import java.sql.SQLException;
 	 * @return User who created the task.
 	 */
 	public User getCreator() {
-		String sqlstmt = "SELECT creator FROM task WHERE name = " + name;
+		String sqlstmt = "SELECT creator FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String creatorName = rs.getString(5);
@@ -107,7 +107,7 @@ import java.sql.SQLException;
 	 * @return User the task is assigned to.
 	 */
 	public User getAssignedTo() {
-		String sqlstmt = "SELECT assignedto FROM task WHERE name = " + name;
+		String sqlstmt = "SELECT assignedto FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String assignedToName = rs.getString(6);
@@ -119,7 +119,7 @@ import java.sql.SQLException;
 	 * @param newName String containing the new task name.
 	 */
 	public void setTaskName(String newName) {
-		String sqlstmt = "UPDATE task SET name = " + newName + " WHERE name = " + name;
+		String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
@@ -131,17 +131,17 @@ import java.sql.SQLException;
 	 *                       YYYYMMDDHHmm.
 	 */
 	public void setEndDateTime(int newEndDateTime) {
-		String sqlstmt = "UPDATE task SET enddatetime = " + newEndDateTime + " WHERE name = " + name;
+		String sqlstmt = "UPDATE task SET enddatetime = " + newEndDateTime + " WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
 	 * Used to edit the completed status of an existing task.
-	 * @param newIsCompleted int Boolean representing the new completed status.
+	 * @param newIsCompleted Boolean representing the new completed status.
 	 */
-	public void setIsCompleted(int newIsCompleted) {
-		String sqlstmt = "UPDATE task SET iscompleted = " + newIsCompleted + " WHERE name = " + name;
+	public void setIsCompleted(Boolean newIsCompleted) {
+		String sqlstmt = "UPDATE task SET iscompleted = " + (newIsCompleted ? 1 : 0) + " WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
@@ -151,7 +151,7 @@ import java.sql.SQLException;
 	 * @param newObjectList ObjectList containing the new list of associated objects
 	 */
 	public void setObjectList(ObjectList newObjectList) {
-		String sqlstmt = "UPDATE task SET objectlist = " + newObjectList.asString() + " WHERE name = " + name;
+		String sqlstmt = "UPDATE task SET objectlist = '" + newObjectList.asString() + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
@@ -161,7 +161,7 @@ import java.sql.SQLException;
 	 * @param newCreator New User to be set as the creator.
 	 */
 	public void setCreator(User newCreator) {
-		String sqlstmt = "UPDATE task SET creator = " + newCreator.getUserName() + " WHERE name = " + name;
+		String sqlstmt = "UPDATE task SET creator = '" + newCreator.getUserName() + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
@@ -171,7 +171,7 @@ import java.sql.SQLException;
 	 * @param newAssignedTo New User for the task to be assigned to.
 	 */
 	public void setAssignedTo(User newAssignedTo) {
-		String sqlstmt = "UPDATE task SET assignedto = " + newAssignedTo.getUserName() + " WHERE name = " + name;
+		String sqlstmt = "UPDATE task SET assignedto = '" + newAssignedTo.getUserName() + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}

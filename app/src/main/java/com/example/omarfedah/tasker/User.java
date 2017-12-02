@@ -14,19 +14,19 @@ import android.database.Cursor;
 	 * Constructor for User object. Adds the newly created User to the database and returns
 	 * an instance of the new User object.
 	 * @param name String containing the User's name
-	 * @param icon String representaing of the User's selected icon.
+	 * @param icon String representing of the User's selected icon.
 	 * @param password String containing the user's password.
 	 */
 	public User(String name, String icon, String password ){
 		this.name = name;
-		String values = "VALUES (" + name + "," + icon + "," + password + ")";
+		String values = "VALUES ('" + name + "','" + icon + "','" + password + "')";
 		String sqlstmt = "INSERT INTO user(name, icon, password) " + values;
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
 
 	/**
-	 * Secondary constructor for User object. Returns an insatnce of User without creating a
+	 * Secondary constructor for User object. Returns an instance of User without creating a
 	 * new entry in the database.
 	 * @param name String containing the User's name.
 	 */
@@ -47,7 +47,7 @@ import android.database.Cursor;
 	 * @return String representation of the user's icon.
 	 */
 	public String getIcon() {
-		String sqlstmt = "SELECT icon FROM user WHERE name = " + name;
+		String sqlstmt = "SELECT icon FROM user WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		Cursor rs = guiInst.databaseQuery(sqlstmt);
 		String icon = rs.getString(1);
@@ -59,7 +59,7 @@ import android.database.Cursor;
 	 * @param newName String containing the user's new name.
 	 */
 	public void setName(String newName) {
-		String sqlstmt = "UPDATE user SET name = " + newName + " WHERE name = " + name;
+		String sqlstmt = "UPDATE user SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
@@ -70,7 +70,7 @@ import android.database.Cursor;
 	 * @param newIcon String representation of the user's new icon.
 	 */
 	public void setIcon(String newIcon) {
-		String sqlstmt = "UPDATE user SET icon = " + newIcon + " WHERE name = " + name;
+		String sqlstmt = "UPDATE user SET icon = '" + newIcon + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
@@ -80,7 +80,7 @@ import android.database.Cursor;
 	 * @param newPassword String containing the user's new password.
 	 */
 	public void setPassword(String newPassword) {
-		String sqlstmt = "UPDATE user SET password = " + newPassword + " WHERE name = " + name;
+		String sqlstmt = "UPDATE user SET password = '" + newPassword + "' WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}

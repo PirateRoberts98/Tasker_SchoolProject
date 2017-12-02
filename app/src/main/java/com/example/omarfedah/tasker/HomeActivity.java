@@ -269,6 +269,18 @@ public class HomeActivity extends AppCompatActivity {
 
 */
     private void BuildDatabase(){
+
+        SQLiteDatabase conn = backendConnection.connect();
+
+        //drops any existing table, for testing
+        String clearTaskTable = "DROP TABLE task";
+        String clearUserTable = "DROP TABLE user";
+        String clearObjectTable = "DROP TABLE object";
+        //comment these out to keep values stored across simulations
+        conn.execSQL(clearTaskTable);
+        conn.execSQL(clearUserTable);
+        conn.execSQL(clearObjectTable);
+
         String createTaskTable = "CREATE TABLE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
                 "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
                 " assignedto TEXT)";
@@ -276,12 +288,14 @@ public class HomeActivity extends AppCompatActivity {
                 "password TEXT)";
         String createObjectTable = "CREATE TABLE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
                 "isgrocery INTEGER, isowned INTEGER)";
-        SQLiteDatabase conn = backendConnection.connect();
         conn.execSQL(createTaskTable);
         conn.execSQL(createUserTable);
         conn.execSQL(createObjectTable);
+
+
+
         conn.close();
-        Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
     }
 
     /*
