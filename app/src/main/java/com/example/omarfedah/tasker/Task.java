@@ -1,6 +1,8 @@
 package com.example.omarfedah.tasker;
 
 import android.database.Cursor;
+import android.util.Log;
+
 import java.sql.SQLException;
 
 
@@ -58,8 +60,10 @@ import java.sql.SQLException;
 	public int getEndDateTime() {
 		String sqlstmt = "SELECT enddatetime FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
-		Cursor rs =guiInst.databaseQuery(sqlstmt);
-		return rs.getInt(1);
+		QueryResult qr = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
+		return rs.getInt(rs.getColumnIndex("enddatetime"));
 	}
 
 	/**
@@ -69,7 +73,9 @@ import java.sql.SQLException;
 	public Boolean getIsCompleted() {
 		String sqlstmt = "SELECT iscompleted FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
-		Cursor rs =guiInst.databaseQuery(sqlstmt);
+		QueryResult qr =guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		return (rs.getInt(2) == 1);
 	}
 
@@ -80,7 +86,9 @@ import java.sql.SQLException;
 	public ObjectList getObjectList() {
 		String sqlstmt = "SELECT objectlist FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
-		Cursor rs = guiInst.databaseQuery(sqlstmt);
+		QueryResult qr = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		String objectListString = rs.getString(4);
 		String[] objects = objectListString.split("/");
 		ObjectList objectList = new ObjectList();
@@ -97,7 +105,9 @@ import java.sql.SQLException;
 	public User getCreator() {
 		String sqlstmt = "SELECT creator FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
-		Cursor rs = guiInst.databaseQuery(sqlstmt);
+		QueryResult qr = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		String creatorName = rs.getString(5);
         return new User(creatorName);
 	}
@@ -109,7 +119,9 @@ import java.sql.SQLException;
 	public User getAssignedTo() {
 		String sqlstmt = "SELECT assignedto FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
-		Cursor rs = guiInst.databaseQuery(sqlstmt);
+		QueryResult qr = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		String assignedToName = rs.getString(6);
         return new User(assignedToName);
 	}

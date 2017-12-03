@@ -65,7 +65,7 @@ public class TaskFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
-        createTaskLists();
+//TODO Fix Method        createTaskLists();
         createListView() ;
         backendConnection = GUI.getInstance() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
@@ -271,9 +271,10 @@ public class TaskFragment extends Fragment {
                                 }else {
                                     //todo Correctly parse String to only get values
                                     ((ChoresListAdapter) listView.getAdapter()).getList().add(
-                                            new Task(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/","")) ,
+                                            backendConnection.addTask(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/","")) ,
                                                     true ,"this is a note ",new ObjectList() ,
                                                     backendConnection.activeUser , backendConnection.activeUser)) ;
+
                                     ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
                                     Toast.makeText(getContext(), "Not yet implemented",
                                             Toast.LENGTH_SHORT).show();
@@ -340,5 +341,16 @@ public class TaskFragment extends Fragment {
         allTasks = backendConnection.getAllTasks();
         userTasks = backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName());
         completedTasks = backendConnection.getCompletedTasks();
+    }
+
+    private boolean verifyUser(String user ){
+        UserList users = backendConnection.getAllUser() ;
+        ArrayList<User> userList = users.getList() ;
+        for (int i = 0 ; i< userList.size(); i++) {
+            if (user.equals(userList.get(i).getUserName())) {
+                return true;
+            }
+        }
+        return false ;
     }
 }
