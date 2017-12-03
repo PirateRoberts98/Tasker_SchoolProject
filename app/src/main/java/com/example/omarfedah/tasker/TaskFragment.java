@@ -38,8 +38,7 @@ public class TaskFragment extends Fragment {
     public DatePickerDialog.OnDateSetListener dateSetListener;
     public TimePickerDialog.OnTimeSetListener timeSetListener;
 
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle toggle;
+    private int getDate ;
     public GUI backendConnection ;
     static int countTracker;
     private View view;
@@ -62,21 +61,22 @@ public class TaskFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
         createListView() ;
-       // BuildDatabase() ;
-        //backendConnection = GUI.getInstance()  ;
+
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
-        /*
+        //TEST Used For Quick Additions
         addTaskText.setOnClickListener(new View.OnClickListener(){
-            //What happpen when clicked and creation message
+
             public void onClick(View view){
                 ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
-                a.getList().add( new testTASK("HALA MADRID", 10 ,true ,"this is a note ", null , null , null) );
+                ObjectList gun = new ObjectList() ;
+                gun.add(new PurchasableObject("Gun")) ;
+                a.getList().add( new Task("HALA MADRID", 10 ,true ,"this is a note ", gun  , new User("Rob") , new User("Rob") ));
                 adapter.notifyDataSetChanged() ;
 
             }
-        });*/
+        }) ;
 
 
 
@@ -100,15 +100,33 @@ public class TaskFragment extends Fragment {
 
             }
         });
+        //PUT ADDED VALUES HERE
+        int year ;
+        //creates dialog
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
 
+        //Functionality inside dialog, cancel
+        Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
+        Button create = (Button) mView.findViewById(R.id.createBtn);
 
+        final EditText etTaskName = (EditText) mView.findViewById(R.id.etTaskName);
+        final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
+        final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
+
+        final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
+        final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
+        final TextView time = (TextView) mView.findViewById(R.id.etTime);
+        //todo Create New OnClickListener to send values out of buttons scope
         //Adding task methods
         addTaskButton.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        //PUT ADDED VALUES HERE
 
+
+                        //PUT ADDED VALUES HERE
+                        int year ;
                         //creates dialog
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                         View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
@@ -200,6 +218,8 @@ public class TaskFragment extends Fragment {
                             }
 
                         });
+
+
                         //Displays dialog
                         builder.setView(mView);
                         final AlertDialog dialog = builder.create();
@@ -208,10 +228,6 @@ public class TaskFragment extends Fragment {
                         int startDateValue ;
                         int endDateValue   ;
                         String nameValue   ;
-                        //USED FOR LEARNING HOW WORKS
-                        etTaskName.getText().toString() ;
-                        etTaskDesc.getText()  ;
-                        etPersonTo.getText() ;
 
 
 
@@ -243,6 +259,8 @@ public class TaskFragment extends Fragment {
                 });
 
         return view;}
+
+
     private void createListView() {
 
         //Intializing the List View -R
@@ -260,31 +278,10 @@ public class TaskFragment extends Fragment {
 
                     }
                 });
-
         adapter = new ChoresListAdapter(getActivity(), completeTaskList);
         listView.setAdapter(adapter);
 
 
-        //Testing Methods to initialize
-        // completeTaskList.add( new Task("name",7, 7, "note", new ObjectList(), GUI.activeUser ,GUI.activeUser )) ;
-       //Commented out to test type swap
-        /*
-        //completeTaskList.add("Task 2");
-        //completeTaskList.add("Task 3");
-        //completeTaskList.add("Task 4");
-        //completeTaskList.add("Task 4");
-        completeTaskList.add("Task 4");
-        completeTaskList.add("Task 4");
-        completeTaskList.add("Task 4");
-        completeTaskList.add("Task 4");
-
-        //End of Test
-        userList.add("SKRAAAAA");
-        userList.add("AND A BOOM BOOM POW");
-        userList.add("RAW SAUCE");
-        userList.add("KETCHUP");
-
-        */
         ObjectList gun = new ObjectList() ;
         gun.add(new PurchasableObject("Gun")) ;
         Task task = new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"));
@@ -295,30 +292,15 @@ public class TaskFragment extends Fragment {
 
     }
 
-    private void BuildDatabase(){
-        String createTaskTable = "CREATE TABLE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
-                "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
-                " assignedto TEXT)";
-        String createUserTable = "CREATE TABLE IF NOT EXISTS user(name TEXT PRIMARY KEY, icon TEXT, " +
-                "password TEXT)";
-        String createObjectTable = "CREATE TABLE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
-                "isgrocery INTEGER, isowned INTEGER)";
-       GUI guiInst = GUI.getInstance();
-        SQLiteDatabase conn = guiInst.connect();
-        conn.execSQL(createTaskTable);
-        conn.execSQL(createUserTable);
-        conn.execSQL(createObjectTable);
-        Toast.makeText(getContext(), "DataBaseCreated", Toast.LENGTH_SHORT).show();
-    }
 
     private void swapUser(){
         if(countTracker % 2 == 0) {
             adapter = new ChoresListAdapter(getActivity(), userList);
-            countTracker++;
+            countTracker = 1 ;
         }
         else {
             adapter= new ChoresListAdapter(getActivity(), completeTaskList);
-            countTracker++;
+            countTracker = 0 ;
         }
         listView.setAdapter(adapter);
         Toast.makeText(getContext(), "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();

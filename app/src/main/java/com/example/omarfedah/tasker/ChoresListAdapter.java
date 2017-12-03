@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class ChoresListAdapter extends ArrayAdapter {
 
     private final Context context;
-    private ArrayList<testTASK> listTasks;
+    private ArrayList<Task> listTasks;
 
-    //YET TO IMPLEMENT LIST AND NOT ARRAY
+
     ChoresListAdapter(Context context, ArrayList list){
         super(context, R.layout.chores_list_activity, list);
 
@@ -27,9 +27,10 @@ public class ChoresListAdapter extends ArrayAdapter {
         this.context = context;
     }
 
-    public ArrayList getActiveList(){
+    public ArrayList getList(){
         return listTasks ;
     }
+
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -49,7 +50,7 @@ public class ChoresListAdapter extends ArrayAdapter {
                 "\n" + "Description:");
 
 
-      /*TO BE IMPLEMENTED LATER
+      /*TODO IMPLEMENTED LATER
 
         Icon a =       Icon.createWithFilePath("E:\\School\\Courses\\SEG2105\\Final_Project\\app\\src\\main\\res\\usericonsprofessor.png");
         choreImage.setImageIcon(a) ;
@@ -58,9 +59,6 @@ public class ChoresListAdapter extends ArrayAdapter {
         return rowView;
     }
 
-    public ArrayList getList(){
-        return listTasks ;
-    }
 
 
 
