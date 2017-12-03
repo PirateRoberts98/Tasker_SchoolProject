@@ -274,11 +274,12 @@ public class TaskFragment extends Fragment {
         adapter = new ChoresListAdapter(getActivity(), completeTaskList);
         listView.setAdapter(adapter);
 
-
-        ObjectList gun = new ObjectList() ;
+//fixme 
+        /*ObjectList gun = new ObjectList() ;
         gun.add(new PurchasableObject("Gun")) ;
         Task task = new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"));
         task.setTaskName("exampleName2");
+        task.getEndDateTime();*/
 
        // completeTaskList.add( new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"))) ;
        // userList.add( new Task("SKRAAAA", 420 ,true ,"this_is_a_note",gun , new User("ROBert") , new User("ROBert"))) ;
