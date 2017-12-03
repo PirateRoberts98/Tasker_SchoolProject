@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_row="1"
-                android:text="User 1"
+                android:text="Phillip"
                 android:textAlignment="center" />
 
             <ImageView
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_row="1"
-                android:text="User 2"
+                android:text="Robert"
                 android:textAlignment="center" />
 
             <ImageView
@@ -74,7 +74,7 @@
                 android:id="@+id/userName3"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:text="User 3"
+                android:text="Fedah"
                 android:textAlignment="center" />
 
             <ImageView
@@ -90,7 +90,7 @@
                 android:id="@+id/userName4"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:text="User 4"
+                android:text="Cooper"
                 android:textAlignment="center" />
 
         </GridLayout>

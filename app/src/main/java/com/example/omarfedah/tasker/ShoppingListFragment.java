@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class ShoppingListFragment extends Fragment {
 
-    
+    //todo remove Toasts, RM Database
 
 
     ListView groceryListView;

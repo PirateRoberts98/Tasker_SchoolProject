@@ -199,7 +199,7 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstsmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
-		String storedPassword = rs.getString(2);
+		String storedPassword = rs.getString(0);
 		qr.close();
 		return (password.equals(storedPassword));
 	}
