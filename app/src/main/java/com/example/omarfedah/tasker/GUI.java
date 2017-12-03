@@ -207,10 +207,18 @@ public class GUI {
 
 	/**
 	 * Getter method for the currently active user.
-	 * @return User current user.
+	 * @return User Current user.
 	 */
 	public User getActiveUser() {
 		return activeUser;
+	}
+
+	/**
+	 * Setter method for setting the currently active user.
+	 * @param user New current user.
+	 */
+	public void setActiveUser(User user) {
+		activeUser = user;
 	}
 
 

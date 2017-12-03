@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -69,6 +70,17 @@ public class TaskFragment extends Fragment {
         backendConnection = GUI.getInstance() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
+
+        ImageView selectUserOne = (ImageView) view.findViewById(R.id.user1);
+        ImageView selectUserTwo = (ImageView) view.findViewById(R.id.user2);
+        ImageView selectUserThree = (ImageView) view.findViewById(R.id.user3);
+        ImageView selectUserFour = (ImageView) view.findViewById(R.id.user4);
+
+        TextView userNameOne = (TextView) view.findViewById(R.id.textView3);
+        TextView userNameTwo = (TextView) view.findViewById(R.id.textView8);
+        TextView userNameThree = (TextView) view.findViewById(R.id.textView9);
+        TextView userNameFour = (TextView) view.findViewById(R.id.textView10);
+
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
         //TEST Used For Quick Additions
         addTaskText.setOnClickListener(new View.OnClickListener(){
@@ -106,6 +118,29 @@ public class TaskFragment extends Fragment {
             }
         });
 
+        selectUserOne.setOnClickListener(new View.OnClickListener() {
+            public void OnClick(View view) {
+                backendConnection.setActiveUser()
+            }
+        });
+
+        selectUserTwo.setOnClickListener(new View.OnClickListener() {
+            public void OnClick(View view) {
+
+            }
+        });
+
+        selectUserThree.setOnClickListener(new View.OnClickListener() {
+            public void OnClick(View view) {
+
+            }
+        });
+
+        selectUserFour.setOnClickListener(new View.OnClickListener() {
+            public void OnClick(View view) {
+
+            }
+        });
 
         //todo Create New OnClickListener to send values out of buttons scope
         //Adding task methods
