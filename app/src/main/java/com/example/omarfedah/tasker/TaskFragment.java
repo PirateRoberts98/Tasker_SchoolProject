@@ -306,4 +306,15 @@ public class TaskFragment extends Fragment {
         userTasks = backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName());
         completedTasks = backendConnection.getCompletedTasks();
     }
+
+    private boolean verifyUser(String user ){
+        UserList users = backendConnection.getAllUser() ;
+        ArrayList usrList = users.getList() ;
+        for (int i = 0 ; i< userList.size(); i++) {
+            if (user.equals(users.getUserName())) {
+                return true;
+            }
+        }
+        return false ;
+    }
 }
