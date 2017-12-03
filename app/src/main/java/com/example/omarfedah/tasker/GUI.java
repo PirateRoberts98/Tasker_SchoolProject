@@ -306,12 +306,15 @@ public class GUI {
 
 	}
 
-	public void checkUniqueID(String uniqueID, String tableName) throws UniqueIDException {
+	public Boolean checkUniqueID(String uniqueID, String tableName) throws UniqueIDException {
 	    String sqlstmt = "SELECT name FROM " + tableName + " WHERE name = '" + uniqueID + "'";
+	    Boolean isUniqueID = true;
 	    try {
 	        QueryResult qr = databaseQuery(sqlstmt);
         } catch (Exception e) {
-	        throw new UniqueIDException();
-        }
+			isUniqueID = false;
+			throw new UniqueIDException();
+
+        } return isUniqueID;
     }
 }

@@ -18,14 +18,13 @@ import android.database.Cursor;
 	 * @param password String containing the user's password.
 	 */
 	public User(String name, String icon, String password ) throws UniqueIDException{
-		try {
-			GUI guiInst = GUI.getInstance();
-			guiInst.checkUniqueID(name, "user");
+		GUI guiInst = GUI.getInstance();
+		if (guiInst.checkUniqueID(name, "user")) {
 			this.name = name;
 			String values = "VALUES ('" + name + "','" + icon + "','" + password + "')";
 			String sqlstmt = "INSERT INTO user(name, icon, password) " + values;
 			guiInst.databaseUpdate(sqlstmt);
-		} catch (UniqueIDException e){}
+		}
 	}
 
 	/**
@@ -64,10 +63,11 @@ import android.database.Cursor;
 	 */
 	public void setName(String newName) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
-		guiInst.checkUniqueID(newName, "user");
-		String sqlstmt = "UPDATE user SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
-		guiInst.databaseUpdate(sqlstmt);
-		this.name = newName;
+		if(guiInst.checkUniqueID(newName, "user")) {
+			String sqlstmt = "UPDATE user SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
+			guiInst.databaseUpdate(sqlstmt);
+			this.name = newName;
+		}
 	}
 
 	/**

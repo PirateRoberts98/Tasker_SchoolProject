@@ -23,14 +23,13 @@ class PurchasableObject extends Collectable {
 	 * @param isOwned Boolean representation of whether the PurchasableObject is owned.
 	 */
 	public PurchasableObject(String name, Boolean isGrocery, Boolean isOwned) throws UniqueIDException{
-		try {
-			GUI guiInst = GUI.getInstance();
-			guiInst.checkUniqueID(name, "object");
+		GUI guiInst = GUI.getInstance();
+		if (guiInst.checkUniqueID(name, "object")) {
 			this.name = name;
 			String values = "VALUES ('" + name + "'," + (isGrocery ? 1 : 0) + "," + (isOwned ? 1 : 0) + ")";
 			String sqlstmt = "INSERT INTO object(name, isGrocery, isOwned) " + values;
 			guiInst.databaseUpdate(sqlstmt);
-		} catch (UniqueIDException e) {}
+		}
 	}
 
 	/**
@@ -82,10 +81,11 @@ class PurchasableObject extends Collectable {
 	 */
 	public void setObjectName(String newName) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
-		guiInst.checkUniqueID(newName, "object");
-		String sqlstmt = "UPDATE object SET name = '" + newName + "' WHERE name = " + "," + name + ",";
-		guiInst.databaseUpdate(sqlstmt);
-		this.name = newName;
+		if (guiInst.checkUniqueID(newName, "object")) {
+			String sqlstmt = "UPDATE object SET name = '" + newName + "' WHERE name = " + "," + name + ",";
+			guiInst.databaseUpdate(sqlstmt);
+			this.name = newName;
+		}
 	}
 
 	/**

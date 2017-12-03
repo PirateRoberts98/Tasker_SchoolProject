@@ -29,14 +29,13 @@ import java.sql.SQLException;
 	 * @param assignedTo User the task is assigned to.
 	 */
 	public Task(String name, long endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
-		try {
-			GUI guiInst = GUI.getInstance();
-			guiInst.checkUniqueID(name, "task");
+		GUI guiInst = GUI.getInstance();
+		if (guiInst.checkUniqueID(name, "task")) {
 			this.name = name;
 			String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
 			String sqlstmt = "INSERT INTO task(name,enddatetime, iscompleted, note, objectlist, creator, assignedto) " + values;
 			guiInst.databaseUpdate(sqlstmt);
-		} catch (UniqueIDException e) {}
+		}
 	}
 
 	/**
@@ -135,10 +134,11 @@ import java.sql.SQLException;
 	 */
 	public void setTaskName(String newName) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
-		guiInst.checkUniqueID(newName, "task");
-		String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
-		guiInst.databaseUpdate(sqlstmt);
-		this.name = newName;
+		if (guiInst.checkUniqueID(newName, "task")) {
+			String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
+			guiInst.databaseUpdate(sqlstmt);
+			this.name = newName;
+		}
 	}
 
 	/**
