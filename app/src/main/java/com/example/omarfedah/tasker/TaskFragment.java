@@ -176,17 +176,17 @@ public class TaskFragment extends Fragment {
                         final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
                         final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
 
-                        final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
+                        //final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
                         final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
                         final TextView time = (TextView) mView.findViewById(R.id.etTime);
 
-                         String startDateValue = startDate.getText().toString() ;
+                        // String startDateValue = startDate.getText().toString() ;
                          String endDateValue = endDate.getText().toString() ;
                          String timeValue = time.getText().toString() ;
 
 
                         //START DAY SETTER
-                        startDate.setOnClickListener(
+                        /*startDate.setOnClickListener(
                                 new View.OnClickListener(){
                                     public void onClick(View view){
                                         Calendar calendar = Calendar.getInstance();
@@ -208,7 +208,7 @@ public class TaskFragment extends Fragment {
                                         };
                                     }
 
-                                });
+                                });*/
 
 
 
@@ -279,7 +279,7 @@ public class TaskFragment extends Fragment {
                                 if (verifyUser(etPersonTo.getText().toString())) {
                                     if (etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
                                             || etPersonTo.getText().toString().isEmpty() || endDate.getText().toString().equals("Choose End Date")
-                                            || startDate.getText().toString().equals("Choose End Date") || time.getText().toString().equals("Choose time")) {
+                                            || time.getText().toString().equals("Choose time")) {
                                         try {
                                             //TODO Change to backendConnection.addTask
                                             ((ChoresListAdapter) listView.getAdapter()).getList().add(
