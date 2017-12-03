@@ -122,6 +122,7 @@ public class TaskFragment extends Fragment {
                 selectUserOne.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         backendConnection.setActiveUser(new User(userNameOne.getText().toString()));
+                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -129,6 +130,7 @@ public class TaskFragment extends Fragment {
                 selectUserTwo.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         backendConnection.setActiveUser(new User(userNameTwo.getText().toString()));
+                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -136,6 +138,7 @@ public class TaskFragment extends Fragment {
                 selectUserThree.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         backendConnection.setActiveUser(new User(userNameThree.getText().toString()));
+                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -143,6 +146,7 @@ public class TaskFragment extends Fragment {
                 selectUserFour.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         backendConnection.setActiveUser(new User(userNameFour.getText().toString()));
+                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
