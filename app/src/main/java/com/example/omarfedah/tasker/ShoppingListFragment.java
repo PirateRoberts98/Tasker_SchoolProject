@@ -29,6 +29,7 @@ public class ShoppingListFragment extends Fragment {
     GUI backendConnection ;
     ArrayList<testObject> groceryList ;
     ArrayList<testObject> materialList ;
+
     public ShoppingListFragment() {
         // Required empty public constructor
     }

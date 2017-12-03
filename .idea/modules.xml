@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://E:\School\Courses\SEG2105\SEG2105_Project_Android\Final_Project.iml" filepath="E:\School\Courses\SEG2105\SEG2105_Project_Android\Final_Project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SEG2105_Project_Android.iml" filepath="$PROJECT_DIR$/SEG2105_Project_Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SEG2105_Project.iml" filepath="$PROJECT_DIR$/SEG2105_Project.iml" />
+      <module fileurl="file://C:\Users\Cooper\Documents\GitHub\SEG2105_Project\SEG2105_Project_Android.iml" filepath="C:\Users\Cooper\Documents\GitHub\SEG2105_Project\SEG2105_Project_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

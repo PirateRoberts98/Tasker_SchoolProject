@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -69,6 +70,7 @@ public class TaskFragment extends Fragment {
         backendConnection = GUI.getInstance() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
+
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
         //TEST Used For Quick Additions
         addTaskText.setOnClickListener(new View.OnClickListener(){
@@ -77,9 +79,12 @@ public class TaskFragment extends Fragment {
                 ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
                 ObjectList gun = new ObjectList() ;
                 gun.add(new PurchasableObject("Gun")) ;
-                a.getList().add( new Task("HALA MADRID", 10 ,true ,"this is a note ", gun  , new User("Rob") , new User("Rob") ));
-                adapter.notifyDataSetChanged() ;
-
+                //TODO Error needs to be fixed
+                try {
+                    a.getList().add(new Task("HALA MADRID", 10, true, "this is a note ", gun, new User("Rob"), new User("Rob")));
+                    adapter.notifyDataSetChanged();
+                } catch (UniqueIDException e) {
+                }
             }
         }) ;
 
@@ -91,6 +96,17 @@ public class TaskFragment extends Fragment {
             public void onClick(View view){
                 final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
                 View mView = getLayoutInflater().inflate(R.layout.activity_user_select, null);
+
+                ImageView selectUserOne = (ImageView) mView.findViewById(R.id.user1);
+                ImageView selectUserTwo = (ImageView) mView.findViewById(R.id.user2);
+                ImageView selectUserThree = (ImageView) mView.findViewById(R.id.user3);
+                ImageView selectUserFour = (ImageView) mView.findViewById(R.id.user4);
+
+                final TextView userNameOne = (TextView) mView.findViewById(R.id.textView3);
+                final TextView userNameTwo = (TextView) mView.findViewById(R.id.textView8);
+                final TextView userNameThree = (TextView) mView.findViewById(R.id.textView9);
+                final TextView userNameFour = (TextView) mView.findViewById(R.id.textView10);
+
                 Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
                 alertBuilder.setView(mView);
                 final AlertDialog dialog = alertBuilder.create();
@@ -103,9 +119,38 @@ public class TaskFragment extends Fragment {
                     }
                 });
 
-            }
-        });
+                selectUserOne.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        backendConnection.setActiveUser(new User(userNameOne.getText().toString()));
+                        dialog.cancel();
+                    }
+                });
 
+                selectUserTwo.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        backendConnection.setActiveUser(new User(userNameTwo.getText().toString()));
+                        dialog.cancel();
+                    }
+                });
+
+                selectUserThree.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        backendConnection.setActiveUser(new User(userNameThree.getText().toString()));
+                        dialog.cancel();
+                    }
+                });
+
+                selectUserFour.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        backendConnection.setActiveUser(new User(userNameFour.getText().toString()));
+                        dialog.cancel();
+                    }
+                });
+
+            }
+
+
+        });
 
         //todo Create New OnClickListener to send values out of buttons scope
         //Adding task methods
