@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
         conn.execSQL(createObjectTable);
         conn.close();
 
-        //DemoFillDatabase();
+        DemoFillDatabase();
         //Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
     }
 

@@ -50,7 +50,7 @@ public class ChoresListAdapter extends ArrayAdapter {
                 "\n" + "Description:");
 
 
-      /*TODO IMPLEMENTED LATER
+      /*TODO Implement Icons in ListView
 
         Icon a =       Icon.createWithFilePath("E:\\School\\Courses\\SEG2105\\Final_Project\\app\\src\\main\\res\\usericonsprofessor.png");
         choreImage.setImageIcon(a) ;

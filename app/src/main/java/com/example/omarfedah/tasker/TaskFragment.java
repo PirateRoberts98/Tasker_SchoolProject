@@ -3,6 +3,7 @@ package com.example.omarfedah.tasker;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,7 +31,7 @@ import java.util.Calendar;
 
  */
 public class TaskFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+    // TODO: Rename parameter arguments
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -65,7 +66,6 @@ public class TaskFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
-//TODO Fix Method        createTaskLists();
         createListView() ;
         backendConnection = GUI.getInstance() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
@@ -80,7 +80,8 @@ public class TaskFragment extends Fragment {
                 ObjectList gun = new ObjectList() ;
                 gun.add(new PurchasableObject("Gun")) ;
                 try {
-                    a.getList().add(new Task("HALA MADRID", 10, true, "this is a note ", gun, new User("Rob"), new User("Rob")));
+                    a.getList().add(backendConnection.addTask("HALA MADRID", 10, true
+                            , "this is a note ", gun, backendConnection.getActiveUser(),backendConnection.getActiveUser()));
                     adapter.notifyDataSetChanged();
                 } catch (UniqueIDException e) {
                 }
@@ -93,69 +94,14 @@ public class TaskFragment extends Fragment {
         switchUser.setOnClickListener(new View.OnClickListener(){
             //What happen when clicked and creation message
             public void onClick(View view){
-                final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
-                View mView = getLayoutInflater().inflate(R.layout.activity_user_select, null);
-
-                ImageView selectUserOne = (ImageView) mView.findViewById(R.id.user1);
-                ImageView selectUserTwo = (ImageView) mView.findViewById(R.id.user2);
-                ImageView selectUserThree = (ImageView) mView.findViewById(R.id.user3);
-                ImageView selectUserFour = (ImageView) mView.findViewById(R.id.user4);
-
-                final TextView userNameOne = (TextView) mView.findViewById(R.id.userName1);
-                final TextView userNameTwo = (TextView) mView.findViewById(R.id.userName2);
-                final TextView userNameThree = (TextView) mView.findViewById(R.id.userName3);
-                final TextView userNameFour = (TextView) mView.findViewById(R.id.userName4);
-
-                Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
-                alertBuilder.setView(mView);
-                final AlertDialog dialog = alertBuilder.create();
-                dialog.show();
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //SET ACTIVE USER
-                        dialog.cancel();
-                    }
-                });
-
-                selectUserOne.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        backendConnection.setActiveUser(new User(userNameOne.getText().toString()));
-                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
-                    }
-                });
-
-                selectUserTwo.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        backendConnection.setActiveUser(new User(userNameTwo.getText().toString()));
-                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
-                    }
-                });
-
-                selectUserThree.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        backendConnection.setActiveUser(new User(userNameThree.getText().toString()));
-                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
-                    }
-                });
-
-                selectUserFour.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        backendConnection.setActiveUser(new User(userNameFour.getText().toString()));
-                        Toast.makeText(getContext(), backendConnection.getActiveUser().getUserName() + " has been logged in", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
-                    }
-                });
+                Intent intent = new Intent(getContext(), UserSelect.class);
+                startActivity(intent);
 
             }
 
 
         });
 
-        //todo Create New OnClickListener to send values out of buttons scope
         //Adding task methods
         addTaskButton.setOnClickListener(
                 new View.OnClickListener(){
@@ -281,9 +227,8 @@ public class TaskFragment extends Fragment {
                                             || etPersonTo.getText().toString().isEmpty() || endDate.getText().toString().equals("Choose End Date")
                                             || time.getText().toString().equals("Choose time")) {
                                         try {
-                                            //TODO Change to backendConnection.addTask
                                             ((ChoresListAdapter) listView.getAdapter()).getList().add(
-                                                    new Task(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/", "")),
+                                                    backendConnection.addTask(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/", "")),
                                                             true, "this is a note ", new ObjectList(),
                                                             backendConnection.activeUser, backendConnection.activeUser));
                                             ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
@@ -327,15 +272,6 @@ public class TaskFragment extends Fragment {
         adapter = new ChoresListAdapter(getActivity(), completeTaskList);
         listView.setAdapter(adapter);
 
-//fixme 
-        /*ObjectList gun = new ObjectList() ;
-        gun.add(new PurchasableObject("Gun")) ;
-        Task task = new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"));
-        task.setTaskName("exampleName2");
-        task.getEndDateTime();*/
-
-       // completeTaskList.add( new Task("exampleName", 15 ,true ,"this_is_a_note", gun , new User("ROBert") , new User("ROBert"))) ;
-       // userList.add( new Task("SKRAAAA", 420 ,true ,"this_is_a_note",gun , new User("ROBert") , new User("ROBert"))) ;
 
     }
 

@@ -9,24 +9,27 @@ import android.widget.TextView;
 
 public class UserSelect extends AppCompatActivity {
 
+    public GUI backendConnection ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_select);
-
-        ImageView user1 = (ImageView) findViewById(R.id.user1);
+        backendConnection = GUI.getInstance() ;
+        final ImageView user1 = (ImageView) findViewById(R.id.user1);
         ImageView user2 = (ImageView) findViewById(R.id.user2);
         ImageView user3 = (ImageView) findViewById(R.id.user3);
         ImageView user4 = (ImageView) findViewById(R.id.user4);
 
-        TextView userName1 = (TextView) findViewById(R.id.userName1);
-        TextView userName2 = (TextView) findViewById(R.id.userName2);
-        TextView userName3 = (TextView) findViewById(R.id.userName3);
-        TextView userName4 = (TextView) findViewById(R.id.userName4);
+        final TextView userName1 = (TextView) findViewById(R.id.userName1);
+        final TextView userName2 = (TextView) findViewById(R.id.userName2);
+        final TextView userName3 = (TextView) findViewById(R.id.userName3);
+        final TextView userName4 = (TextView) findViewById(R.id.userName4);
 
         user1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backendConnection.setActiveUser(new User(userName1.getText().toString()));
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivityForResult(intent, 0);
                 finish();
@@ -36,6 +39,7 @@ public class UserSelect extends AppCompatActivity {
         user2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backendConnection.setActiveUser(new User(userName2.getText().toString()));
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivityForResult(intent, 0);
                 finish();
@@ -45,6 +49,7 @@ public class UserSelect extends AppCompatActivity {
         user3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backendConnection.setActiveUser(new User(userName3.getText().toString()));
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivityForResult(intent, 0);
                 finish();
@@ -54,6 +59,7 @@ public class UserSelect extends AppCompatActivity {
         user4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backendConnection.setActiveUser(new User(userName4.getText().toString()));
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivityForResult(intent, 0);
                 finish();

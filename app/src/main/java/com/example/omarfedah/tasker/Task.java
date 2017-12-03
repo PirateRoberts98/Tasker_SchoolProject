@@ -72,6 +72,7 @@ import java.sql.SQLException;
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+		//fixme
 		return rs.getInt(rs.getColumnIndex("enddatetime"));
 	}
 
