@@ -61,7 +61,7 @@ public class TaskFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
         createListView() ;
-
+        backendConnection = GUI.getInstance() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
@@ -100,23 +100,8 @@ public class TaskFragment extends Fragment {
 
             }
         });
-        //PUT ADDED VALUES HERE
-        int year ;
-        //creates dialog
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View mView = getLayoutInflater().inflate(R.layout.dialog_add_task, null);
 
-        //Functionality inside dialog, cancel
-        Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
-        Button create = (Button) mView.findViewById(R.id.createBtn);
 
-        final EditText etTaskName = (EditText) mView.findViewById(R.id.etTaskName);
-        final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
-        final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
-
-        final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
-        final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
-        final TextView time = (TextView) mView.findViewById(R.id.etTime);
         //todo Create New OnClickListener to send values out of buttons scope
         //Adding task methods
         addTaskButton.setOnClickListener(
@@ -143,7 +128,9 @@ public class TaskFragment extends Fragment {
                         final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
                         final TextView time = (TextView) mView.findViewById(R.id.etTime);
 
-
+                         String startDateValue = startDate.getText().toString() ;
+                         String endDateValue = endDate.getText().toString() ;
+                         String timeValue = time.getText().toString() ;
 
 
                         //START DAY SETTER
@@ -225,9 +212,7 @@ public class TaskFragment extends Fragment {
                         final AlertDialog dialog = builder.create();
                         dialog.show();
 
-                        int startDateValue ;
-                        int endDateValue   ;
-                        String nameValue   ;
+
 
 
 
@@ -240,13 +225,15 @@ public class TaskFragment extends Fragment {
                         create.setOnClickListener(new View.OnClickListener(){ //create function
                             public void onClick(View view){
                                 if(etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
-                                        || etPersonTo.getText().toString().isEmpty()){
+                                        || etPersonTo.getText().toString().isEmpty() || endDate.getText().toString().equals("Choose End Date")
+                                        || startDate.getText().toString().equals("Choose End Date") || time.getText().toString().equals("Choose time")){
                                     Toast.makeText(getContext(), "Please fill in all the information", Toast.LENGTH_SHORT).show();
                                 }else {
+                                    //todo Correctly parse String to only get values
                                     ((ChoresListAdapter) listView.getAdapter()).getList().add(
-                                            new testTASK(etTaskName.getText().toString(), 420 ,
-                                                    true ,"this is a note ", null ,
-                                                    null , null)) ;
+                                            new Task(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/","")) ,
+                                                    true ,"this is a note ",new ObjectList() ,
+                                                    backendConnection.activeUser , backendConnection.activeUser)) ;
                                     ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
                                     Toast.makeText(getContext(), "Not yet implemented",
                                             Toast.LENGTH_SHORT).show();
