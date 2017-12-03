@@ -107,15 +107,15 @@ public class GUI {
 	/**
 	 * Calls the Task constructor to add a new task to the database.
 	 * @param taskName String containing the task name.
-	 * @param endDateTime Integer representation of the date and time, formatted as
-	 *                    YYYMMDDHHmm.
+	 * @param endDateTime Long representation of the date and time, formatted as
+	 *                    YYYMMDDHHmmL.
 	 * @param isCompleted Boolean representation of the task's completed status.
 	 * @param note String containing any notes associated to the task.
 	 * @param objectList ObjectList containing any PurchasableObjects associated to the task.
 	 * @param creatorUser User that created the task.
 	 * @param assignedUser User that the task is assigned to.
 	 */
-    public Task addTask(String taskName, int endDateTime, Boolean isCompleted, String note,
+    public Task addTask(String taskName, long endDateTime, Boolean isCompleted, String note,
 						ObjectList objectList, User creatorUser, User assignedUser) throws UniqueIDException {
 		return new Task(taskName, endDateTime, isCompleted, note, objectList, creatorUser, assignedUser);
     }
@@ -124,11 +124,12 @@ public class GUI {
 	 * Edits the attributes of an instance of Task.
 	 * @param editedTask Instance of task to edit.
 	 * @param taskName Name for the Task.
-	 * @param endDateTime End date and time for the Task.
+	 * @param endDateTime Long representation of the date and time, formatted as
+     *                    YYYMMDDHHmmL.
 	 * @param isCompleted Task completion status.
 	 * @param assignedUser User assigned to the task.
 	 */
-	public void editTask(Task editedTask,String taskName, int endDateTime, boolean isCompleted,
+	public void editTask(Task editedTask,String taskName, long endDateTime, boolean isCompleted,
 						User assignedUser) throws UniqueIDException{
     	editedTask.setTaskName(taskName);
     	editedTask.setEndDateTime(endDateTime);

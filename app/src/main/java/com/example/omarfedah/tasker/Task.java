@@ -20,15 +20,15 @@ import java.sql.SQLException;
 	 * Constructor for Task object. Adds the newly created task to the database and returns
 	 * an instance of the new Task object.
 	 * @param name String containing the task name.
-	 * @param endDateTime Integer representing the end date and time of the task, formatted
-	 *                    as YYYYMMDDHHmm. Uses 24 hour time.
+	 * @param endDateTime Long representing the end date and time of the task, formatted
+	 *                    as YYYYMMDDHHmmL. Uses 24 hour time.
 	 * @param isCompleted Boolean for whether or the task has been completed.
 	 * @param note String containing a note associated to the task.
 	 * @param objectList ObjectList containing any objects associated to the task.
 	 * @param creator User that created the task.
 	 * @param assignedTo User the task is assigned to.
 	 */
-	public Task(String name, int endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
+	public Task(String name, long endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
 		try {
 			GUI guiInst = GUI.getInstance();
 			guiInst.checkUniqueID(name, "task");
@@ -58,9 +58,9 @@ import java.sql.SQLException;
 
 	/**
 	 * Getter for task end date and time
-	 * @return Integer representation of datetime, formatted as YYYYMMDDHHmm.
+	 * @return Long representation of datetime, formatted as YYYYMMDDHHmmL.
 	 */
-	public int getEndDateTime() {
+	public long getEndDateTime() {
 		String sqlstmt = "SELECT enddatetime FROM task WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
@@ -143,10 +143,10 @@ import java.sql.SQLException;
 
 	/**
 	 * Used to edit the end date and time of an existing task.
-	 * @param newEndDateTime Integer representing the new end date and time, formatted as
-	 *                       YYYYMMDDHHmm.
+	 * @param newEndDateTime Long representing the new end date and time, formatted as
+	 *                       YYYYMMDDHHmmL.
 	 */
-	public void setEndDateTime(int newEndDateTime) {
+	public void setEndDateTime(long newEndDateTime) {
 		String sqlstmt = "UPDATE task SET enddatetime = " + newEndDateTime + " WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
