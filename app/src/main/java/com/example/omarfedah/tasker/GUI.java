@@ -1,5 +1,6 @@
 package com.example.omarfedah.tasker;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class GUI {
@@ -306,15 +308,31 @@ public class GUI {
 
 	}
 
-	public Boolean checkUniqueID(String uniqueID, String tableName) throws UniqueIDException {
-	    String sqlstmt = "SELECT name FROM " + tableName + " WHERE name = '" + uniqueID + "'";
-	    Boolean isUniqueID = true;
-	    try {
-	        QueryResult qr = databaseQuery(sqlstmt);
-        } catch (Exception e) {
-			isUniqueID = false;
+	public void checkUniqueID(String uniqueID, String tableName) throws UniqueIDException {
+		boolean isUniqueID = true;
+		if (tableName.equals("task")) {
+		 	ArrayList<Task> allTasks = getAllTasks().getList();
+		 	for (Task task : allTasks) {
+		 		if (task.getTaskName().equals(uniqueID)) {
+					isUniqueID = false;
+				}
+			}
+        } if (tableName.equals("user")) {
+		 	ArrayList<User> allUsers = getAllUser().getList();
+		 	for (User user : allUsers) {
+		 		if (user.getUserName().equals(uniqueID)) {
+		 			isUniqueID = false;
+				}
+			}
+		} if (tableName.equals("object")) {
+		 	ArrayList<PurchasableObject> allObjects = getAllObjects().getList();
+		 	for (PurchasableObject object : allObjects) {
+		 		if (object.getObjectName().equals(uniqueID)) {
+		 			isUniqueID = false;
+				}
+			}
+		} if (!isUniqueID) {
 			throw new UniqueIDException();
-
-        } return isUniqueID;
+		}
     }
 }
