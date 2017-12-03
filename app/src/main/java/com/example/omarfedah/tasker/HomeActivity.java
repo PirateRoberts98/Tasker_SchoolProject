@@ -44,11 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     public static GUI backendConnection ;
 
     static Context context;
- /*   private TaskList allTasks;
-    private TaskList userTasks;
-    private TaskList completedTasks;
-    protected ArrayList completeTaskList ;
-*/
+    //protected ArrayList completeTaskList ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +66,6 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView drawer = (NavigationView) findViewById(R.id.navigationView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setDrawerContent(drawer);
-
-        //TODO Implement Task Creations in Relevant Locations
-        //Load the various task lists
-//        allTasks = backendConnection.getAllTasks();
-  //      userTasks = backendConnection.getUserTasks(backendConnection.activeUser.getUserName());
-    //    completedTasks = backendConnection.getCompletedTasks();
     }
 
     public boolean onOptionsItemSelected(MenuItem item){

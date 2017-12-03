@@ -205,6 +205,14 @@ public class GUI {
 		} return shoppingList;
 	}
 
+	/**
+	 * Getter method for the currently active user.
+	 * @return User current user.
+	 */
+	public User getActiveUser() {
+		return activeUser;
+	}
+
 
 // Private methods for internal use
 
