@@ -33,7 +33,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/editTaskPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
