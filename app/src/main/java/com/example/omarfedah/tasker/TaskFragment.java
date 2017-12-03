@@ -68,6 +68,7 @@ public class TaskFragment extends Fragment {
 
         createListView() ;
         backendConnection = GUI.getInstance() ;
+        createTaskLists();
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
 
