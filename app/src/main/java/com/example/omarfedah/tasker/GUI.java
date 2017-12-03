@@ -226,16 +226,16 @@ public class GUI {
 	 * PurchasableObjects who's 'isOwned' status is false.
 	 * @return ObjectList containing all existing unowned PurchasableObjects.
 	 */
-	public ObjectList getShoppingList() {
-		String sqlstmt = "SELECT name FROM object WHERE isowned = 0";
+	public ObjectList getObjectList(boolean isGrocery, boolean isOwned) {
+		String sqlstmt = "SELECT name FROM object WHERE isgrocery = " + (isGrocery ? 1 : 0) + " AND isowned = " + (isOwned ? 1 : 0);
 		QueryResult qr = databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
-		ObjectList shoppingList = new ObjectList();
+		ObjectList objectList = new ObjectList();
 		while (rs.moveToNext()) {
 			String objectName = rs.getString(0);
-			shoppingList.add(new PurchasableObject(objectName));
+			objectList.add(new PurchasableObject(objectName));
 		} qr.close();
-		return shoppingList;
+		return objectList;
 	}
 
 	/**
