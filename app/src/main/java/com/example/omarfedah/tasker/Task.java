@@ -29,12 +29,14 @@ import java.sql.SQLException;
 	 * @param assignedTo User the task is assigned to.
 	 */
 	public Task(String name, int endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
-		GUI guiInst = GUI.getInstance();
-		guiInst.checkUniqueID(name, "task");
-		this.name = name;
-		String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
-		String sqlstmt = "INSERT INTO task(name,enddatetime, iscompleted, note, objectlist, creator, assignedto) " + values;
-		guiInst.databaseUpdate(sqlstmt);
+		try {
+			GUI guiInst = GUI.getInstance();
+			guiInst.checkUniqueID(name, "task");
+			this.name = name;
+			String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
+			String sqlstmt = "INSERT INTO task(name,enddatetime, iscompleted, note, objectlist, creator, assignedto) " + values;
+			guiInst.databaseUpdate(sqlstmt);
+		} catch (UniqueIDException e) {}
 	}
 
 	/**

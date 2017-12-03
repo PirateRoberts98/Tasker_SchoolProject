@@ -18,12 +18,14 @@ import android.database.Cursor;
 	 * @param password String containing the user's password.
 	 */
 	public User(String name, String icon, String password ) throws UniqueIDException{
-		GUI guiInst = GUI.getInstance();
-		guiInst.checkUniqueID(name, "user");
-		this.name = name;
-		String values = "VALUES ('" + name + "','" + icon + "','" + password + "')";
-		String sqlstmt = "INSERT INTO user(name, icon, password) " + values;
-		guiInst.databaseUpdate(sqlstmt);
+		try {
+			GUI guiInst = GUI.getInstance();
+			guiInst.checkUniqueID(name, "user");
+			this.name = name;
+			String values = "VALUES ('" + name + "','" + icon + "','" + password + "')";
+			String sqlstmt = "INSERT INTO user(name, icon, password) " + values;
+			guiInst.databaseUpdate(sqlstmt);
+		} catch (UniqueIDException e){}
 	}
 
 	/**
