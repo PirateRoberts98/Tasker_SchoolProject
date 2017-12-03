@@ -70,8 +70,7 @@ public class ShoppingListFragment extends Fragment {
                 addBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        groceryList.add(
-                               backendConnection.ad(etObjectName.getText().toString(), true, false)) ;
+                            //groceryList.add(backendConnection.addObject(etObjectName.getText().toString(), true, false));
                     }
                 });
                 builder.setView(mView);
