@@ -28,11 +28,12 @@ import java.sql.SQLException;
 	 * @param creator User that created the task.
 	 * @param assignedTo User the task is assigned to.
 	 */
-	public Task(String name, int endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) {
+	public Task(String name, int endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
+		GUI guiInst = GUI.getInstance();
+		guiInst.checkUniqueID(name, "task");
 		this.name = name;
 		String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
 		String sqlstmt = "INSERT INTO task(name,enddatetime, iscompleted, note, objectlist, creator, assignedto) " + values;
-		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
 
@@ -130,9 +131,10 @@ import java.sql.SQLException;
 	 * Used to edit the name of an existing task.
 	 * @param newName String containing the new task name.
 	 */
-	public void setTaskName(String newName) {
-		String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
+	public void setTaskName(String newName) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
+		guiInst.checkUniqueID(newName, "task");
+		String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
 	}

@@ -17,11 +17,12 @@ import android.database.Cursor;
 	 * @param icon String representing of the User's selected icon.
 	 * @param password String containing the user's password.
 	 */
-	public User(String name, String icon, String password ){
+	public User(String name, String icon, String password ) throws UniqueIDException{
+		GUI guiInst = GUI.getInstance();
+		guiInst.checkUniqueID(name, "user");
 		this.name = name;
 		String values = "VALUES ('" + name + "','" + icon + "','" + password + "')";
 		String sqlstmt = "INSERT INTO user(name, icon, password) " + values;
-		GUI guiInst = GUI.getInstance();
 		guiInst.databaseUpdate(sqlstmt);
 	}
 
@@ -59,9 +60,10 @@ import android.database.Cursor;
 	 * Used to edit the name of an existing User.
 	 * @param newName String containing the user's new name.
 	 */
-	public void setName(String newName) {
-		String sqlstmt = "UPDATE user SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
+	public void setName(String newName) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
+		guiInst.checkUniqueID(newName, "user");
+		String sqlstmt = "UPDATE user SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 		guiInst.databaseUpdate(sqlstmt);
 		this.name = newName;
 	}

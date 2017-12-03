@@ -116,7 +116,7 @@ public class GUI {
 	 * @param assignedUser User that the task is assigned to.
 	 */
     public void addTask(String taskName, int endDateTime, Boolean isCompleted, String note,
-						ObjectList objectList, User creatorUser, User assignedUser) {
+						ObjectList objectList, User creatorUser, User assignedUser) throws UniqueIDException {
 		new Task(taskName, endDateTime, isCompleted, note, objectList, creatorUser, assignedUser);
     }
 
@@ -129,7 +129,7 @@ public class GUI {
 	 * @param assignedUser User assigned to the task.
 	 */
 	public void editTask(Task editedTask,String taskName, int endDateTime, boolean isCompleted,
-						User assignedUser) {
+						User assignedUser) throws UniqueIDException{
     	editedTask.setTaskName(taskName);
     	editedTask.setEndDateTime(endDateTime);
 		editedTask.setIsCompleted(isCompleted);
@@ -152,7 +152,7 @@ public class GUI {
 	 * @param isGrocery  Boolean representation of the PurchasableObject's 'isGrocery' status.
 	 * @param isOwned Boolean representation of the PurchasableObject's 'isOwned' status.
 	 */
-    public void addObject(String name, Boolean isGrocery, Boolean isOwned) {
+    public void addObject(String name, Boolean isGrocery, Boolean isOwned) throws UniqueIDException {
 		new PurchasableObject(name, isGrocery, isOwned);
     }
 
@@ -171,7 +171,7 @@ public class GUI {
 	 * @param icon String representation of the user's selected icon.
 	 * @param password String containing the user's password.
 	 */
-    public void addUser(String name, String icon, String password) {
+    public void addUser(String name, String icon, String password) throws UniqueIDException {
 		new User(name, icon, password);
 	}
 
@@ -296,4 +296,13 @@ public class GUI {
 		Toast.makeText(HomeActivity.getAppContext(), "Updated the Database", Toast.LENGTH_SHORT).show();
 
 	}
+
+	public void checkUniqueID(String uniqueID, String tableName) throws UniqueIDException {
+	    String sqlstmt = "SELECT name FROM " + tableName + " WHERE name = '" + uniqueID + "'";
+	    try {
+	        QueryResult qr = databaseQuery(sqlstmt);
+        } catch (Exception e) {
+	        throw new UniqueIDException();
+        }
+    }
 }
