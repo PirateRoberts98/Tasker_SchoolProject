@@ -47,6 +47,10 @@ public class TaskFragment extends Fragment {
     protected ChoresListAdapter adapter ;
     protected ArrayList completeTaskList ;
 
+    private TaskList allTasks;
+    private TaskList userTasks;
+    private TaskList completedTasks;
+
     //constructor
     public TaskFragment() {
         // Required empty public constructor
@@ -60,6 +64,7 @@ public class TaskFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_task, container, false);
 
+        createTaskLists();
         createListView() ;
         backendConnection = GUI.getInstance() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
@@ -293,5 +298,12 @@ public class TaskFragment extends Fragment {
         Toast.makeText(getContext(), "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
     }
 
-
+    /**
+     * Initializes the required task lists.
+     */
+    private void createTaskLists() {
+        allTasks = backendConnection.getAllTasks();
+        userTasks = backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName());
+        completedTasks = backendConnection.getCompletedTasks();
+    }
 }
