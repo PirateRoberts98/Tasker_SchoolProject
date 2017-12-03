@@ -192,7 +192,7 @@ public class GUI {
 	 * @param password String containing the password input by the user.
 	 * @return True iff the input password matches the stored password.
 	 */
-    public boolean authenticateUser(User user, String password){
+    public static boolean authenticateUser(User user, String password){
 		String sqlstsmt = "SELECT password FROM user WHERE name = " + "'" + user.getUserName() + "'";
 		QueryResult qr = databaseQuery(sqlstsmt);
 		Cursor rs = qr.getResultSet();
