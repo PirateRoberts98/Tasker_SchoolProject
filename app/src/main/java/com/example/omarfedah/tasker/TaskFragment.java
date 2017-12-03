@@ -89,9 +89,12 @@ public class TaskFragment extends Fragment {
                 ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
                 ObjectList gun = new ObjectList() ;
                 gun.add(new PurchasableObject("Gun")) ;
-                a.getList().add( new Task("HALA MADRID", 10 ,true ,"this is a note ", gun  , new User("Rob") , new User("Rob") ));
-                adapter.notifyDataSetChanged() ;
-
+                //TODO Error needs to be fixed
+                try {
+                    a.getList().add(new Task("HALA MADRID", 10, true, "this is a note ", gun, new User("Rob"), new User("Rob")));
+                    adapter.notifyDataSetChanged();
+                } catch (UniqueIDException e) {
+                }
             }
         }) ;
 
@@ -270,14 +273,16 @@ public class TaskFragment extends Fragment {
                                     Toast.makeText(getContext(), "Please fill in all the information", Toast.LENGTH_SHORT).show();
                                 }else {
                                     //todo Correctly parse String to only get values
+                                    try {
                                     ((ChoresListAdapter) listView.getAdapter()).getList().add(
                                             backendConnection.addTask(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/","")) ,
                                                     true ,"this is a note ",new ObjectList() ,
                                                     backendConnection.activeUser , backendConnection.activeUser)) ;
-
                                     ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
                                     Toast.makeText(getContext(), "Not yet implemented",
                                             Toast.LENGTH_SHORT).show();
+                                    } catch (UniqueIDException e) {
+                                    }
                                 }
                             }
                         });
