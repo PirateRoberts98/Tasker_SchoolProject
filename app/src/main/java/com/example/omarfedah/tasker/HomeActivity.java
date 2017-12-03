@@ -2,6 +2,7 @@ package com.example.omarfedah.tasker;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -51,6 +52,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         context = getApplicationContext();
+        Intent intent = new Intent(this, UserLoginActivity.class);
+        startActivity(intent);
 
 
         backendConnection = GUI.getInstance()  ;
