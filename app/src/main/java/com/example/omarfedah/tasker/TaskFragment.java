@@ -267,27 +267,32 @@ public class TaskFragment extends Fragment {
                         });
                         create.setOnClickListener(new View.OnClickListener(){ //create function
                             public void onClick(View view){
-                                if(etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
-                                        || etPersonTo.getText().toString().isEmpty() || endDate.getText().toString().equals("Choose End Date")
-                                        || startDate.getText().toString().equals("Choose End Date") || time.getText().toString().equals("Choose time")){
-                                    Toast.makeText(getContext(), "Please fill in all the information", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    //todo Correctly parse String to only get values
-                                    try {
-                                    ((ChoresListAdapter) listView.getAdapter()).getList().add(
-                                            backendConnection.addTask(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/","")) ,
-                                                    true ,"this is a note ",new ObjectList() ,
-                                                    backendConnection.activeUser , backendConnection.activeUser)) ;
-                                    ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
-                                    Toast.makeText(getContext(), "Not yet implemented",
-                                            Toast.LENGTH_SHORT).show();
-                                    } catch (UniqueIDException e) {
-                                    }
+                                if (verifyUser(etPersonTo.getText().toString())) {
+                                    if (etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
+                                            || etPersonTo.getText().toString().isEmpty() || endDate.getText().toString().equals("Choose End Date")
+                                            || startDate.getText().toString().equals("Choose End Date") || time.getText().toString().equals("Choose time")) {
+                                        try {
+                                            //TODO Change to backendConnection.addTask
+                                            ((ChoresListAdapter) listView.getAdapter()).getList().add(
+                                                    new Task(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/", "")),
+                                                            true, "this is a note ", new ObjectList(),
+                                                            backendConnection.activeUser, backendConnection.activeUser));
+                                            ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+                                        }catch(Exception e){
+                                            Toast.makeText(getContext(), "Please pick a unique name", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    } else {
+                                        Toast.makeText(getContext(), "Please fill in all the information", Toast.LENGTH_SHORT).show();
+                                        }
+                                 } else {
+                                    Toast.makeText(getContext(), "Not a Correct User ", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
                     }
-
+//END OF ONCLICK
 
                 });
 
@@ -357,6 +362,8 @@ public class TaskFragment extends Fragment {
                 return true;
             }
         }
-        return false ;
+        return true  ;
+
+        //return false ;
     }
 }
