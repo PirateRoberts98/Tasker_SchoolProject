@@ -24,7 +24,12 @@ class PurchasableObject extends Collectable {
 	 */
 	public PurchasableObject(String name, Boolean isGrocery, Boolean isOwned) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
-		if (guiInst.checkUniqueID(name, "object")) {
+		boolean isUniqueID = false;
+		try {
+			guiInst.checkUniqueID(name, "object");
+			isUniqueID = true;
+		} catch (UniqueIDException e) {}
+		if (isUniqueID) {
 			this.name = name;
 			String values = "VALUES ('" + name + "'," + (isGrocery ? 1 : 0) + "," + (isOwned ? 1 : 0) + ")";
 			String sqlstmt = "INSERT INTO object(name, isGrocery, isOwned) " + values;
@@ -81,7 +86,12 @@ class PurchasableObject extends Collectable {
 	 */
 	public void setObjectName(String newName) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
-		if (guiInst.checkUniqueID(newName, "object")) {
+		boolean isUniqueID = false;
+		try {
+			guiInst.checkUniqueID(newName, "object");
+			isUniqueID = true;
+		} catch (UniqueIDException e) {}
+		if (isUniqueID) {
 			String sqlstmt = "UPDATE object SET name = '" + newName + "' WHERE name = " + "," + name + ",";
 			guiInst.databaseUpdate(sqlstmt);
 			this.name = newName;

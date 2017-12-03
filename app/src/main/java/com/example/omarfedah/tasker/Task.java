@@ -30,7 +30,14 @@ import java.sql.SQLException;
 	 */
 	public Task(String name, long endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
-		if (guiInst.checkUniqueID(name, "task")) {
+		boolean isUniqueID = false;
+		try {
+			guiInst.checkUniqueID(name, "task");
+			isUniqueID = true;
+		} catch (UniqueIDException e) {
+			isUniqueID = false;
+		}
+		if (isUniqueID) {
 			this.name = name;
 			String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
 			String sqlstmt = "INSERT INTO task(name,enddatetime, iscompleted, note, objectlist, creator, assignedto) " + values;
@@ -134,7 +141,12 @@ import java.sql.SQLException;
 	 */
 	public void setTaskName(String newName) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
-		if (guiInst.checkUniqueID(newName, "task")) {
+		boolean isUniqueID = false;
+		try {
+			guiInst.checkUniqueID(newName, "task");
+			isUniqueID = true;
+		} catch (UniqueIDException e) {}
+		if (isUniqueID) {
 			String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 			guiInst.databaseUpdate(sqlstmt);
 			this.name = newName;
