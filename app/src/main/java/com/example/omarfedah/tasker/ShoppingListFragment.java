@@ -124,6 +124,11 @@ public class ShoppingListFragment extends Fragment {
 
         return view;}
 
+    private createObjectLists() {
+        groceryList = backendConnection.getObjectList(true, false).getList();
+        materialList = backendConnection.getObjectList(false, false).getList();
+    }
+
     private void buildDemoList(){
          groceryList = new ArrayList<PurchasableObject>() ;
          materialList = new ArrayList<PurchasableObject>() ;

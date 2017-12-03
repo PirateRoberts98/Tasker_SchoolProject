@@ -48,9 +48,9 @@ public class TaskFragment extends Fragment {
     protected ChoresListAdapter adapter ;
     protected ArrayList completeTaskList ;
 
-    private TaskList allTasks;
-    private TaskList userTasks;
-    private TaskList completedTasks;
+    private ArrayList<Task> allTasks;
+    private ArrayList<Task> userTasks;
+    private ArrayList<Task> completedTasks;
 
     //constructor
     public TaskFragment() {
@@ -307,7 +307,6 @@ public class TaskFragment extends Fragment {
 
         return view;}
 
-
     private void createListView() {
 
         //Intializing the List View -R
@@ -358,9 +357,9 @@ public class TaskFragment extends Fragment {
      * Initializes the required task lists.
      */
     private void createTaskLists() {
-        allTasks = backendConnection.getAllTasks();
-        userTasks = backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName());
-        completedTasks = backendConnection.getCompletedTasks();
+        allTasks = backendConnection.getAllTasks().getList();
+        userTasks = backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName()).getList();
+        completedTasks = backendConnection.getCompletedTasks().getList();
     }
 
     private boolean verifyUser(String user ){
