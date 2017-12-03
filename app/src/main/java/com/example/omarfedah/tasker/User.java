@@ -49,9 +49,10 @@ import android.database.Cursor;
 	public String getIcon() {
 		String sqlstmt = "SELECT icon FROM user WHERE name = " + "'" + name + "'";
 		GUI guiInst = GUI.getInstance();
-		Cursor rs = guiInst.databaseQuery(sqlstmt);
-		String icon = rs.getString(1);
-		return icon;
+		QueryResult qr = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
+		return rs.getString(1);
 	}
 
 	/**
