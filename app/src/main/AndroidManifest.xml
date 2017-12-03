@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserSelect" />
+        <activity android:name=".UserLoginActivity" />
+
     </application>
 
 </manifest>

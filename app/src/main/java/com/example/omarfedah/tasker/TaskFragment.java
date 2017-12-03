@@ -79,7 +79,6 @@ public class TaskFragment extends Fragment {
                 ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
                 ObjectList gun = new ObjectList() ;
                 gun.add(new PurchasableObject("Gun")) ;
-                //TODO Error needs to be fixed
                 try {
                     a.getList().add(new Task("HALA MADRID", 10, true, "this is a note ", gun, new User("Rob"), new User("Rob")));
                     adapter.notifyDataSetChanged();
@@ -160,7 +159,6 @@ public class TaskFragment extends Fragment {
         //Adding task methods
         addTaskButton.setOnClickListener(
                 new View.OnClickListener(){
-                    @Override
                     public void onClick(View view) {
 
 

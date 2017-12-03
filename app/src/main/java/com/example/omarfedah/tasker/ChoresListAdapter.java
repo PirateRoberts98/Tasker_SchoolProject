@@ -43,10 +43,10 @@ public class ChoresListAdapter extends ArrayAdapter {
         TextView choreDescriptionTextField = (TextView) rowView.findViewById(R.id.taskDescription);
        // ImageView choreImage = (ImageView) rowView.findViewById(R.id.icon);
 
-        choreNameTextField.setText(listTasks.get(position).toString());
+        choreNameTextField.setText(listTasks.get(position).getTaskName());
 
         choreDescriptionTextField.setText("Assigned to: " + "\n" + "Due Date:" +
-                         Integer.toString( listTasks.get(position).getEndDateTime() ) +
+                         Long.toString( listTasks.get(position).getEndDateTime() ) +
                 "\n" + "Description:");
 
 

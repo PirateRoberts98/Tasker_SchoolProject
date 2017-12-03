@@ -27,9 +27,8 @@ public class ShoppingListFragment extends Fragment {
     ListView groceryListView;
     ListView materialListView;
     GUI backendConnection ;
-    ArrayList<testObject> groceryList ;
-    ArrayList<testObject> materialList ;
-
+    ArrayList<PurchasableObject> groceryList ;
+    ArrayList<PurchasableObject> materialList ;
     public ShoppingListFragment() {
         // Required empty public constructor
     }
@@ -70,7 +69,16 @@ public class ShoppingListFragment extends Fragment {
                 addBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                            //groceryList.add(backendConnection.addObject(etObjectName.getText().toString(), true, false));
+
+                      try{
+                          backendConnection.addObject(etObjectName.getText().toString(), true, false) ;
+
+                      }catch(UniqueIDException e){
+
+
+                      }
+
+
                     }
                 });
                 builder.setView(mView);
@@ -95,8 +103,15 @@ public class ShoppingListFragment extends Fragment {
                 addBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        materialList.add(
-                                new testObject(etObjectName.getText().toString(), false, false)) ;
+
+
+                        try{
+                            materialList.add(
+                                    backendConnection.addObject(etObjectName.getText().toString(), false, false)) ;
+                        }catch(UniqueIDException e){
+                            Toast.makeText(getContext(), "ERROR Found", Toast.LENGTH_SHORT).show();
+                        }
+
 
                     }
                 });
@@ -110,9 +125,14 @@ public class ShoppingListFragment extends Fragment {
         return view;}
 
     private void buildDemoList(){
-         groceryList = new ArrayList<>() ;
-         materialList = new ArrayList<>() ;
-         groceryList.add(new testObject("Sauce", false , false)) ;
-         materialList.add(new testObject("Camera", true ,true )) ;
+         groceryList = new ArrayList<PurchasableObject>() ;
+         materialList = new ArrayList<PurchasableObject>() ;
+        try{
+            groceryList.add(backendConnection.addObject("Sauce", false , false)) ;
+            materialList.add(backendConnection.addObject("Camera", true ,true )) ;
+        }catch(UniqueIDException e){
+            Toast.makeText(getContext(), "ERROR Found", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

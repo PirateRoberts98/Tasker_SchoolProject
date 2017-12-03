@@ -23,7 +23,7 @@ import java.util.ArrayList;
     public class objectListAdapter extends ArrayAdapter{
 
         private final Context context;
-        private ArrayList<testObject> listTasks;
+        private ArrayList<PurchasableObject> listTasks;
 
         //YET TO IMPLEMENT LIST AND NOT ARRAY
         objectListAdapter(Context context, ArrayList list){
@@ -48,7 +48,7 @@ import java.util.ArrayList;
             TextView choreDescriptionTextField = (TextView) rowView.findViewById(R.id.taskDescription);
             // ImageView choreImage = (ImageView) rowView.findViewById(R.id.icon);
 
-            choreNameTextField.setText(listTasks.get(position).toString());
+            choreNameTextField.setText(listTasks.get(position).getObjectName());
 
             choreDescriptionTextField.setText(Boolean.toString( listTasks.get(position).getIsOwned())) ;
 
