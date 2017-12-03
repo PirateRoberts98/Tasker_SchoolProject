@@ -76,10 +76,10 @@ public class TaskFragment extends Fragment {
         ImageView selectUserThree = (ImageView) view.findViewById(R.id.user3);
         ImageView selectUserFour = (ImageView) view.findViewById(R.id.user4);
 
-        TextView userNameOne = (TextView) view.findViewById(R.id.textView3);
-        TextView userNameTwo = (TextView) view.findViewById(R.id.textView8);
-        TextView userNameThree = (TextView) view.findViewById(R.id.textView9);
-        TextView userNameFour = (TextView) view.findViewById(R.id.textView10);
+        final TextView userNameOne = (TextView) view.findViewById(R.id.textView3);
+        final TextView userNameTwo = (TextView) view.findViewById(R.id.textView8);
+        final TextView userNameThree = (TextView) view.findViewById(R.id.textView9);
+        final TextView userNameFour = (TextView) view.findViewById(R.id.textView10);
 
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
         //TEST Used For Quick Additions
@@ -119,26 +119,26 @@ public class TaskFragment extends Fragment {
         });
 
         selectUserOne.setOnClickListener(new View.OnClickListener() {
-            public void OnClick(View view) {
-                backendConnection.setActiveUser()
+            public void onClick(View view) {
+                backendConnection.setActiveUser(new User(userNameOne.getText().toString()));
             }
         });
 
         selectUserTwo.setOnClickListener(new View.OnClickListener() {
-            public void OnClick(View view) {
-
+            public void onClick(View view) {
+                backendConnection.setActiveUser(new User(userNameTwo.getText().toString()));
             }
         });
 
         selectUserThree.setOnClickListener(new View.OnClickListener() {
-            public void OnClick(View view) {
-
+            public void onClick(View view) {
+                backendConnection.setActiveUser(new User(userNameThree.getText().toString()));
             }
         });
 
         selectUserFour.setOnClickListener(new View.OnClickListener() {
-            public void OnClick(View view) {
-
+            public void onClick(View view) {
+                backendConnection.setActiveUser(new User(userNameFour.getText().toString()));
             }
         });
 
