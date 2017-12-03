@@ -43,12 +43,14 @@ public class GUI {
 	 */
 	public TaskList getAllTasks() {
 		String sqlstmt = "SELECT name FROM task";
-		Cursor rs = databaseQuery(sqlstmt);
+		QueryResult qr = databaseQuery(sqlstmt);
 		TaskList allTasks = new TaskList();
+		Cursor rs = qr.getResultSet();
 		while (rs.moveToNext()) {
 			String taskName = rs.getString(0);
 			allTasks.add(new Task(taskName));
-		} return allTasks;
+		} qr.close();
+		return allTasks;
 	}
 
 	/**
@@ -59,12 +61,14 @@ public class GUI {
 	 */
 	public TaskList getUserTasks(String userName) {
 		String sqlstmt = "SELECT name FROM task WHERE assignedto = " + "'" + userName + "'";
-		Cursor rs = databaseQuery(sqlstmt);
+		QueryResult qr = databaseQuery(sqlstmt);
 		TaskList userTasks = new TaskList();
+		Cursor rs = qr.getResultSet();
 		while (rs.moveToNext()) {
 			String taskName = rs.getString(0);
 			userTasks.add(new Task(taskName));
-		} return userTasks;
+		} qr.close();
+		return userTasks;
 	}
 
 	/**
@@ -73,12 +77,14 @@ public class GUI {
 	 */
 	public TaskList getCompletedTasks() {
 		String sqlstmt = "SELECT name FROM task WHERE iscompleted = 1";
-		Cursor rs = databaseQuery(sqlstmt);
+		QueryResult qr = databaseQuery(sqlstmt);
 		TaskList completedTasks = new TaskList();
+		Cursor rs = qr.getResultSet();
 		while (rs.moveToNext()) {
 			String taskName = rs.getString(0);
 			completedTasks.add(new Task(taskName));
-		} return completedTasks;
+		} qr.close();
+		return completedTasks;
 	}
 
 	/**
@@ -170,8 +176,11 @@ public class GUI {
 	 */
     public boolean authenticateUser(User user, String password){
 		String sqlstsmt = "SELECT password FROM user WHERE name = " + "'" + user.getUserName() + "'";
-		Cursor rs = databaseQuery(sqlstsmt);
+		QueryResult qr = databaseQuery(sqlstsmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		String storedPassword = rs.getString(2);
+		qr.close();
 		return (password.equals(storedPassword));
 	}
 
@@ -182,12 +191,14 @@ public class GUI {
 	 */
 	public ObjectList getAllObjects() {
 		String sqlstmt = "SELECT name FROM object";
-		Cursor rs = databaseQuery(sqlstmt);
+		QueryResult qr = databaseQuery(sqlstmt);
 		ObjectList allObjects = new ObjectList();
+		Cursor rs = qr.getResultSet();
 		while (rs.moveToNext()) {
 			String objectName = rs.getString(0);
 			allObjects.add(new PurchasableObject(objectName));
-		} return allObjects;
+		} qr.close();
+		return allObjects;
 	}
 
 	/**
@@ -197,12 +208,14 @@ public class GUI {
 	 */
 	public ObjectList getShoppingList() {
 		String sqlstmt = "SELECT name FROM object WHERE isowned = 0";
-		Cursor rs = databaseQuery(sqlstmt);
+		QueryResult qr = databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
 		ObjectList shoppingList = new ObjectList();
 		while (rs.moveToNext()) {
 			String objectName = rs.getString(0);
 			shoppingList.add(new PurchasableObject(objectName));
-		} return shoppingList;
+		} qr.close();
+		return shoppingList;
 	}
 
 
@@ -239,12 +252,12 @@ public class GUI {
 	 * @param sqlstmt String containing the SQL statement to be executed.
 	 * @return Cursor containing all results from the query.
 	 */
-	public Cursor databaseQuery(String sqlstmt) {
+	public QueryResult databaseQuery(String sqlstmt) {
 		SQLiteDatabase conn = connect();
 		Cursor rs = conn.rawQuery(sqlstmt, null);
-		conn.close();
+		QueryResult qr = new QueryResult(rs, conn);
 		Toast.makeText(HomeActivity.getAppContext(), "Queried the Database", Toast.LENGTH_SHORT).show();
-		return rs;
+		return qr;
 	}
 
 	/**

@@ -54,7 +54,9 @@ class PurchasableObject extends Collectable {
 	public Boolean getIsGrocery() {
 		String sqlstmt = "SELECT isgrocery FROM object WHERE name = " + name;
 		GUI guiInst = GUI.getInstance();
-		Cursor rs = guiInst.databaseQuery(sqlstmt);
+		QueryResult qr = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		return rs.getInt(1) == 1;
 	}
 
@@ -65,7 +67,9 @@ class PurchasableObject extends Collectable {
 	public Boolean getIsOwned() {
 		String sqlstmt = "SELECT isowned FROM object WHERE name = " + name;
 		GUI guiInst = GUI.getInstance();
-		Cursor rs = guiInst.databaseQuery(sqlstmt);
+		QueryResult qr  = guiInst.databaseQuery(sqlstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
 		return rs.getInt(2) == 1;
 	}
 
