@@ -68,7 +68,7 @@ class PurchasableObject extends Collectable {
 	 * @return Boolean representation of whether the PurchasableObject is owned.
 	 */
 	public Boolean getIsOwned() {
-		String sqlstmt = "SELECT isowned FROM object WHERE name = " + name;
+		String sqlstmt = "SELECT isowned FROM object WHERE name = '" + name + "'";
 		GUI guiInst = GUI.getInstance();
 		QueryResult qr  = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
