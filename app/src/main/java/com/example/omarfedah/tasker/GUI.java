@@ -72,6 +72,23 @@ public class GUI {
 	}
 
 	/**
+	 * Queries the database to generate a UserList object containing all users that exist in the
+	 * database.
+	 * @return UserList object containing all existing Users.
+	 */
+	public UserList getAllUser() {
+		String sqlstmt = "SELECT name FROM user";
+		QueryResult qr = databaseQuery(sqlstmt);
+		UserList allUsers = new UserList();
+		Cursor rs = qr.getResultSet();
+		while (rs.moveToNext()) {
+			String userName = rs.getString(0);
+			allUsers.add(new User(userName));
+		} qr.close();
+		return allUsers;
+	}
+
+	/**
 	 * Queries the database to generate a TaskList objects containing all tasks marked as completed.
 	 * @return TaskList object containing all tasks marked as completed.
 	 */
