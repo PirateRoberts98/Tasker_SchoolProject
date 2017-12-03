@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class UserLoginActivity extends AppCompatActivity {
@@ -16,12 +17,20 @@ public class UserLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
+        final EditText password = findViewById(R.id.editTaskPassword);
+
+
         Button loginBtn = findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                Toast.makeText(getApplicationContext(),"Sure", Toast.LENGTH_SHORT).show() ;
+                if(password.getText().toString().equals("password")){
+                    finish();
+                    Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show() ;
+                }else{
+                    Toast.makeText(getApplicationContext(), "Wrong pasword",Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });

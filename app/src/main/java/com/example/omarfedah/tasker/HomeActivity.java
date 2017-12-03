@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         context = getApplicationContext();
-        Intent intent = new Intent(this, UserLoginActivity.class);
+        Intent intent = new Intent(this, UserSelect.class);
         startActivity(intent);
 
 

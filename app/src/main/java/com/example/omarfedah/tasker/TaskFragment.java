@@ -101,10 +101,10 @@ public class TaskFragment extends Fragment {
                 ImageView selectUserThree = (ImageView) mView.findViewById(R.id.user3);
                 ImageView selectUserFour = (ImageView) mView.findViewById(R.id.user4);
 
-                final TextView userNameOne = (TextView) mView.findViewById(R.id.textView3);
-                final TextView userNameTwo = (TextView) mView.findViewById(R.id.textView8);
-                final TextView userNameThree = (TextView) mView.findViewById(R.id.textView9);
-                final TextView userNameFour = (TextView) mView.findViewById(R.id.textView10);
+                final TextView userNameOne = (TextView) mView.findViewById(R.id.userName1);
+                final TextView userNameTwo = (TextView) mView.findViewById(R.id.userName2);
+                final TextView userNameThree = (TextView) mView.findViewById(R.id.userName3);
+                final TextView userNameFour = (TextView) mView.findViewById(R.id.userName4);
 
                 Button cancel = (Button) mView.findViewById(R.id.cancelBtn);
                 alertBuilder.setView(mView);
