@@ -27,7 +27,7 @@ public class ShoppingListFragment extends Fragment {
     ListView groceryListView;
     ListView materialListView;
     GUI backendConnection ;
-    ArrayList<PurchasableObject> groceryList ;
+    ArrayList<PurchasableObject> groceryList  ;
     ArrayList<PurchasableObject> materialList ;
     public ShoppingListFragment() {
         // Required empty public constructor
@@ -45,7 +45,9 @@ public class ShoppingListFragment extends Fragment {
 
         backendConnection = GUI.getInstance() ;
         buildDemoList() ;
+        groceryList = new ArrayList<PurchasableObject>() ;
 
+        materialList = new ArrayList<PurchasableObject>()  ;
         groceryListView.setAdapter(new objectListAdapter(getActivity(),groceryList));
         materialListView.setAdapter(new objectListAdapter(getActivity(),materialList));
 
