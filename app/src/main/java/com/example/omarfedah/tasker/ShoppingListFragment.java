@@ -26,7 +26,7 @@ public class ShoppingListFragment extends Fragment {
 
     ListView groceryListView;
     ListView materialListView;
-
+    GUI backendConnection ;
     ArrayList<testObject> groceryList ;
     ArrayList<testObject> materialList ;
     public ShoppingListFragment() {
@@ -43,6 +43,7 @@ public class ShoppingListFragment extends Fragment {
         groceryListView = (ListView) view.findViewById(R.id.groceryList);
         materialListView = (ListView) view.findViewById(R.id.materialList);
 
+        backendConnection = GUI.getInstance() ;
         buildDemoList() ;
 
         groceryListView.setAdapter(new objectListAdapter(getActivity(),groceryList));
@@ -69,7 +70,7 @@ public class ShoppingListFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         groceryList.add(
-                               new testObject(etObjectName.getText().toString(), true, false)) ;
+                               backendConnection.ad(etObjectName.getText().toString(), true, false)) ;
                     }
                 });
                 builder.setView(mView);
