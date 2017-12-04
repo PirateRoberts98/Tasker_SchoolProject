@@ -223,15 +223,16 @@ public class TaskFragment extends Fragment {
                         create.setOnClickListener(new View.OnClickListener(){ //create function
                             public void onClick(View view){
                                 if (verifyUser(etPersonTo.getText().toString())) {
-                                    if (etTaskDesc.getText().toString().isEmpty() || etTaskName.getText().toString().isEmpty()
-                                            || etPersonTo.getText().toString().isEmpty() || endDate.getText().toString().equals("Choose End Date")
-                                            || time.getText().toString().equals("Choose time")) {
+                                    if (!etTaskDesc.getText().toString().isEmpty() || !etTaskName.getText().toString().isEmpty()
+                                            || !etPersonTo.getText().toString().isEmpty() || !endDate.getText().toString().equals("Choose End Date")
+                                            || !time.getText().toString().equals("Choose time")) {
                                         try {
                                             ((ChoresListAdapter) listView.getAdapter()).getList().add(
                                                     backendConnection.addTask(etTaskName.getText().toString(), Long.parseLong(endDate.getText().toString().replace("/", "")),
-                                                            true, "this is a note ", new ObjectList(),
+                                                            true, etTaskDesc.getText().toString(), new ObjectList(),
                                                             backendConnection.activeUser, backendConnection.activeUser));
                                             ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
+                                            dialog.cancel();
 
                                         }catch(Exception e){
                                             Toast.makeText(getContext(), "Please pick a unique name", Toast.LENGTH_SHORT).show();
