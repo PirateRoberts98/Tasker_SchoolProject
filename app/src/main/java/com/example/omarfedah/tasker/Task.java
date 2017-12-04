@@ -2,6 +2,7 @@ package com.example.omarfedah.tasker;
 
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -73,7 +74,7 @@ import java.sql.SQLException;
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
 		//fixme
-		return rs.getInt(0);
+		return rs.getLong(0);
 	}
 
 	/**
@@ -87,6 +88,15 @@ import java.sql.SQLException;
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
 		return (rs.getInt(0) == 1);
+	}
+
+	public String getNote() {
+		String sqstmt = "SELECT note FROM task WHERE name = '" + name + "'";
+		GUI guiInst = GUI.getInstance();
+		QueryResult qr = guiInst.databaseQuery(sqstmt);
+		Cursor rs = qr.getResultSet();
+		rs.moveToFirst();
+		return rs.getString(0);
 	}
 
 	/**

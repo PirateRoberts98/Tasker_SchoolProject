@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,8 +35,6 @@ public class ChoresListAdapter extends ArrayAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.chores_list_activity, parent, false);
 
@@ -44,11 +43,16 @@ public class ChoresListAdapter extends ArrayAdapter {
        // ImageView choreImage = (ImageView) rowView.findViewById(R.id.icon);
 
         choreNameTextField.setText(listTasks.get(position).getTaskName());
-
-        choreDescriptionTextField.setText("Assigned to: " + "\n" + "Due Date:" +
-                         Long.toString( listTasks.get(position).getEndDateTime() ) +
-                "\n" + "Description:");
-
+        String dueDate =  Long.toString( listTasks.get(position).getEndDateTime()) ;
+        String formatedDueDate = dueDate.substring(0,4)+"/"+dueDate.substring(4,6)+'/'+dueDate.substring(6,8)+"   Time: "+
+                dueDate.substring(8,10)+":"+dueDate.substring(10,12) ;
+        choreDescriptionTextField.setText("Assigned to: "+ listTasks.get(position).getAssignedTo().getUserName() + "\n" + "Due Date:" + formatedDueDate  +
+                "\n" + "Description:"+listTasks.get(position).getNote());
+     //fixme
+        /*  if( position == 1){
+            Toast.makeText(getContext(),Long.toString( listTasks.get(position).getEndDateTime() ), Toast.LENGTH_SHORT).show() ;
+        }
+*/
 
       /*TODO Implement Icons in ListView
 

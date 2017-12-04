@@ -38,12 +38,14 @@ public class ShoppingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
         groceryListView = (ListView) view.findViewById(R.id.groceryList);
         materialListView = (ListView) view.findViewById(R.id.materialList);
 
         backendConnection = GUI.getInstance() ;
+        backendConnection.getUserTasks("Phillip");
         //buildDemoList() ;
         createObjectLists();
         groceryListView.setAdapter(new objectListAdapter(getActivity(),groceryList));

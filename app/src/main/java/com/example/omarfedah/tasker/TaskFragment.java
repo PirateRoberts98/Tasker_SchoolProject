@@ -56,6 +56,8 @@ public class TaskFragment extends Fragment {
     private ArrayList<Task> userTasks;
     private ArrayList<Task> completedTasks;
 
+
+    private boolean MADRID ; //TODO
     //constructor
     public TaskFragment() {
         // Required empty public constructor
@@ -74,9 +76,10 @@ public class TaskFragment extends Fragment {
         //createListView() ;
 
         //Intializing the List View -R
-
-        //Setting Array for List -R
-        adapter = new ChoresListAdapter(getActivity(), completeTaskList);
+        MADRID = true ;
+        //Setting Array for List -R//completeTaskList
+        ArrayList<Task> aList = new TaskList().getList() ;
+        adapter = new ChoresListAdapter(getContext(),  backendConnection.getAllTasks().getList());
         listView.setAdapter(adapter);
 
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
@@ -89,24 +92,28 @@ public class TaskFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        swapUser();
+                        swapUserList();
 
                     }
                 });
 
         addTaskText.setOnClickListener(new View.OnClickListener(){
 
-            public void onClick(View view){
-                ChoresListAdapter a =  (ChoresListAdapter)  listView.getAdapter() ;
-                ObjectList gun = new ObjectList() ;
-                gun.add(new PurchasableObject("Gun")) ;
-                try {
-                    a.getList().add(backendConnection.addTask("HALA MADRID", 10, true
-                            , "this is a note ", gun, backendConnection.getActiveUser(),backendConnection.getActiveUser()));
-                    adapter.notifyDataSetChanged();
-                } catch (UniqueIDException e) {
+            public void onClick(View view) {
+                if (MADRID) {
+                    ChoresListAdapter a = (ChoresListAdapter) listView.getAdapter();
+                    ObjectList gun = new ObjectList();
+                    gun.add(new PurchasableObject("Gun"));
+                    try {
+                        a.getList().add(backendConnection.addTask("HALA MADRID", 10, true
+                                , "this is a note ", gun, backendConnection.getActiveUser(), backendConnection.getActiveUser()));
+                        adapter.notifyDataSetChanged();
+                    } catch (UniqueIDException e) {
+                    }
                 }
+                MADRID = false ;
             }
+
         }) ;
 
 
@@ -221,7 +228,7 @@ public class TaskFragment extends Fragment {
                                             || time.getText().toString().equals("Choose time")) {
                                         try {
                                             ((ChoresListAdapter) listView.getAdapter()).getList().add(
-                                                    backendConnection.addTask(etTaskName.getText().toString(), Integer.parseInt(endDate.getText().toString().replace("/", "")),
+                                                    backendConnection.addTask(etTaskName.getText().toString(), Long.parseLong(endDate.getText().toString().replace("/", "")),
                                                             true, "this is a note ", new ObjectList(),
                                                             backendConnection.activeUser, backendConnection.activeUser));
                                             ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
@@ -246,7 +253,7 @@ public class TaskFragment extends Fragment {
         return view;}
 
     private void createListView() {
-
+//fixme end the suffering
         //Intializing the List View -R
         listView = (ListView) view.findViewById(R.id.list);
         //Setting Array for List -R
@@ -259,13 +266,13 @@ public class TaskFragment extends Fragment {
     }
 
 
-    private void swapUser(){
+    private void swapUserList(){
         if(countTracker % 2 == 0) {
-            adapter = new ChoresListAdapter(getActivity(), userTasks);
+            adapter = new ChoresListAdapter(getActivity(),backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName()).getList());
             countTracker = 1 ;
         }
         else {
-            adapter= new ChoresListAdapter(getActivity(), completeTaskList);
+            adapter= new ChoresListAdapter(getActivity(),  backendConnection.getAllTasks().getList());
             countTracker = 0 ;
         }
         listView.setAdapter(adapter);
@@ -283,7 +290,7 @@ public class TaskFragment extends Fragment {
         if (completedTasks == null){
             Toast.makeText(getContext(),"BOI",Toast.LENGTH_SHORT).show() ;
         }
-        if (userList == null){
+        if (userTasks == null){
             Toast.makeText(getContext(),"YOU'RE FACE",Toast.LENGTH_SHORT).show() ;
         }
         if (allTasks == null){
