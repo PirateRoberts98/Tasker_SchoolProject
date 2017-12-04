@@ -265,20 +265,8 @@ public class GUI {
 		SQLiteDatabase conn;
 		String dbPath = HomeActivity.getAppContext().getDatabasePath("Tasker").getPath();
 		File dbFile = new File(dbPath);
-		//check to see if db file can located in android emulation
-		if (dbFile.exists()){
-			Toast.makeText(HomeActivity.getAppContext(),"Found DB File", Toast.LENGTH_SHORT).show();
-		}
-		else {
-			Toast.makeText(HomeActivity.getAppContext(),"Didn't find DB File", Toast.LENGTH_SHORT).show();
-		}
 		conn = SQLiteDatabase.openDatabase(dbPath, null,
 				SQLiteDatabase.OPEN_READWRITE);
-		//prints true if the SQLiteDatabase connection is open
-		Toast.makeText(HomeActivity.getAppContext(),Boolean.toString(conn.isOpen()), Toast.LENGTH_SHORT).show();
-
-		//Toast.makeText(HomeActivity.getAppContext(), dbPath, Toast.LENGTH_SHORT).show();
-		//Toast.makeText(HomeActivity.getAppContext(), "Connected to Database", Toast.LENGTH_SHORT).show();
 		return conn;
 	}
 
@@ -292,7 +280,6 @@ public class GUI {
 		SQLiteDatabase conn = connect();
 		Cursor rs = conn.rawQuery(sqlstmt, null);
 		QueryResult qr = new QueryResult(rs, conn);
-		Toast.makeText(HomeActivity.getAppContext(), "Queried the Database", Toast.LENGTH_SHORT).show();
 		return qr;
 	}
 
@@ -304,7 +291,6 @@ public class GUI {
 		SQLiteDatabase conn = connect();
 		conn.execSQL(sqlstmt);
 		conn.close();
-		Toast.makeText(HomeActivity.getAppContext(), "Updated the Database", Toast.LENGTH_SHORT).show();
 
 	}
 
