@@ -42,12 +42,16 @@
             <ListView
                 android:id="@+id/groceryList"
                 android:layout_width="191dp"
-                android:layout_height="450dp" />
+                android:layout_height="450dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp" />
 
             <ListView
                 android:id="@+id/materialList"
                 android:layout_width="match_parent"
-                android:layout_height="450dp" />
+                android:layout_height="450dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp" />
         </LinearLayout>
 
         <LinearLayout

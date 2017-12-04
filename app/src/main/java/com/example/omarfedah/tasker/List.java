@@ -32,6 +32,7 @@ public abstract class List<E> {
      */
     public void add(E elem){
         arrayList.add(elem);
+        size++;
     }
 
     /**

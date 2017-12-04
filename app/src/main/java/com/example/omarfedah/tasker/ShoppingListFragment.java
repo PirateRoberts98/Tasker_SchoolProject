@@ -64,6 +64,10 @@ public class ShoppingListFragment extends Fragment {
                 TextView dialogTitle = mView.findViewById(R.id.dialogTitle);
                 final EditText etObjectName = (EditText) mView.findViewById(R.id.shoppingObjectText);
 
+                builder.setView(mView);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
                 dialogTitle.setText("Add Grocery");
                 final Button addBtn = (Button) mView.findViewById(R.id.addShoppingObject);
                 addBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,19 +75,17 @@ public class ShoppingListFragment extends Fragment {
                     public void onClick(View v) {
 
                       try{
-                          backendConnection.addObject(etObjectName.getText().toString(), true, false) ;
-
+                         PurchasableObject newGroceryObject = backendConnection.addObject(etObjectName.getText().toString(), true, false) ;
+                        groceryList.add(newGroceryObject);
                       }catch(UniqueIDException e){
 
 
                       }
 
 
-                    }
+                  dialog.cancel();  }
                 });
-                builder.setView(mView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+
             }
 
         });
@@ -97,7 +99,9 @@ public class ShoppingListFragment extends Fragment {
                 TextView dialogTitle = mView.findViewById(R.id.dialogTitle);
 
                 dialogTitle.setText("Add Material");
-
+                builder.setView(mView);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
 
                 final Button addBtn = (Button) mView.findViewById(R.id.addShoppingObject);
                 addBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,18 +110,17 @@ public class ShoppingListFragment extends Fragment {
 
 
                         try{
-                            materialList.add(
-                                    backendConnection.addObject(etObjectName.getText().toString(), false, false)) ;
+                            PurchasableObject newMaterialObject = backendConnection.addObject(etObjectName.getText().toString(), false, false);
+                            materialList.add(newMaterialObject);
+
                         }catch(UniqueIDException e){
                             Toast.makeText(getContext(), "ERROR Found", Toast.LENGTH_SHORT).show();
-                        }
+                        } dialog.cancel();
 
 
                     }
                 });
-                builder.setView(mView);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+
             }
 
         });
