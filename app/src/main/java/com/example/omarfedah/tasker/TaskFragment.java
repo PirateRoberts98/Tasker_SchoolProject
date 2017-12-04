@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class TaskFragment extends Fragment {
     static int countTracker;
     private View view;
     private ListView listView ;
+    //LIST OF USER
     protected ArrayList userList ;
     protected ChoresListAdapter adapter ;
     protected ArrayList completeTaskList ;
@@ -65,15 +67,24 @@ public class TaskFragment extends Fragment {
                              final Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_task, container, false);
-
-        createListView() ;
         backendConnection = GUI.getInstance() ;
         createTaskLists();
+       createListView() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
 
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
         //TEST Used For Quick Additions
+        Button myTask = (Button) view.findViewById(R.id.myTask);
+        myTask.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        swapUser();
+
+                    }
+                });
+
         addTaskText.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
@@ -259,15 +270,7 @@ public class TaskFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.list);
         //Setting Array for List -R
 
-        Button myTask = (Button) view.findViewById(R.id.myTask);
-        myTask.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        swapUser();
 
-                    }
-                });
         adapter = new ChoresListAdapter(getActivity(), completeTaskList);
         listView.setAdapter(adapter);
 
@@ -277,7 +280,7 @@ public class TaskFragment extends Fragment {
 
     private void swapUser(){
         if(countTracker % 2 == 0) {
-            adapter = new ChoresListAdapter(getActivity(), userList);
+            adapter = new ChoresListAdapter(getActivity(), userTasks);
             countTracker = 1 ;
         }
         else {
@@ -295,7 +298,18 @@ public class TaskFragment extends Fragment {
         allTasks = backendConnection.getAllTasks().getList();
         userTasks = backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName()).getList();
         completedTasks = backendConnection.getCompletedTasks().getList();
+
+        if (completedTasks == null){
+            Toast.makeText(getContext(),"BOI",Toast.LENGTH_SHORT).show() ;
+        }
+        if (userList == null){
+            Toast.makeText(getContext(),"YOU'RE FACE",Toast.LENGTH_SHORT).show() ;
+        }
+        if (allTasks == null){
+            Toast.makeText(getContext(),"YOU ARE FACE ",Toast.LENGTH_SHORT).show() ;
+        }
     }
+
 
     private boolean verifyUser(String user ){
         UserList users = backendConnection.getAllUser() ;
