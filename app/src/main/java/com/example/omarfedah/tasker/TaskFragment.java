@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -69,7 +70,7 @@ public class TaskFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_task, container, false);
         backendConnection = GUI.getInstance() ;
         createTaskLists();
-       createListView() ;
+//       createListView() ;
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
 
@@ -99,7 +100,14 @@ public class TaskFragment extends Fragment {
                 }
             }
         }) ;
-
+/*
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), TaskEditorActivity.class);
+                startActivity(intent);
+            }
+        });*/
 
 
         countTracker = 1;
@@ -141,33 +149,6 @@ public class TaskFragment extends Fragment {
                         // String startDateValue = startDate.getText().toString() ;
                          String endDateValue = endDate.getText().toString() ;
                          String timeValue = time.getText().toString() ;
-
-
-                        //START DAY SETTER
-                        /*startDate.setOnClickListener(
-                                new View.OnClickListener(){
-                                    public void onClick(View view){
-                                        Calendar calendar = Calendar.getInstance();
-                                        int year = calendar.get(Calendar.YEAR);
-                                        int month = calendar.get(Calendar.MONTH);
-                                        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                                        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_MinWidth, dateSetListener,year,month,day);
-                                        dialog.show();
-
-                                        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                                            @Override
-                                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                                                month++;
-                                                Log.d(TAG, "onDateSet: mm/dd/yy" + month + "/" + dayOfMonth + "/" + year);
-                                                String displayDate = month + "/" + dayOfMonth + "/" + year;
-                                                startDate.setText(displayDate);
-                                            }
-                                        };
-                                    }
-
-                                });*/
-
 
 
                         //END DATE SETTER
