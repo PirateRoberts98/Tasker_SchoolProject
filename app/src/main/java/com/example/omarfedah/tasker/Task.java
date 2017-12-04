@@ -73,7 +73,7 @@ import java.sql.SQLException;
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
 		//fixme
-		return rs.getInt(rs.getColumnIndex("enddatetime"));
+		return rs.getInt(0);
 	}
 
 	/**
@@ -86,7 +86,7 @@ import java.sql.SQLException;
 		QueryResult qr =guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
-		return (rs.getInt(2) == 1);
+		return (rs.getInt(0) == 1);
 	}
 
 	/**
@@ -132,7 +132,7 @@ import java.sql.SQLException;
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
-		String assignedToName = rs.getString(6);
+		String assignedToName = rs.getString(0);
         return new User(assignedToName);
 	}
 

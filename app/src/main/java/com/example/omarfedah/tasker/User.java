@@ -59,7 +59,7 @@ import android.database.Cursor;
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
-		return rs.getString(1);
+		return rs.getString(0);
 	}
 
 	/**

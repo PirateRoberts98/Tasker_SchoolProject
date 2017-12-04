@@ -258,8 +258,6 @@ public class TaskFragment extends Fragment {
         //Intializing the List View -R
         listView = (ListView) view.findViewById(R.id.list);
         //Setting Array for List -R
-        completeTaskList = new ArrayList<testTASK>();
-        userList = new ArrayList<testTASK>();
 
         Button myTask = (Button) view.findViewById(R.id.myTask);
         myTask.setOnClickListener(

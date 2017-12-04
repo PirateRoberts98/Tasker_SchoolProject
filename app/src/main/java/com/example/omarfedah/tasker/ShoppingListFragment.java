@@ -44,10 +44,8 @@ public class ShoppingListFragment extends Fragment {
         materialListView = (ListView) view.findViewById(R.id.materialList);
 
         backendConnection = GUI.getInstance() ;
-        buildDemoList() ;
-        groceryList = new ArrayList<PurchasableObject>() ;
-
-        materialList = new ArrayList<PurchasableObject>()  ;
+        //buildDemoList() ;
+        createObjectLists();
         groceryListView.setAdapter(new objectListAdapter(getActivity(),groceryList));
         materialListView.setAdapter(new objectListAdapter(getActivity(),materialList));
 
@@ -126,7 +124,7 @@ public class ShoppingListFragment extends Fragment {
 
         return view;}
 
-    private createObjectLists() {
+    private void createObjectLists() {
         groceryList = backendConnection.getObjectList(true, false).getList();
         materialList = backendConnection.getObjectList(false, false).getList();
     }

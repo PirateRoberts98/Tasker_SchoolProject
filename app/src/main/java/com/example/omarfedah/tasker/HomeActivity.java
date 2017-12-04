@@ -138,6 +138,8 @@ public class HomeActivity extends AppCompatActivity {
             backendConnection.addObject("bread", true, false);
             backendConnection.addObject("2number9", true, false);
             backendConnection.addObject("number9large", true, false);
+            backendConnection.addObject("CLR", false, false);
+            backendConnection.addObject("napkin", false, false);
             //create task ObjectLists
             ObjectList task1 = new ObjectList();
             task1.add(new PurchasableObject("dish soap"));
@@ -157,6 +159,8 @@ public class HomeActivity extends AppCompatActivity {
             task5.add(new PurchasableObject("bread"));
             task5.add(new PurchasableObject("2number9"));
             task5.add(new PurchasableObject("number9large"));
+            task5.add(new PurchasableObject ("CLR"));
+            task5.add(new PurchasableObject("napkin"));
             ObjectList task6 = new ObjectList();
             task6.add(new PurchasableObject("potato sack"));
             task6.add(new PurchasableObject("gun"));

@@ -64,7 +64,7 @@ class PurchasableObject extends Collectable {
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
-		return rs.getInt(1) == 1;
+		return rs.getInt(0) == 1;
 	}
 
 	/**
@@ -77,7 +77,7 @@ class PurchasableObject extends Collectable {
 		QueryResult qr  = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
-		return rs.getInt(2) == 1;
+		return rs.getInt(0) == 1;
 	}
 
 	/**
