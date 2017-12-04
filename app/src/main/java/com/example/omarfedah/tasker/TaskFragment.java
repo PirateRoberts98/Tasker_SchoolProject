@@ -78,7 +78,7 @@ public class TaskFragment extends Fragment {
         //Intializing the List View -R
         MADRID = true ;
         //Setting Array for List -R//completeTaskList
-        ArrayList<Task> aList = new TaskList().getList() ;
+      //  ArrayList<Task> aList = new TaskList().getList() ;
         adapter = new ChoresListAdapter(getContext(),  backendConnection.getAllTasks().getList());
         listView.setAdapter(adapter);
 
@@ -101,12 +101,12 @@ public class TaskFragment extends Fragment {
 
             public void onClick(View view) {
                 if (MADRID) {
-                    ChoresListAdapter a = (ChoresListAdapter) listView.getAdapter();
-                    ObjectList gun = new ObjectList();
-                    gun.add(new PurchasableObject("Gun"));
+                    adapter = (ChoresListAdapter) listView.getAdapter();
+                    ObjectList soccer = new ObjectList();
+                    soccer.add(new PurchasableObject("Soccer Ball"));
                     try {
-                        a.getList().add(backendConnection.addTask("HALA MADRID", 10, true
-                                , "this is a note ", gun, backendConnection.getActiveUser(), backendConnection.getActiveUser()));
+                        adapter.getList().add(backendConnection.addTask("HALA MADRID", 201712031200L, true
+                                , "this is a note ", soccer , backendConnection.getActiveUser(), backendConnection.getActiveUser()));
                         adapter.notifyDataSetChanged();
                     } catch (UniqueIDException e) {
                     }
@@ -227,11 +227,13 @@ public class TaskFragment extends Fragment {
                                             || !etPersonTo.getText().toString().isEmpty() || !endDate.getText().toString().equals("Choose End Date")
                                             || !time.getText().toString().equals("Choose time")) {
                                         try {
+
                                             ((ChoresListAdapter) listView.getAdapter()).getList().add(
-                                                    backendConnection.addTask(etTaskName.getText().toString(), Long.parseLong(endDate.getText().toString().replace("/", "")),
+                                                    backendConnection.addTask(etTaskName.getText().toString(), Long.parseLong(endDate.getText().toString().replace("/", "") +
+                                                                    time.getText().toString().replace(":","")),
                                                             true, etTaskDesc.getText().toString(), new ObjectList(),
-                                                            backendConnection.activeUser, backendConnection.activeUser));
-                                            ((ChoresListAdapter) listView.getAdapter()).notifyDataSetChanged();
+                                                            backendConnection.activeUser, new User(etPersonTo.getText().toString())));
+                                            adapter.notifyDataSetChanged();
                                             dialog.cancel();
 
                                         }catch(Exception e){

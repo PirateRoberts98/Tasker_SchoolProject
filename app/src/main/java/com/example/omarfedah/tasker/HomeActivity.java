@@ -81,16 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     private void BuildDatabase(){
 
         SQLiteDatabase conn = backendConnection.connect();
-
-        //drops any existing table, for testing
-        String clearTaskTable = "DROP TABLE task";
-        String clearUserTable = "DROP TABLE user";
-        String clearObjectTable = "DROP TABLE object";
-        //comment these out to keep values stored across simulations
-        conn.execSQL(clearTaskTable);
-        conn.execSQL(clearUserTable);
-        conn.execSQL(clearObjectTable);
-
+        //DropTables();
         String createTaskTable = "CREATE TABLE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
                 "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
                 " assignedto TEXT)";
@@ -103,8 +94,21 @@ public class HomeActivity extends AppCompatActivity {
         conn.execSQL(createObjectTable);
         conn.close();
 
-        DemoFillDatabase();
+        //DemoFillDatabase();
         //Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
+    }
+
+    public void DropTables() {
+        SQLiteDatabase conn = backendConnection.connect();
+
+        //drops any existing table, for testing
+        String clearTaskTable = "DROP TABLE task";
+        String clearUserTable = "DROP TABLE user";
+        String clearObjectTable = "DROP TABLE object";
+        //comment these out to keep values stored across simulations
+        conn.execSQL(clearTaskTable);
+        conn.execSQL(clearUserTable);
+        conn.execSQL(clearObjectTable);
     }
 
     public void DemoFillDatabase() {
@@ -178,13 +182,13 @@ public class HomeActivity extends AppCompatActivity {
             task10.add(new PurchasableObject("all purpose cleaner"));
             //add tasks
             long date1 = 201712011900L;
-            backendConnection.addTask("Do the dishes",201712011900L, false, "If we run out of soap, add it to the shopping list.", task1, robert, phillip);
+            //backendConnection.addTask("Do the dishes",201712011900L, false, "If we run out of soap, add it to the shopping list.", task1, robert, phillip);
             backendConnection.addTask("Rake the front lawn", 201712031530L, false, "Dont forget to put the rake back in the garage.", task2, phillip, cooper);
-            backendConnection.addTask("Do the laundry", 201712050915L, false, "Dont tumble dry Phillips brown sweater.", task3, fedah, cooper);
+          //  backendConnection.addTask("Do the laundry", 201712050915L, false, "Dont tumble dry Phillips brown sweater.", task3, fedah, cooper);
             backendConnection.addTask("Walk the dog", 201712010745L, false, "Pet twice every 3 minutes.", task4, fedah, fedah);
             backendConnection.addTask("Shopping", 201712010745L, false, "gatta hit up that 2 4 1 deal at macys", task5, robert, cooper);
-            backendConnection.addTask("Go to the bank", 201712031730L, false, "Open a new account to put newly aquired funds into.", task6, robert, robert);
-            backendConnection.addTask("Wash the bathroom", 201712051200L, false, "Please actually wash the sink this time you lazy turd.", task7, phillip, fedah);
+          //  backendConnection.addTask("Go to the bank", 201712031730L, false, "Open a new account to put newly aquired funds into.", task6, robert, robert);
+            // backendConnection.addTask("Wash the bathroom", 201712051200L, false, "Please actually wash the sink this time you lazy turd.", task7, phillip, fedah);
             backendConnection.addTask("Apply the dogs hemorrhoid cream", 201712090000L, false, "He will fight back. You must resist.", task8, phillip, robert);
             backendConnection.addTask("Get ice cream", 201712120730L, false, "The most important meal of the day.", task9, phillip, phillip);
             backendConnection.addTask("Wash the floors", 201712031230L, false, "Put the dog in the basement while the floors dry.", task10, cooper, phillip);
