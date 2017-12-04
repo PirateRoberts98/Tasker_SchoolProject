@@ -67,9 +67,17 @@ public class TaskFragment extends Fragment {
                              final Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_task, container, false);
+        listView = (ListView) view.findViewById(R.id.list);
         backendConnection = GUI.getInstance() ;
         createTaskLists();
-       createListView() ;
+        //createListView() ;
+
+        //Intializing the List View -R
+
+        //Setting Array for List -R
+        adapter = new ChoresListAdapter(getActivity(), completeTaskList);
+        listView.setAdapter(adapter);
+
         Button addTaskButton = (Button) view.findViewById(R.id.addTask);
         Button switchUser = (Button) view.findViewById(R.id.switchUser);
 
@@ -141,34 +149,6 @@ public class TaskFragment extends Fragment {
                         // String startDateValue = startDate.getText().toString() ;
                          String endDateValue = endDate.getText().toString() ;
                          String timeValue = time.getText().toString() ;
-
-
-                        //START DAY SETTER
-                        /*startDate.setOnClickListener(
-                                new View.OnClickListener(){
-                                    public void onClick(View view){
-                                        Calendar calendar = Calendar.getInstance();
-                                        int year = calendar.get(Calendar.YEAR);
-                                        int month = calendar.get(Calendar.MONTH);
-                                        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                                        DatePickerDialog dialog = new DatePickerDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_MinWidth, dateSetListener,year,month,day);
-                                        dialog.show();
-
-                                        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                                            @Override
-                                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                                                month++;
-                                                Log.d(TAG, "onDateSet: mm/dd/yy" + month + "/" + dayOfMonth + "/" + year);
-                                                String displayDate = month + "/" + dayOfMonth + "/" + year;
-                                                startDate.setText(displayDate);
-                                            }
-                                        };
-                                    }
-
-                                });*/
-
-
 
                         //END DATE SETTER
                         endDate.setOnClickListener(
