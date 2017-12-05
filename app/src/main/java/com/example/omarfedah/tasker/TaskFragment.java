@@ -88,6 +88,39 @@ public class TaskFragment extends Fragment {
         TextView addTaskText = (TextView) view.findViewById(R.id.textView4);
         //TEST Used For Quick Additions
         Button myTask = (Button) view.findViewById(R.id.myTask);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Button testButton = (Button) view.findViewById(R.id.adapterButton);
+                testButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        View mView = getLayoutInflater().inflate(R.layout.dialog_edit_task, null);
+
+                        Button editButton = (Button) mView.findViewById(R.id.editTaskButton);
+                        Button deleteButton = (Button) mView.findViewById(R.id.deleteButton);
+                        Button cancleButton = (Button) mView.findViewById(R.id.cancelBtn);
+
+                        final EditText etTaskName = (EditText) mView.findViewById(R.id.etTaskName);
+                        final EditText etTaskDesc = (EditText) mView.findViewById(R.id.etTaskDesc);
+                        final EditText etPersonTo = (EditText) mView.findViewById(R.id.etPersonTo);
+
+                        //final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
+                        final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
+                        final TextView time = (TextView) mView.findViewById(R.id.etTime);
+
+
+
+                    }
+                });
+
+
+            }
+        });
+
         myTask.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -252,6 +285,8 @@ public class TaskFragment extends Fragment {
 //END OF ONCLICK
 
                 });
+
+
 
         return view;}
 
