@@ -207,8 +207,12 @@ public class TaskFragment extends Fragment {
                                             @Override
                                             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                                                 month++;
-                                                Log.d(TAG, "onDateSet: mm/dd/yy" + month + "/" + dayOfMonth + "/" + year);
-                                                String displayDate = month + "/" + dayOfMonth + "/" + year;
+                                                String formattedMonth = Integer.toString(month);
+                                                if(formattedMonth.length() == 1) {formattedMonth = "0" + formattedMonth;}
+                                                String formattedDay = Integer.toString(dayOfMonth);
+                                                if(formattedDay.length() == 1) {formattedDay = "0" + formattedDay;}
+                                                Log.d(TAG, "onDateSet: mm/dd/yy" + formattedMonth + "/" + formattedDay + "/" + year);
+                                                String displayDate = year + "/" + formattedMonth + "/" + formattedDay;
                                                 endDate.setText(displayDate);
                                             }
                                         };
@@ -223,13 +227,18 @@ public class TaskFragment extends Fragment {
                                 Calendar cTime = Calendar.getInstance();
                                 int hour = cTime.get(Calendar.HOUR_OF_DAY);
                                 int minute = cTime.get(Calendar.MINUTE);
+
                                 TimePickerDialog dialog = new TimePickerDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog_MinWidth, timeSetListener, hour, minute, false);
                                 dialog.show();
 
                                 timeSetListener = new TimePickerDialog.OnTimeSetListener(){
                                     public void onTimeSet(TimePicker timePicker, int hour, int minute){
-                                        Log.d(TAG, "onTimeSet: hh:mm" + hour + ":" +minute);
-                                        String displayTime = hour + ":" + minute;
+                                        String formattedHour = Integer.toString(hour);
+                                        if(formattedHour.length() == 1) {formattedHour = "0" + formattedHour;}
+                                        String formattedMinute = Integer.toString(minute);
+                                        if(formattedMinute.length() == 1) {formattedMinute = "0" + formattedMinute;}
+                                        Log.d(TAG, "onTimeSet: hh:mm" + formattedHour + ":" + formattedMinute);
+                                        String displayTime = formattedHour + ":" + formattedMinute;
                                         time.setText(displayTime);
                                     }
                                 };
@@ -314,7 +323,7 @@ public class TaskFragment extends Fragment {
             countTracker = 0 ;
         }
         listView.setAdapter(adapter);
-        Toast.makeText(getContext(), "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
     }
 
     /**
