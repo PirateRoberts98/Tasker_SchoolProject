@@ -1,12 +1,6 @@
 package com.example.omarfedah.tasker;
 
-import android.database.Cursor;
-
-
-
-
 //NOTE: Can we use boolean for iscomplete and convert from database on call?
-
 
 public class testTASK  extends Collectable {
 

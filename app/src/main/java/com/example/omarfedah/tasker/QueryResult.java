@@ -44,5 +44,4 @@ public class QueryResult {
         resultSet.close();
         conn.close();
     }
-
 }

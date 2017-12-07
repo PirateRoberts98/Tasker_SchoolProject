@@ -1,7 +1,5 @@
 package com.example.omarfedah.tasker;
 
-
-
 class ObjectList extends List<PurchasableObject> {
 
     public ObjectList() {
@@ -18,9 +16,11 @@ class ObjectList extends List<PurchasableObject> {
         for (PurchasableObject obj: getList()) {
             asString = asString + obj.getObjectName() + "/";
         }
+
         if (!asString.equals("") && asString.length() > 0) {
             asString = asString.substring(0, asString.length() - 1);
         }
+
         return asString;
     }
 }

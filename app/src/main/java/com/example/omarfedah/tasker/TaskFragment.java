@@ -2,15 +2,10 @@ package com.example.omarfedah.tasker;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +14,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
-/**
-
- */
 public class TaskFragment extends Fragment {
     // TODO: Rename parameter arguments
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,12 +47,11 @@ public class TaskFragment extends Fragment {
 
 
     private boolean MADRID ; //TODO
+
     //constructor
     public TaskFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -111,13 +99,8 @@ public class TaskFragment extends Fragment {
                         //final TextView startDate = (TextView) mView.findViewById(R.id.etStartDate);
                         final TextView endDate = (TextView) mView.findViewById(R.id.etEndDate);
                         final TextView time = (TextView) mView.findViewById(R.id.etTime);
-
-
-
                     }
                 });
-
-
             }
         });
 
@@ -149,15 +132,12 @@ public class TaskFragment extends Fragment {
 
         }) ;
 
-
-
         countTracker = 1;
         switchUser.setOnClickListener(new View.OnClickListener(){
             //What happen when clicked and creation message
             public void onClick(View view){
                 Intent intent = new Intent(getContext(), UserSelect.class);
                 startActivity(intent);
-
             }
 
 
@@ -167,7 +147,6 @@ public class TaskFragment extends Fragment {
         addTaskButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View view) {
-
 
                         //PUT ADDED VALUES HERE
                         int year ;
@@ -220,7 +199,6 @@ public class TaskFragment extends Fragment {
 
                                 });
 
-
                         //TIME SETTER
                         time.setOnClickListener(new View.OnClickListener(){
                             public void onClick(View view){
@@ -246,15 +224,10 @@ public class TaskFragment extends Fragment {
 
                         });
 
-
                         //Displays dialog
                         builder.setView(mView);
                         final AlertDialog dialog = builder.create();
                         dialog.show();
-
-
-
-
 
                         //Buttons' function inside dialog
                         cancel.setOnClickListener(new View.OnClickListener(){ //cancel button
@@ -262,6 +235,7 @@ public class TaskFragment extends Fragment {
                                 dialog.cancel();
                             }
                         });
+
                         create.setOnClickListener(new View.OnClickListener(){ //create function
                             public void onClick(View view){
                                 if (verifyUser(etPersonTo.getText().toString())) {
@@ -295,33 +269,26 @@ public class TaskFragment extends Fragment {
 
                 });
 
-
-
         return view;}
 
     private void createListView() {
-//fixme end the suffering
         //Intializing the List View -R
         listView = (ListView) view.findViewById(R.id.list);
         //Setting Array for List -R
 
-
         adapter = new ChoresListAdapter(getActivity(), completeTaskList);
         listView.setAdapter(adapter);
-
-
     }
-
 
     private void swapUserList(){
         if(countTracker % 2 == 0) {
             adapter = new ChoresListAdapter(getActivity(),backendConnection.getUserTasks(backendConnection.getActiveUser().getUserName()).getList());
             countTracker = 1 ;
-        }
-        else {
+        } else {
             adapter= new ChoresListAdapter(getActivity(),  backendConnection.getAllTasks().getList());
             countTracker = 0 ;
         }
+
         listView.setAdapter(adapter);
         //Toast.makeText(getContext(), "SKRAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
     }
@@ -337,9 +304,11 @@ public class TaskFragment extends Fragment {
         if (completedTasks == null){
             Toast.makeText(getContext(),"BOI",Toast.LENGTH_SHORT).show() ;
         }
+
         if (userTasks == null){
             Toast.makeText(getContext(),"YOU'RE FACE",Toast.LENGTH_SHORT).show() ;
         }
+
         if (allTasks == null){
             Toast.makeText(getContext(),"YOU ARE FACE ",Toast.LENGTH_SHORT).show() ;
         }
@@ -349,13 +318,13 @@ public class TaskFragment extends Fragment {
     private boolean verifyUser(String user ){
         UserList users = backendConnection.getAllUser() ;
         ArrayList<User> userList = users.getList() ;
+
         for (int i = 0 ; i< userList.size(); i++) {
             if (user.equals(userList.get(i).getUserName())) {
                 return true;
             }
         }
-        return true  ;
 
-        //return false ;
+        return true  ;
     }
 }

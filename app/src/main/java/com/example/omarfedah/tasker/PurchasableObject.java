@@ -1,11 +1,6 @@
 package com.example.omarfedah.tasker;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import android.database.Cursor;
-import java.sql.Statement;
-
 
 //requires external methods databaseQuery(String), databaseUpdate(String)
 
@@ -25,10 +20,12 @@ class PurchasableObject extends Collectable {
 	public PurchasableObject(String name, Boolean isGrocery, Boolean isOwned) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
 		boolean isUniqueID = false;
+
 		try {
 			guiInst.checkUniqueID(name, "object");
 			isUniqueID = true;
 		} catch (UniqueIDException e) {}
+
 		if (isUniqueID) {
 			this.name = name;
 			String values = "VALUES ('" + name + "'," + (isGrocery ? 1 : 0) + "," + (isOwned ? 1 : 0) + ")";
@@ -64,6 +61,7 @@ class PurchasableObject extends Collectable {
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+
 		return rs.getInt(0) == 1;
 	}
 
@@ -77,6 +75,7 @@ class PurchasableObject extends Collectable {
 		QueryResult qr  = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+
 		return rs.getInt(0) == 1;
 	}
 
@@ -87,10 +86,12 @@ class PurchasableObject extends Collectable {
 	public void setObjectName(String newName) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
 		boolean isUniqueID = false;
+
 		try {
 			guiInst.checkUniqueID(newName, "object");
 			isUniqueID = true;
 		} catch (UniqueIDException e) {}
+
 		if (isUniqueID) {
 			String sqlstmt = "UPDATE object SET name = '" + newName + "' WHERE name = " + "," + name + ",";
 			guiInst.databaseUpdate(sqlstmt);
@@ -111,8 +112,7 @@ class PurchasableObject extends Collectable {
 
 	/**
 	 * Used to edit the 'isOwned' status of an existing PurchasableObject.
-	 * @param NewIsOwned  Boolean representation of the PurchasableObject's new 'isOwned'
-	 *                   status.
+	 * @param NewIsOwned  Boolean representation of the PurchasableObject's new 'isOwned' status.
 	 */
 	public void setIsOwned(Boolean NewIsOwned) {
 		String sqlstmt = "UPDATE object SET isowned = " + (NewIsOwned ? 1 : 0) + " WHERE name = " + "," + name + ",";

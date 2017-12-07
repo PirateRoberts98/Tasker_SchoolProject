@@ -1,52 +1,35 @@
 package com.example.omarfedah.tasker;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.app.TimePickerDialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.support.v7.app.AlertDialog.Builder;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-
+/**
+ *
+ */
 public class HomeActivity extends AppCompatActivity {
 
-    private static final  String TAG = "HomeActivity";
-
+    private static final  String TAG = "HomeActivity"; //Name for the home activity
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     public static GUI backendConnection ;
 
     static Context context;
-    //protected ArrayList completeTaskList ;
 
+    /**
+     * Construct the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,24 +54,33 @@ public class HomeActivity extends AppCompatActivity {
         setDrawerContent(drawer);
     }
 
+    /**
+     * Checks whether or not the selected MenuItem is selected.
+     * @param item The specified item.
+     * @return boolean Result of the check.
+     */
     public boolean onOptionsItemSelected(MenuItem item){
         if(toggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Create the database if it doesn't already exist.
+     */
     private void BuildDatabase(){
-
         SQLiteDatabase conn = backendConnection.connect();
         //DropTables();
         String createTaskTable = "CREATE TABLE IF NOT EXISTS task(name TEXT PRIMARY KEY, enddatetime " +
                 "INTEGER, iscompleted INTEGER, note TEXT, objectlist TEXT, creator TEXT," +
                 " assignedto TEXT)";
+
         String createUserTable = "CREATE TABLE IF NOT EXISTS user(name TEXT PRIMARY KEY, icon TEXT, " +
                 "password TEXT)";
+
         String createObjectTable = "CREATE TABLE IF NOT EXISTS object(name TEXT PRIMARY KEY, " +
                 "isgrocery INTEGER, isowned INTEGER)";
+
         conn.execSQL(createTaskTable);
         conn.execSQL(createUserTable);
         conn.execSQL(createObjectTable);
@@ -98,6 +90,9 @@ public class HomeActivity extends AppCompatActivity {
         //Toast.makeText(this, "DataBaseCreated", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Removes any existing tables from the database.
+     */
     public void DropTables() {
         SQLiteDatabase conn = backendConnection.connect();
 
@@ -105,12 +100,16 @@ public class HomeActivity extends AppCompatActivity {
         String clearTaskTable = "DROP TABLE task";
         String clearUserTable = "DROP TABLE user";
         String clearObjectTable = "DROP TABLE object";
+
         //comment these out to keep values stored across simulations
         conn.execSQL(clearTaskTable);
         conn.execSQL(clearUserTable);
         conn.execSQL(clearObjectTable);
     }
 
+    /**
+     * Fill the database with sample data.
+     */
     public void DemoFillDatabase() {
         try {
             //add Users
@@ -118,6 +117,7 @@ public class HomeActivity extends AppCompatActivity {
             User robert = backendConnection.addUser("Robert", "", "password");
             User fedah = backendConnection.addUser("Fedah", "", "password");
             User cooper = backendConnection.addUser("Cooper", "", "password");
+
             //add PurchasableObjects
             backendConnection.addObject("dish soap", false, true);
             backendConnection.addObject("sponge", false, true);
@@ -144,6 +144,7 @@ public class HomeActivity extends AppCompatActivity {
             backendConnection.addObject("number9large", true, false);
             backendConnection.addObject("CLR", false, false);
             backendConnection.addObject("napkin", false, false);
+
             //create task ObjectLists
             ObjectList task1 = new ObjectList();
             task1.add(new PurchasableObject("dish soap"));
@@ -180,6 +181,7 @@ public class HomeActivity extends AppCompatActivity {
             task10.add(new PurchasableObject("mop"));
             task10.add(new PurchasableObject("mop bucket"));
             task10.add(new PurchasableObject("all purpose cleaner"));
+
             //add tasks
             long date1 = 201712011900L;
             backendConnection.addTask("Do the dishes",201712011900L, false, "If we run out of soap, add it to the shopping list.", task1, robert, phillip);
@@ -195,7 +197,10 @@ public class HomeActivity extends AppCompatActivity {
         } catch (UniqueIDException e) {}
     }
 
-
+    /**
+     * How the item drawer should react while being used.
+     * @param menuItem The selected item from the menu.
+     */
     public void selectItemDrawer(MenuItem menuItem){
         Fragment fragment = null;
         Class fragmentClass;
@@ -211,6 +216,7 @@ public class HomeActivity extends AppCompatActivity {
             default:
                 fragmentClass = TaskFragment.class;
         }
+
         try{
             fragment = (Fragment) fragmentClass.newInstance();
         } catch(Exception e){
@@ -221,25 +227,27 @@ public class HomeActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.fragmentSwitch, fragment).commit();
         menuItem.setChecked(true);
         drawerLayout.closeDrawers();
-
-
     }
 
-
+    /**
+     * Sets the contents of the drawer.
+     * @param navigationView
+     */
     private void setDrawerContent(NavigationView navigationView){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 selectItemDrawer(item);
                 return true;
-
             }
         });
     }
 
-
+    /**
+     * Gets the context of the app.
+     * @return Context App context.
+     */
     public static Context getAppContext() {
         return context;
     }
-
 }

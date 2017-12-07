@@ -69,12 +69,12 @@ public class UserSelect extends AppCompatActivity {
 
     }
 
-        public void SetTeamIcon(View view) {
-            Intent returnIntent = new Intent();
-            ImageView selectedImage = (ImageView) view;
-            returnIntent.putExtra("imageID", selectedImage.getId());
-            setResult(RESULT_OK, returnIntent);
-            finish();
-        }
+    public void SetTeamIcon(View view) {
+        Intent returnIntent = new Intent();
+        ImageView selectedImage = (ImageView) view;
+        returnIntent.putExtra("imageID", selectedImage.getId());
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
+}
 

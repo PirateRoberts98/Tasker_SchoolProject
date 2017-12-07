@@ -1,10 +1,8 @@
 package com.example.omarfedah.tasker;
 
-import java.sql.SQLException;
 import android.database.Cursor;
 
-
- class User extends Collectable {
+class User extends Collectable {
 
 	private String name;
 	//database String Icon;
@@ -20,10 +18,12 @@ import android.database.Cursor;
 	public User(String name, String icon, String password ) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
 		boolean isUniqueID = false;
+
 		try {
 			guiInst.checkUniqueID(name, "user");
 			isUniqueID = true;
 		} catch (UniqueIDException e) {}
+
 		if (isUniqueID) {
 			this.name = name;
 			String values = "VALUES ('" + name + "','" + icon + "','" + password + "')";
@@ -59,6 +59,7 @@ import android.database.Cursor;
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+
 		return rs.getString(0);
 	}
 
@@ -69,10 +70,12 @@ import android.database.Cursor;
 	public void setName(String newName) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
 		boolean isUniqueID = false;
+
 		try {
 			guiInst.checkUniqueID(newName, "user");
 			isUniqueID = true;
 		} catch (UniqueIDException e) {}
+
 		if (isUniqueID) {
 			String sqlstmt = "UPDATE user SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 			guiInst.databaseUpdate(sqlstmt);

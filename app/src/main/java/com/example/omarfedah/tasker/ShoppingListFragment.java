@@ -1,7 +1,5 @@
 package com.example.omarfedah.tasker;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -14,25 +12,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-
 
 public class ShoppingListFragment extends Fragment {
 
     //todo remove Toasts, RM Database
-
 
     ListView groceryListView;
     ListView materialListView;
     GUI backendConnection ;
     ArrayList<PurchasableObject> groceryList  ;
     ArrayList<PurchasableObject> materialList ;
+
     public ShoppingListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +51,6 @@ public class ShoppingListFragment extends Fragment {
         addGrocery = (Button) view.findViewById(R.id.groceryBtn);
         addMaterial = (Button) view.findViewById(R.id.materialBtn);
 
-
         addGrocery.setOnClickListener( new View.OnClickListener(){
             public void onClick(View view){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -77,17 +70,12 @@ public class ShoppingListFragment extends Fragment {
                     public void onClick(View v) {
 
                       try{
-                         PurchasableObject newGroceryObject = backendConnection.addObject(etObjectName.getText().toString(), true, false) ;
-                        groceryList.add(newGroceryObject);
-                      }catch(UniqueIDException e){
-
-
-                      }
-
+                          PurchasableObject newGroceryObject = backendConnection.addObject(etObjectName.getText().toString(), true, false) ;
+                          groceryList.add(newGroceryObject);
+                      }catch(UniqueIDException e){}
 
                   dialog.cancel();  }
                 });
-
             }
 
         });
@@ -117,17 +105,17 @@ public class ShoppingListFragment extends Fragment {
 
                         }catch(UniqueIDException e){
                             Toast.makeText(getContext(), "ERROR Found", Toast.LENGTH_SHORT).show();
-                        } dialog.cancel();
+                        }
 
-
+                        dialog.cancel();
                     }
                 });
-
             }
 
         });
 
-        return view;}
+        return view;
+    }
 
     private void createObjectLists() {
         groceryList = backendConnection.getObjectList(true, false).getList();
@@ -135,14 +123,14 @@ public class ShoppingListFragment extends Fragment {
     }
 
     private void buildDemoList(){
-         groceryList = new ArrayList<PurchasableObject>() ;
-         materialList = new ArrayList<PurchasableObject>() ;
+        groceryList = new ArrayList<PurchasableObject>() ;
+        materialList = new ArrayList<PurchasableObject>() ;
+
         try{
             groceryList.add(backendConnection.addObject("Sauce", false , false)) ;
             materialList.add(backendConnection.addObject("Camera", true ,true )) ;
         }catch(UniqueIDException e){
             Toast.makeText(getContext(), "ERROR Found", Toast.LENGTH_SHORT).show();
         }
-
     }
 }

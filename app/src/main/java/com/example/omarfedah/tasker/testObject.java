@@ -1,15 +1,8 @@
 package com.example.omarfedah.tasker;
 
-import android.database.Cursor;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-
 //requires external methods databaseQuery(String), databaseUpdate(String)
 
-    public class testObject extends Collectable  {
+public class testObject extends Collectable  {
 
         private String name;
         protected boolean isGrocery;
@@ -91,6 +84,6 @@ import java.sql.Statement;
         public String toString() {
             return name ;
         }
-    }
+}
 
 

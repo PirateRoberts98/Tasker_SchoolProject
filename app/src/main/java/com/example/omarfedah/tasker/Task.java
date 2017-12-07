@@ -1,13 +1,8 @@
 package com.example.omarfedah.tasker;
 
 import android.database.Cursor;
-import android.util.Log;
-import android.widget.Toast;
 
-import java.sql.SQLException;
-
-
- class Task extends Collectable {
+class Task extends Collectable {
 
 	private String name;
 	//database int endDateTime;
@@ -32,12 +27,14 @@ import java.sql.SQLException;
 	public Task(String name, long endDateTime, Boolean isCompleted, String note, ObjectList objectList, User creator, User assignedTo) throws UniqueIDException {
 		GUI guiInst = GUI.getInstance();
 		boolean isUniqueID = false;
+
 		try {
 			guiInst.checkUniqueID(name, "task");
 			isUniqueID = true;
 		} catch (UniqueIDException e) {
 			isUniqueID = false;
 		}
+
 		if (isUniqueID) {
 			this.name = name;
 			String values = "VALUES('" + name + "', " + endDateTime + ", " + (isCompleted ? 1 : 0) + ", '" + note + "', '" + objectList.asString() + "', '" + creator.getUserName() + "', '" + assignedTo.getUserName() + "')";
@@ -73,6 +70,7 @@ import java.sql.SQLException;
 		QueryResult qr = guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+
 		//fixme
 		return rs.getLong(0);
 	}
@@ -87,6 +85,7 @@ import java.sql.SQLException;
 		QueryResult qr =guiInst.databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+
 		return (rs.getInt(0) == 1);
 	}
 
@@ -96,6 +95,7 @@ import java.sql.SQLException;
 		QueryResult qr = guiInst.databaseQuery(sqstmt);
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
+
 		return rs.getString(0);
 	}
 
@@ -112,9 +112,11 @@ import java.sql.SQLException;
 		String objectListString = rs.getString(4);
 		String[] objects = objectListString.split("/");
 		ObjectList objectList = new ObjectList();
+
 		for (String obj : objects) {
 		 objectList.add(new PurchasableObject(obj));
 		}
+
 		return objectList;
 	}
 
@@ -129,6 +131,7 @@ import java.sql.SQLException;
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
 		String creatorName = rs.getString(5);
+
         return new User(creatorName);
 	}
 
@@ -143,6 +146,7 @@ import java.sql.SQLException;
 		Cursor rs = qr.getResultSet();
 		rs.moveToFirst();
 		String assignedToName = rs.getString(0);
+
         return new User(assignedToName);
 	}
 
@@ -153,10 +157,12 @@ import java.sql.SQLException;
 	public void setTaskName(String newName) throws UniqueIDException{
 		GUI guiInst = GUI.getInstance();
 		boolean isUniqueID = false;
+
 		try {
 			guiInst.checkUniqueID(newName, "task");
 			isUniqueID = true;
 		} catch (UniqueIDException e) {}
+
 		if (isUniqueID) {
 			String sqlstmt = "UPDATE task SET name = '" + newName + "' WHERE name = " + "'" + name + "'";
 			guiInst.databaseUpdate(sqlstmt);

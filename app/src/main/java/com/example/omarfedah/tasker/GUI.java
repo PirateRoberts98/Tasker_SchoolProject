@@ -1,32 +1,24 @@
 package com.example.omarfedah.tasker;
 
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 import android.database.Cursor;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-
+/**
+ * Singletion class for connecting to the database.
+ */
 public class GUI {
-//Attributes
-
-	private static final String DATABASE_PATH = "app/assets/Tasker.sqlite3";
-	public static User activeUser;
-	private static GUI singleInstance = null;
+	private static final String DATABASE_PATH = "app/assets/Tasker.sqlite3"; //Path to the database file
+	public static User activeUser; //User who is currently logged in and using the app
+	private static GUI singleInstance = null; //Reference to the single instance of GUI
 
 	/**
 	 * Creates a new instance of GUI.
 	 */
 	private GUI() {
 	}
-
-//Public Methods
 
 	/**
 	 * Creates a new instance of GUI if one doesn't already exist.
@@ -39,6 +31,7 @@ public class GUI {
 
 		return singleInstance;
 	}
+
 	/**
 	 * Queries the database to generate a TaskList object containing all existing tasks.
 	 * @return TaskList object containing all existing tasks.
@@ -48,10 +41,14 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstmt);
 		TaskList allTasks = new TaskList();
 		Cursor rs = qr.getResultSet();
+
 		while (rs.moveToNext()) {
 			String taskName = rs.getString(0);
 			allTasks.add(new Task(taskName));
-		} qr.close();
+		}
+
+		qr.close();
+
 		return allTasks;
 	}
 
@@ -66,10 +63,14 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstmt);
 		TaskList userTasks = new TaskList();
 		Cursor rs = qr.getResultSet();
+
 		while (rs.moveToNext()) {
 			String taskName = rs.getString(0);
 			userTasks.add(new Task(taskName));
-		} qr.close();
+		}
+
+		qr.close();
+
 		return userTasks;
 	}
 
@@ -83,10 +84,14 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstmt);
 		UserList allUsers = new UserList();
 		Cursor rs = qr.getResultSet();
+
 		while (rs.moveToNext()) {
 			String userName = rs.getString(0);
 			allUsers.add(new User(userName));
-		} qr.close();
+		}
+
+		qr.close();
+
 		return allUsers;
 	}
 
@@ -99,18 +104,20 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstmt);
 		TaskList completedTasks = new TaskList();
 		Cursor rs = qr.getResultSet();
+
 		while (rs.moveToNext()) {
 			String taskName = rs.getString(0);
 			completedTasks.add(new Task(taskName));
-		} qr.close();
+		}
+		qr.close();
+
 		return completedTasks;
 	}
 
 	/**
 	 * Calls the Task constructor to add a new task to the database.
 	 * @param taskName String containing the task name.
-	 * @param endDateTime Long representation of the date and time, formatted as
-	 *                    YYYMMDDHHmmL.
+	 * @param endDateTime Long representation of the date and time, formatted as YYYMMDDHHmmL.
 	 * @param isCompleted Boolean representation of the task's completed status.
 	 * @param note String containing any notes associated to the task.
 	 * @param objectList ObjectList containing any PurchasableObjects associated to the task.
@@ -126,8 +133,7 @@ public class GUI {
 	 * Edits the attributes of an instance of Task.
 	 * @param editedTask Instance of task to edit.
 	 * @param taskName Name for the Task.
-	 * @param endDateTime Long representation of the date and time, formatted as
-     *                    YYYMMDDHHmmL.
+	 * @param endDateTime Long representation of the date and time, formatted as YYYMMDDHHmmL.
 	 * @param isCompleted Task completion status.
 	 * @param assignedUser User assigned to the task.
 	 */
@@ -201,6 +207,7 @@ public class GUI {
 		rs.moveToFirst();
 		String storedPassword = rs.getString(0);
 		qr.close();
+
 		return (password.equals(storedPassword));
 	}
 
@@ -214,10 +221,14 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstmt);
 		ObjectList allObjects = new ObjectList();
 		Cursor rs = qr.getResultSet();
+
 		while (rs.moveToNext()) {
 			String objectName = rs.getString(0);
 			allObjects.add(new PurchasableObject(objectName));
-		} qr.close();
+		}
+
+		qr.close();
+
 		return allObjects;
 	}
 
@@ -231,10 +242,14 @@ public class GUI {
 		QueryResult qr = databaseQuery(sqlstmt);
 		Cursor rs = qr.getResultSet();
 		ObjectList objectList = new ObjectList();
+
 		while (rs.moveToNext()) {
 			String objectName = rs.getString(0);
 			objectList.add(new PurchasableObject(objectName));
-		} qr.close();
+		}
+
+		qr.close();
+
 		return objectList;
 	}
 
@@ -254,9 +269,6 @@ public class GUI {
 		activeUser = user;
 	}
 
-
-// Private methods for internal use
-
 	/**
 	 * Method used to establish a connection the the SQLite database.
 	 * @return Connection instance associated to specified SQLite database.
@@ -265,8 +277,8 @@ public class GUI {
 		SQLiteDatabase conn;
 		String dbPath = HomeActivity.getAppContext().getDatabasePath("Tasker").getPath();
 		File dbFile = new File(dbPath);
-		conn = SQLiteDatabase.openDatabase(dbPath, null,
-				SQLiteDatabase.OPEN_READWRITE);
+		conn = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
+
 		return conn;
 	}
 
@@ -280,6 +292,7 @@ public class GUI {
 		SQLiteDatabase conn = connect();
 		Cursor rs = conn.rawQuery(sqlstmt, null);
 		QueryResult qr = new QueryResult(rs, conn);
+
 		return qr;
 	}
 
@@ -291,11 +304,18 @@ public class GUI {
 		SQLiteDatabase conn = connect();
 		conn.execSQL(sqlstmt);
 		conn.close();
-
 	}
 
+	/**
+	 * Checks whether or not an entry already exists in the database.
+	 * @param uniqueID Entry to check for in the database.
+	 * @param tableName Table to query.
+	 * @throws UniqueIDException
+	 */
 	public void checkUniqueID(String uniqueID, String tableName) throws UniqueIDException {
 		boolean isUniqueID = true;
+
+		//Check if the task name is unique
 		if (tableName.equals("task")) {
 		 	ArrayList<Task> allTasks = getAllTasks().getList();
 		 	for (Task task : allTasks) {
@@ -303,21 +323,30 @@ public class GUI {
 					isUniqueID = false;
 				}
 			}
-        } if (tableName.equals("user")) {
+        }
+
+        //Check if the user name is unique
+        if (tableName.equals("user")) {
 		 	ArrayList<User> allUsers = getAllUser().getList();
 		 	for (User user : allUsers) {
 		 		if (user.getUserName().equals(uniqueID)) {
 		 			isUniqueID = false;
 				}
 			}
-		} if (tableName.equals("object")) {
+		}
+
+		//Check if the object name is unique
+		if (tableName.equals("object")) {
 		 	ArrayList<PurchasableObject> allObjects = getAllObjects().getList();
 		 	for (PurchasableObject object : allObjects) {
 		 		if (object.getObjectName().equals(uniqueID)) {
 		 			isUniqueID = false;
 				}
 			}
-		} if (!isUniqueID) {
+		}
+
+		//Throw a UniqueIDException based on the outcome of the search.
+		if (!isUniqueID) {
 			throw new UniqueIDException();
 		}
     }

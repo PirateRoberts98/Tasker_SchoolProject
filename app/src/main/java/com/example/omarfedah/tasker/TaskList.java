@@ -1,14 +1,10 @@
 package com.example.omarfedah.tasker;
 
-
-
  class TaskList extends List {
 
      public TaskList(){
          super() ;
      }
-
-
 
     //EDIT TO UML. Corrected Collections[] to task[]
 
@@ -20,6 +16,5 @@ package com.example.omarfedah.tasker;
     private Task[] getTaskList(){
         return null ;
         //PLEASE IMPLEMENT
-
     }
 }
