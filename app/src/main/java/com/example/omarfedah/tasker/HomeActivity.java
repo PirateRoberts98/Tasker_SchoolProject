@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
         backendConnection = GUI.getInstance()  ;
         BuildDatabase() ;
-
+        DemoFillDatabase();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

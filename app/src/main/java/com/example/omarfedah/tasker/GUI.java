@@ -275,9 +275,9 @@ public class GUI {
 	 */
 	public SQLiteDatabase connect() {
 		SQLiteDatabase conn;
-		String dbPath = HomeActivity.getAppContext().getDatabasePath("Tasker").getPath();
+		String dbPath = HomeActivity.getAppContext().getDatabasePath("TaskerDB").getPath();
 		File dbFile = new File(dbPath);
-		conn = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
+		conn = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
 		return conn;
 	}
